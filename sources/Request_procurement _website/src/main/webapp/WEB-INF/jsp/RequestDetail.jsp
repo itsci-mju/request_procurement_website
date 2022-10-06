@@ -61,8 +61,8 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                         
                                         </tr>
                                       </thead>
-                                       <% if (listorderRequest != null){%>
-                                        <%for (int i=0 ; i<listorderRequest.size(); i++) {%>
+                                       <% if ( != null){%>
+                                        <%for (int i=0 ; i<.size(); i++) {%>
                                      <!-- row input -->
                                       <tbody>
                                         <tr class="alert" role="alert">

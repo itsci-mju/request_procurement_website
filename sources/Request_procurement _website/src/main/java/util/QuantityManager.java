@@ -34,8 +34,8 @@ public class QuantityManager {
 		try {
 			Statement stmt = con.createStatement();
 			String sql= "insert into quantity (Qid,price,qty,orderRequest_id,product_id)  values"
-					+ "( '" + q.getQid() +  "','" + q.getQty() + 
-					"', '" + q.getPrice() + "' , '" +
+					+ "( '" + q.getQid() +  "','" + q.getPrice() + 
+					"', '" + q.getQty() + "' , '" +
 					q.getOrderRequest().getOrderRequest_id() + "','" + q.getProduct().getProduct_id()+"')";
 			int result = stmt.executeUpdate(sql);
 			con.close();

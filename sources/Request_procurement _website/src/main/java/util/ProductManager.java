@@ -85,6 +85,35 @@ public class ProductManager {
 	}
 	
 	
+	//show Data Product Detail
+		public List<Product> getproductdetail() {
+			List<Product> list = new ArrayList<>();
+			ConnectionDB condb = new ConnectionDB();
+			Connection con = condb.getConnection();
+
+			try {
+				Statement stmt = con.createStatement();
+				String sql = "SELECT  q.product_id,p.product_detail,q.qty,p.unit,p.price,q.price,q.orderRequest_id"
+						+ "FROM quantity q"
+						+ "inner join product p on q.product_id = p.product_id"
+						+ "inner join orderrequest orrq on q.orderRequest_id = orrq.orderRequest_id"
+						+ "order by orrq.orderRequest_id";
+				ResultSet rs = stmt.executeQuery(sql);
+				while (rs.next()) {
+					Integer product_id = rs.getInt(1);
+					String product_detail = rs.getString(2);
+					String unit = rs.getString(3);
+					double price = rs.getDouble(4);
+					Product p = new Product(product_id,product_detail,unit,price);
+					list.add(p);
+				}
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			return list;
+		}
 	
 	
 	

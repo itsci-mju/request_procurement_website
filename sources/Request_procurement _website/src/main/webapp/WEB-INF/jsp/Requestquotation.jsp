@@ -3,7 +3,10 @@
 <%@ page import="bean.*,util.*,java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%Login l = (Login) session.getAttribute("login"); %>
+<%Login l = (Login) session.getAttribute("login"); 
+  
+
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -41,9 +44,9 @@
           
 			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">แจ้งความประสงค์การจัดซื้อจัดจ้าง (มีใบเสนอราคา)</h2>
          <br>
-                
+              <% if (l != null){ %>
             <!-- Form Table -->
-             <form class="" id="frm" name="frm" action="addOrderRequest2?username=<%= l.getUsername()  %>"  method="post">
+             <form class="" id="frm" name="frm" action="addOrderRequest2?username=<%= l.getUsername()  %>"  method="post" enctype="multipart/form-data">
                 
                     <div class="container" style="margin-top: -50px;">
                      
@@ -101,8 +104,8 @@
                     <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm);"> ส่งคำขอ  </button>             
                     </div>
                    </form>
-                    
-                    <div><a class="" href="loadthomeselect">
+                    <%} %>  
+                    <div><a class="" href="loadindex">
                      <button   style=" margin-left: 37%; margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button>         
               		</a>	</div>
                 	

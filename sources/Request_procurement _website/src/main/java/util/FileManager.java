@@ -74,9 +74,10 @@ public class FileManager {
 		
 		try {
 			Statement stmt = con.createStatement();
-			String sql= "insert into file_quotation values('" + f.getFile_id() + "', '" + f.getFile_name() + "' , '" +
-						f.getCompany_name() + "','" + f.getQuotation_no() + "','" +
-						fd + "', " + f.getStatus_file() + "')";
+			String sql= "insert into file_quotation (file_id,company_name,file_name,quotation_date,quotation_no,status_file,orderRequest_id) "
+					+ "values('" + f.getFile_id() + "', '" + f.getCompany_name() + "' , '" +
+						f.getFile_name() + "','" + fd + "','" +
+						f.getQuotation_no() + "',' " + f.getStatus_file() + "',' " + f.getOrderRequest().getOrderRequest_id() + "')";
 			int result = stmt.executeUpdate(sql);
 			con.close();
 			return result;

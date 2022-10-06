@@ -1,6 +1,8 @@
 package com.springmvc.controller;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -28,6 +30,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.protobuf.TextFormat.ParseException;
@@ -111,12 +115,13 @@ public class OrderRequestController {
 			//	System.out.println(number);
 				ProductManager pm = new ProductManager();
 				ArrayList<Integer> qty = new ArrayList<Integer>();
-				double total =0.0;
+				ArrayList<Double> total = new ArrayList<Double>();
+				
 				ArrayList<String> product = new ArrayList<String>();
 				for (int i=0 ;i<number; i++) {
 					if(request.getParameter("t"+(i+1))!=null) {
 					 qty.add(Integer.parseInt(request.getParameter("t"+(i+1))));
-					 total = Double.parseDouble(request.getParameter("tt"+(i+1))) ;
+					 total.add(Double.parseDouble(request.getParameter("tt"+(i+1)))) ;
 					 product.add(request.getParameter("p"+(i+1)));
 					 pid.add(Integer.parseInt(request.getParameter("id"+(i+1)).trim())) ;
 					}
@@ -129,7 +134,7 @@ public class OrderRequestController {
 				for(int j=0;j<product.size();j++) {
 					Product p = new Product();
 					p.setProduct_id(pid.get(j));
-					Quantity q = new Quantity(qty.get(j),total,or,p);
+					Quantity q = new Quantity(qty.get(j),total.get(j),or,p);
 					
 					qm.insertQuantity(q);
 				}
@@ -164,13 +169,17 @@ public class OrderRequestController {
 
 	//Controller OrderRequest FileQuotation
 		@RequestMapping(value="/addOrderRequest2", method=RequestMethod.POST)
-		public ModelAndView do_addOrderRequest2(HttpServletRequest  request, HttpSession session,@RequestBody String param) throws UnsupportedEncodingException {
+		public ModelAndView do_addOrderRequest2
+				(@RequestParam("a_file_quotation") MultipartFile file1,
+				@RequestParam("b_file_quotation") MultipartFile file2,
+				@RequestParam("c_file_quotation") MultipartFile file3  ,
+				HttpServletRequest  request, HttpSession session) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");
 		String message = ""; 
 		OrderRequestManager orm = new OrderRequestManager();
 		QuantityManager qm = new QuantityManager();
 		FileManager fm = new FileManager();
-		ModelAndView mav = new ModelAndView("Requestquotaion");
+		ModelAndView mav = new ModelAndView("Requestquotation");
 		StaffManager sm = new StaffManager();
 				try {          
 			
@@ -186,52 +195,79 @@ public class OrderRequestController {
 					orm.insertOrderRequest2(or);
 					
 					//quotation  1
-					String afilequotation = request.getParameter("a-file-quotation");
-					String anamecompany = request.getParameter("a-name-company");
-					String anumberquotation = request.getParameter("a-number-quotation");
-					String adatequotation = request.getParameter("a-date-quotation");
+					String afilequotation = request.getParameter("a_file_quotation");
+					String anamecompany = request.getParameter("a_name_company");
+					String anumberquotation = request.getParameter("a_number_quotation");
+					String adatequotation = request.getParameter("a_date_quotation");
 					
 				
 					Calendar cal_adatequotation = Calendar.getInstance();
-					String pattern = "yyyy/MM/dd";
+					String pattern = "yyyy-MM-dd";
 					SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 					cal_adatequotation.setTime(sdf.parse(adatequotation));
 					
 					File_Quotation fq1 = new File_Quotation(fm.getMaxFilequotationID(),afilequotation,anamecompany,anumberquotation,cal_adatequotation,request_type);
-
+			
+					fq1.setOrderRequest(or);
+					fm.insertFileQuotaion(fq1);
 					//quotation  2
-					String bfilequotation = request.getParameter("b-file-quotation");
-					String bnamecompany = request.getParameter("b-name-company");
-					String bnumberquotation = request.getParameter("b-number-quotation");
-					String bdatequotation = request.getParameter("b-date-quotation");
+					String bfilequotation = request.getParameter("b_file_quotation");
+					String bnamecompany = request.getParameter("b_name_company");
+					String bnumberquotation = request.getParameter("b_number_quotation");
+					String bdatequotation = request.getParameter("b_date_quotation");
 					
 					
 					Calendar cal_bdatequotation = Calendar.getInstance();
-					String pattern2 = "yyyy/MM/dd";
+					String pattern2 = "yyyy-MM-dd";
 					SimpleDateFormat sdf2 = new SimpleDateFormat(pattern2);
 					cal_bdatequotation.setTime(sdf2.parse(bdatequotation));
 					
 					File_Quotation fq2 = new File_Quotation(fm.getMaxFilequotationID(),bfilequotation,bnamecompany,bnumberquotation,cal_bdatequotation,request_type);
-
+					fq2.setOrderRequest(or);
+					fm.insertFileQuotaion(fq2);
+					
 					//quotation  3
-					String cfilequotation = request.getParameter("c-file-quotation");
-					String cnamecompany = request.getParameter("c-name-company");
-					String cnumberquotation = request.getParameter("c-number-quotation");
-					String cdatequotation = request.getParameter("c-date-quotation");
+					String cfilequotation = request.getParameter("c_file_quotation");
+					String cnamecompany = request.getParameter("c_name_company");
+					String cnumberquotation = request.getParameter("c_number_quotation");
+					String cdatequotation = request.getParameter("c_date_quotation");
 					
 					
 					Calendar cal_cdatequotation = Calendar.getInstance();
-					String pattern3 = "yyyy/MM/dd";
+					String pattern3 = "yyyy-MM-dd";
 					SimpleDateFormat sdf3 = new SimpleDateFormat(pattern3);
 					cal_bdatequotation.setTime(sdf3.parse(bdatequotation));
 					
 					File_Quotation fq3 = new File_Quotation(fm.getMaxFilequotationID(),cfilequotation,cnamecompany,cnumberquotation,cal_cdatequotation,request_type);
-
-					fm.insertFileQuotaion(fq1);
-					fm.insertFileQuotaion(fq2);
+					fq3.setOrderRequest(or);
 					fm.insertFileQuotaion(fq3);
-				
-				
+					
+					String insertfile = "";
+			        
+			            MultipartFile file = file1;
+			            String name = afilequotation;
+			            
+			                byte[] bytes = file.getBytes();
+
+			                // Creating the directory to store file
+			                String rootPath = System.getProperty("catalina.home");
+			                File dir = new File(rootPath + File.separator + "tmpFiles");
+			                if (!dir.exists())
+			                    dir.mkdirs();
+
+			                // Create the file on server
+			                File serverFile = new File(dir.getAbsolutePath()
+			                        + File.separator + name);
+			                BufferedOutputStream stream = new BufferedOutputStream(
+			                        new FileOutputStream(serverFile));
+			                stream.write(bytes);
+			                stream.close();
+
+			               System.out.println("Server File Location="
+			                        + serverFile.getAbsolutePath());
+
+			                insertfile = insertfile + "You successfully uploaded file=" + name
+			                        + "<br />";        
 			}catch (Exception e) {
 				e.printStackTrace();
 				message = "โปรดลองใหม่อีกครั้ง....";
