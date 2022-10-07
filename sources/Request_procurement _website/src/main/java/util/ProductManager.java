@@ -99,7 +99,8 @@ public class ProductManager {
 						+ "FROM quantity q\r\n"
 						+ "inner join product p on q.product_id = p.product_id\r\n"
 						+ "inner join orderrequest orrq on q.orderRequest_id = orrq.orderRequest_id\r\n"
-						+ "where q.orderRequest_id = "+OrderRequest_id+"\r\n"
+						+ "where q.orderRequest_id = "+OrderRequest_id+"\r\n "
+						+ "and orrq.request_type = 'ไม่มีใบเสนอราคา'"
 						+ "order by orrq.orderRequest_id ";
 				ResultSet rs = stmt.executeQuery(sql);
 				//System.out.println(OrderRequest_id);

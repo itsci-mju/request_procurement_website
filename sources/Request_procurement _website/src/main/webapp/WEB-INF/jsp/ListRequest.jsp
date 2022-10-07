@@ -184,7 +184,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
   box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
 }
 
-/*button edit*/
+/*button delete*/
 .button-19 {
   align-items: center;
   appearance: none;
@@ -318,7 +318,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 <br><br><br>
                     <!-- Button link-->
                 
-                    <a class="" href="loadthomeselect"  style=" margin-left: 37%;">
+                    <a class="" href="loadindex"  style=" margin-left: 37%;">
                      <button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button>         
               		</a>
         

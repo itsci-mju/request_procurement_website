@@ -49,7 +49,7 @@ import util.StaffManager;
 
 @Controller
 public class OrderRequestController {
-
+	
 	public OrderRequestController() {
 		// TODO Auto-generated constructor stub
 		
@@ -99,7 +99,7 @@ public class OrderRequestController {
 		String message = ""; 
 		OrderRequestManager orm = new OrderRequestManager();
 		QuantityManager qm = new QuantityManager();
-		ModelAndView mav = new ModelAndView("Requestproduct");
+		ModelAndView mav = new ModelAndView("index");
 		StaffManager sm = new StaffManager();
 			try {          
 			//	String chList = request.getParameter("chList");
@@ -202,7 +202,7 @@ public class OrderRequestController {
 					orm.insertOrderRequest2(or);
 					
 					//quotation  1
-					String afilequotation = request.getParameter("a_file_quotation");
+					String afilequotation = file1.getOriginalFilename();
 					String anamecompany = request.getParameter("a_name_company");
 					String anumberquotation = request.getParameter("a_number_quotation");
 					String adatequotation = request.getParameter("a_date_quotation");
@@ -218,7 +218,7 @@ public class OrderRequestController {
 					fq1.setOrderRequest(or);
 					fm.insertFileQuotaion(fq1);
 					//quotation  2
-					String bfilequotation = request.getParameter("b_file_quotation");
+					String bfilequotation = file2.getOriginalFilename();
 					String bnamecompany = request.getParameter("b_name_company");
 					String bnumberquotation = request.getParameter("b_number_quotation");
 					String bdatequotation = request.getParameter("b_date_quotation");
@@ -234,7 +234,7 @@ public class OrderRequestController {
 					fm.insertFileQuotaion(fq2);
 					
 					//quotation  3
-					String cfilequotation = request.getParameter("c_file_quotation");
+					String cfilequotation = file3.getOriginalFilename();
 					String cnamecompany = request.getParameter("c_name_company");
 					String cnumberquotation = request.getParameter("c_number_quotation");
 					String cdatequotation = request.getParameter("c_date_quotation");
@@ -249,32 +249,76 @@ public class OrderRequestController {
 					fq3.setOrderRequest(or);
 					fm.insertFileQuotaion(fq3);
 					
-					String insertfile = "";
-			        
-			            MultipartFile file = file1;
-			            String name = afilequotation;
-			            
-			                byte[] bytes = file.getBytes();
+					if (!file1.isEmpty()) {
+					
+							byte[] bytes = file1.getBytes();
 
-			                // Creating the directory to store file
-			                String rootPath = System.getProperty("catalina.home");
-			                File dir = new File(rootPath + File.separator + "tmpFiles");
-			                if (!dir.exists())
-			                    dir.mkdirs();
+							// Creating the directory to store file
+							String rootPath = System.getProperty("catalina.home");
+							File dir = new File(rootPath + File.separator + "tmpFiles");
+							if (!dir.exists())
+								dir.mkdirs();
 
-			                // Create the file on server
-			                File serverFile = new File(dir.getAbsolutePath()
-			                        + File.separator + name);
-			                BufferedOutputStream stream = new BufferedOutputStream(
-			                        new FileOutputStream(serverFile));
-			                stream.write(bytes);
-			                stream.close();
+							// Create the file on server
+							File serverFile = new File(dir.getAbsolutePath()
+									+ File.separator + afilequotation);
+							BufferedOutputStream stream = new BufferedOutputStream(
+									new FileOutputStream(serverFile));
+							stream.write(bytes);
+							stream.close();
+							System.out.println("Server File Location="+ serverFile.getAbsolutePath());
 
-			               System.out.println("Server File Location="
-			                        + serverFile.getAbsolutePath());
+							System.out.println("You successfully uploaded file=" + afilequotation);
+					} else {
+						System.out.println("You failed to upload " + afilequotation+ " because the file was empty.");
+					}    
+					if (!file2.isEmpty()) {
+						
+						byte[] bytes = file2.getBytes();
 
-			                insertfile = insertfile + "You successfully uploaded file=" + name
-			                        + "<br />";        
+						// Creating the directory to store file
+						String rootPath = System.getProperty("catalina.home");
+						File dir = new File(rootPath + File.separator + "tmpFiles");
+						if (!dir.exists())
+							dir.mkdirs();
+							
+						// Create the file on server
+						File serverFile = new File(dir.getAbsolutePath()
+								+ File.separator + bfilequotation);
+						BufferedOutputStream stream = new BufferedOutputStream(
+								new FileOutputStream(serverFile));
+						stream.write(bytes);
+						stream.close();
+						System.out.println("Server File Location="+ serverFile.getAbsolutePath());
+
+						System.out.println("You successfully uploaded file=" + bfilequotation);
+				} else {
+					System.out.println("You failed to upload " + bfilequotation+ " because the file was empty.");
+				}    
+					
+					if (!file3.isEmpty()) {
+						
+						byte[] bytes = file3.getBytes();
+
+						// Creating the directory to store file
+						String rootPath = System.getProperty("catalina.home");
+						File dir = new File(rootPath + File.separator + "tmpFiles");
+						if (!dir.exists())
+							dir.mkdirs();
+
+						// Create the file on server
+						File serverFile = new File(dir.getAbsolutePath()
+								+ File.separator + cfilequotation);
+						BufferedOutputStream stream = new BufferedOutputStream(
+								new FileOutputStream(serverFile));
+						stream.write(bytes);
+						stream.close();
+						System.out.println("Server File Location="+ serverFile.getAbsolutePath());
+
+						System.out.println("You successfully uploaded file=" + cfilequotation);
+				} else {
+					System.out.println("You failed to upload " + cfilequotation+ " because the file was empty.");
+				}    
 			}catch (Exception e) {
 				e.printStackTrace();
 				message = "โปรดลองใหม่อีกครั้ง....";

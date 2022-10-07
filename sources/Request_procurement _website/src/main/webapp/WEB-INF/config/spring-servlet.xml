@@ -19,20 +19,27 @@
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	
-	
-		<mvc:resources location="/WEB-INF/images/" mapping="/img/**"></mvc:resources>
-	
-		<mvc:resources location="/common/" mapping="/common/**"></mvc:resources>
-		<mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
-	    <mvc:resources location="/fonts/" mapping="/fonts/**"></mvc:resources>
-	    <mvc:resources location="/scss/" mapping="/scss/**"></mvc:resources>
-	    <mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
-	    
-	    <mvc:resources location="/images/" mapping="/images/**"></mvc:resources>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+		<!-- setting maximum upload size -->
+		<property name="maxUploadSize" value="99999999" />
+
+	</bean>
+
+	<mvc:resources location="/WEB-INF/images/"
+		mapping="/img/**"></mvc:resources>
+
+	<mvc:resources location="/common/" mapping="/common/**"></mvc:resources>
+	<mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
+	<mvc:resources location="/fonts/" mapping="/fonts/**"></mvc:resources>
+	<mvc:resources location="/scss/" mapping="/scss/**"></mvc:resources>
+	<mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
+
+	<mvc:resources location="/images/" mapping="/images/**"></mvc:resources>
 	<mvc:resources location="/vendor/" mapping="/vendor/**"></mvc:resources>
-		
-	
+
+
 </beans>
 
 <!-- <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 

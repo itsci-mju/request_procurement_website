@@ -9,6 +9,7 @@ Login l = (Login) session.getAttribute("login");
 ProductManager pmanager = new ProductManager();
 OrderRequest order_q = (OrderRequest) session.getAttribute("OrderRequest");
 List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_id()); 
+double sum = 0.0;
 
 
 %>
@@ -54,7 +55,7 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
 				                            <th>หน่วย</th>
 				                            <th>ราคา/หน่วย</th> 
 				                            <th>จำนวนเงิน</th>
-                                        
+                                        <th></th>
                                         </tr>
                                       </thead>
                                        <% if (listProduct != null){%>
@@ -68,11 +69,32 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
                                           <td><%=listProduct.get(i).getProduct().getUnit() %></td>  
                                          <td><%=listProduct.get(i).getProduct().getPrice() %></td>  
                                           <td><%=listProduct.get(i).getPrice() %></td>  
+                                          
                                         </tr>                
                                       </tbody>
                                       	<%} %>
                                       <%} %>
+                                     
+                                       <thead class="thead-dark">
+                                        <tr>
+                                            <th></th>
+				                            <th></th>
+				                            <th></th> 
+				                            <th></th>
+				                            <th>ค่าใช้จ่ายทั้งหมด</th> 
+				                            
+				                          <% for (int j=0 ; j<listProduct.size(); j++ ){%>
+				                          <label hidden><%=sum = sum+listProduct.get(j).getPrice() %></label>
+				                          
+				                            <%} %>
+				                            <th >
+				                          <label><%=sum%> </label>
+				                           </th>
+                                        <th>บาท</th>
+                                        </tr>
+                                      </thead>
                                     </table>   
+                                    
                                 </div>    
                             </div>
                         </div>
