@@ -40,7 +40,7 @@ import bean.*;
 
 import util.ConnectionDB;
 import util.FileManager;
-
+import util.LoginManager;
 import util.OrderRequestManager;
 import util.ProductManager;
 import util.QuantityManager;
@@ -78,7 +78,14 @@ public class OrderRequestController {
 	
 	//โหลดหน้ารายการรายละเอียดข้อมูลการแจ้งแบบไม่มีใบเสนอราคา
 		@RequestMapping(value = "/loadRequestDetail", method = RequestMethod.GET)
-		public String loadRequestDetailPage() {
+		public String loadRequestDetailPage(HttpServletRequest request, Model md, HttpSession session) {
+			
+		String Text_OrderRequest_id = request.getParameter("OrderRequest_id");
+		int OrderRequest_id = Integer.parseInt(Text_OrderRequest_id);
+		
+			OrderRequest order_r = new OrderRequest(OrderRequest_id,null,null,null,null,null);
+			session.setAttribute("OrderRequest", order_r);	
+			
 			return "RequestDetail";
 		}
 		

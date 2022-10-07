@@ -291,7 +291,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                           <td><%=listorderRequest.get(i).getStatus() %></td>  
                                         
                                           <td > 
-                                           <a href="loadRequestDetail">
+                                           <a href="loadRequestDetail?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>">
 												<button type="button" class="button-17" role="button" >ดู 
 												&nbsp; 	<i class="gg-eye"></i>										
 												</button></a>&nbsp;

@@ -4,15 +4,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%
-ProductManager pmanager = new ProductManager();
+
 Login l = (Login) session.getAttribute("login");
-List<Product> listProduct = pmanager.listAllProducts(); 
-
-OrderRequestManager qm = new OrderRequestManager();
-
-StaffManager sm = new StaffManager();
-List<OrderRequest> listorderRequest = qm.getAllListOrderRequest();
-SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+ProductManager pmanager = new ProductManager();
+OrderRequest order_q = (OrderRequest) session.getAttribute("OrderRequest");
+List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_id()); 
 
 
 %>
@@ -61,16 +57,17 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                         
                                         </tr>
                                       </thead>
-                                       <% if ( != null){%>
-                                        <%for (int i=0 ; i<.size(); i++) {%>
+                                       <% if (listProduct != null){%>
+                                        <%for (int i=0 ; i<listProduct.size(); i++) {%>
                                      <!-- row input -->
                                       <tbody>
                                         <tr class="alert" role="alert">
-                                          <th  scope="row"><%= %></th>
-                                          <td><%= %></td>     
-                                          <td><%= %>     </td>  
-                                          <td><%= %></td>  
-                                        
+                                          <th  scope="row"><%= i+1 %></th>
+                                          <td><%=listProduct.get(i).getProduct().getProduct_detail() %></td>     
+                                          <td> <%=listProduct.get(i).getQty() %> </td>  
+                                          <td><%=listProduct.get(i).getProduct().getUnit() %></td>  
+                                         <td><%=listProduct.get(i).getProduct().getPrice() %></td>  
+                                          <td><%=listProduct.get(i).getPrice() %></td>  
                                         </tr>                
                                       </tbody>
                                       	<%} %>
@@ -82,7 +79,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 					</div>
                
           			<!-- Button link-->
-                    <a class="" href="loadthomeselect"  style=" margin-left: 37%;">
+                    <a class="" href="loadpagelistorder"  style=" margin-left: 37%;">
                      <button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button>         
               		</a>
 
