@@ -22,7 +22,7 @@
 <head>
 <title>ระบบแจ้งความประสงค์ขอให้จัดซื้อจัดจ้างพัสดุ</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -40,6 +40,9 @@
     <link href='https://css.gg/lock.css' rel='stylesheet'>
     <link href='https://css.gg/mail.css' rel='stylesheet'>
     <link href='https://css.gg/chevron-right.css' rel='stylesheet'>
+    
+
+    
 </head>
 
 
@@ -66,7 +69,7 @@ input {
 
 </style>
 
-<body id="top">
+<body id="top ">
 
 	 <jsp:include page="common/Navbar.jsp"/>
 
@@ -102,8 +105,8 @@ input {
                     </div>
                   </div>
                    <div class="">
-                      <button type="button"  class="btn btn-primary" id="add-row"  style=" border-radius: 15px; background-color: #17a2b8;     margin-left: -83px;
-    				margin-top: 23px;border-color: #17a2b8;" Onclick="return checkproduct(form)">เพิ่มรายการ</button>
+                      <button type="button"  class="btn btn-primary" id="add-row"  style=" border-radius: 15px; background-color: #17a2b8;     
+    				;border-color: #17a2b8;" Onclick="return checkproduct(form)" >เพิ่มรายการ</button>
                     </div>
                   </div>
                  
@@ -126,7 +129,8 @@ input {
                 <table class="table" > 
                     <thead class="thead-dark">
                         <tr style="text-align:center;"  >
-                            <th>เลือก<input  type="checkbox" id="select-all" ></th>
+                            <th>เลือก&nbsp;<input  type="checkbox" id="select-all" style="display: inherit;"></th>
+                           
                             <th>รายละเอียด</th>
                             <th>จำนวน</th> 
                             <th>หน่วย</th>
@@ -134,27 +138,32 @@ input {
                             <th>จำนวนเงิน</th>
                         </tr>
                     </thead>
-                    <tbody class="">
-                        <tr id="select-row" >
-                          
-                        </tr> 
-                    </tbody> 
-             
+                       <tbody>
+                           <tr class="alert" role="alert">
+                               <th ></th>     
+                               <th ></th>              
+                    </tbody>
                 </table> 
-              
+              <table class="table" >
+                   
+               <thead class="thead-dark" style="text-align: center;"> 
+              	 <tr>
+                 	 <th style="text-align: initial;">&nbsp;&nbsp;&nbsp;<button type="button" class="remove-row" id="remove-row" style=" border-radius: 15px; " value="ลบ">&nbsp; ลบ &nbsp;</button></th>
+					 <th style="text-align: end;"> ค่าใช้จ่ายทั้งหมด	 </th> 
+          			 <th><label id="totals">0.0</label></th>
+                 </tr>
+               </thead>
+              </table>
             </div>
-            <button type="button" class="remove-row" id="remove-row" style=" border-radius: 15px; margin-left:400px;" >ลบรายการ</button>
+            
             
             <input type="hidden" id="chList"/>
             <br><br> 
             
             <!-- Sent button -->
-                     <div>
-           
-             
+           <div>  
             </div>
-            
-            
+
              <div>
                 <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" 
                 onclick="getGridData()">ส่งคำขอ</button>             
@@ -169,24 +178,14 @@ input {
    
               <br><br><br><br><br>
     
-    
-         
-    
-   
-  
 <!-- ################################################################################################ -->
 
-<div>
-  <!-- Footer -->
-  <jsp:include page="common/footer.jsp"/>
+		<div>
+		  <!-- Footer -->
+		  <jsp:include page="common/footer.jsp"/>
+  		</div>
 
-
-
-        </div>
-
- 
- 
-        
+   
  	<script type="text/javascript">
     
          new TomSelect(".select-state",{
@@ -199,7 +198,7 @@ input {
        
          </script>
   
-   <script>
+   <script type="text/javascript">
    var form = $("#frm");
    var count = 0;
         $(document).ready(function(){
@@ -207,7 +206,7 @@ input {
             $("#add-row").click(function(){
             	count++;
             	var number = document.getElementsByName("number").value;
-       
+       			
             	number = count;
                 var productdetail = $("#product").val();
                 let product=productdetail.split("_") ;
@@ -217,23 +216,48 @@ input {
                 $(".table tbody tr").last().after(
                     '<tr class="fadetext" id="select-row" >'+
                         '<td><input type="checkbox" style="margin-top: 8px;"></td>'+
-                      //  '<td id="p" value="'+productdetail+'">'+productdetail+'</td>'+
+                       // '<td id="no" >'+number+'</td>'+
                       '<td> <input type="hidden" name="id'+number+'" value="'+product[3]+'" readonly  > '+
                         ' <input type="text" name="p'+number+'" value="'+product[0]+'" readonly  > </td>'+
                         '<td> <input type="text" name="t'+number+'" value="'+totalproduct+'" readonly> </td>'+
                         '<td> <input type="text" name="u'+number+'" value="'+product[1]+'" readonly> </td>'+
                         '<td> <input type="text" name="pu'+number+'" value="'+product[2]+'" readonly> </td>'+
-                        '<td> <input type="text" name="tt'+number+'" value="'+pricetotal+'" readonly> </td>'+
+                        '<td> <input type="text" class="subtotal" name="tt'+number+'" value="'+pricetotal+'" readonly"> </td>'+
                     '</tr>'
                 );
                 frm.number.value=count; // to input:hidden
-                  
               
+                var totals= parseFloat(document.getElementById("totals").textContent);
+                
+                
+                document.getElementById("totals").innerHTML= (totals+pricetotal).toString();
+              
+                
                 $('.form-div row col-md-3').parent('div').remove();
                   $("#totalproduct").val(null);
                   $("#unit").val(null); 
                  
             })
+            
+            //$(function(){
+            //	 var number = document.getElementsByName("number").value;
+            //   	 $('#tt').mask('#,###.##',{reverse : true});
+            //   	 var total_price = function(){
+            //   		 var sum=0;
+            //   		 $('#tt'+number+'').each(function(){
+            //  			 var num = $(this).val().replace(',','');
+            //   			 if(num!=0){
+            //   				 sum += parseFloat(num);	
+            //   			 }
+               			 
+            //   		 });
+             //  		 $('#total').val(sum);
+           //    	 } 
+            //   	 $('#total').keyup(function(){
+          //     		total_price();
+          ///     	 });
+               	 
+            //    });
 
             // Select all checkbox
             $("#select-all").click(function(){
@@ -257,10 +281,17 @@ input {
                     if(tableSize == 1){
                         alert('ไม่มีรายการที่ต้องการลบ.');
                     }else if(isChecked){
+                    	
                         $(this).remove();
+                    
+                    
+                        var totals= parseFloat(document.getElementById("totals").textContent);
+                      
+                        var p = $(this).find("input[class='subtotal']").val();
+                        document.getElementById("totals").innerHTML= ( totals-parseFloat(p) ).toString() ;
                     }
                 });
-            });
+            }); 
 
         })
         
@@ -284,11 +315,10 @@ input {
 		
 	}
         
-        
-        
+ 
     </script>   
     
-        <script type="text/javascript">
+    <script type="text/javascript">
 
 function checkproduct(form) {
 	
@@ -313,6 +343,10 @@ function checkproduct(form) {
 		}
 } 
 </script>  
+
+<script type="text/javascript">
+
+</script>
 
 <!-- JAVASCRIPTS -->
 <script src="layout/scripts/jquery.min.js"></script>

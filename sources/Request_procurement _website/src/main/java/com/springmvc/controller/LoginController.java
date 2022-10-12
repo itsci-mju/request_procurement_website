@@ -35,9 +35,9 @@ public class LoginController {
 		return "error";
 	}
 	
-	@RequestMapping(value = "/loadlogin", method = RequestMethod.POST)
+	@RequestMapping(value = "/loadlogin", method = RequestMethod.GET)
 	public String loadLoginPage() {
-		return "index";
+		return "login";
 	}
 	
 

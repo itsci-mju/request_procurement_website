@@ -62,13 +62,17 @@ a{text-decoration:none;}
                 color: rgba(0,0,0,0.7); font-weight: 700; margin-left: 50px;">Faculty of Science, Maejo University</span>
                </div>
             </td>
-
-            <td >
-              <a href=""><h3 class="login-hover" style=" font-size: 1.5rem; font-weight: 700; ">เข้าสู่ระบบ &nbsp;<i class="gg-mail-reply"></i></i></h3>
-              
-              </a>
+			
+            <td ><%
+			if (l != null) {
+			%>
+			 <a href="logout"><h3 class="login-hover" style="font-size: 1.2rem; background-color: #017f3f;font-weight: 700; ">ออกจากระบบ &nbsp;<i class="gg-mail-reply"></i></h3></a>  	
+             <%
+			} else {
+			%>
+              <a href="loadlogin"><h3 class="login-hover" style="font-size: 1.2rem;background-color: #017f3f; font-weight: 700; ">เข้าสู่ระบบ &nbsp;<i class="gg-mail-reply"></i></h3></a>
             </td>
-
+		<%}%>
            </tr>
         </tbody>
    

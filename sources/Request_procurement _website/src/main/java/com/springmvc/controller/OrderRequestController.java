@@ -99,7 +99,7 @@ public class OrderRequestController {
 		String message = ""; 
 		OrderRequestManager orm = new OrderRequestManager();
 		QuantityManager qm = new QuantityManager();
-		ModelAndView mav = new ModelAndView("index");
+		ModelAndView mav = new ModelAndView("ListRequest");
 		StaffManager sm = new StaffManager();
 			try {          
 			//	String chList = request.getParameter("chList");
@@ -186,7 +186,7 @@ public class OrderRequestController {
 		OrderRequestManager orm = new OrderRequestManager();
 		QuantityManager qm = new QuantityManager();
 		FileManager fm = new FileManager();
-		ModelAndView mav = new ModelAndView("Requestquotation");
+		ModelAndView mav = new ModelAndView("ListRequest");
 		StaffManager sm = new StaffManager();
 				try {          
 			
