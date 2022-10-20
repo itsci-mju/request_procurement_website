@@ -141,7 +141,7 @@ public class OrderRequestManager {
 				Statement stmt = con.createStatement();
 				String sql = "select o.orderRequest_id,o.orderRequest_date,o.status,o.request_type,s.username  "
 						+ "from orderrequest o inner join staff s ON o.staff_id = s.staff_id "
-						+ " order by o.orderRequest_id;";
+						+ " order by o.orderRequest_date DESC;";
 				ResultSet rs = stmt.executeQuery(sql);
 				Staff s = new Staff();
 				StaffManager sm = new StaffManager();
@@ -153,7 +153,7 @@ public class OrderRequestManager {
 					String username = rs.getString(5);
 					s = sm.getStaff(username);
 					Calendar caldate = Calendar.getInstance();
-					String pattern = "yyyy-MM-dd";
+					String pattern = "yyyy-MM-dd HH:mm:ss";
 					SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 					caldate.setTime(sdf.parse(orderRequest_date));
 					

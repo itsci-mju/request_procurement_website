@@ -10,7 +10,7 @@ StaffManager sm = new StaffManager();
 Login l = (Login) session.getAttribute("login");
 List<OrderRequest> listorderRequest = qm.getAllListOrderRequest();
 
-SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -255,7 +255,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 </style>
  </head>
-    
+   
      <body id="page-top">
         <!-- Navigation -->
        <jsp:include page="common/Navbar.jsp"/>  
@@ -285,7 +285,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                      <!-- row input -->
                                       <tbody>
                                         <tr class="alert" role="alert">
-                                          <th  scope="row"><%=listorderRequest.get(i).getOrderRequest_id()  %></th>
+                                          <th  scope="row"><%=i+1  %></th>
                                           <td><%=sdf.format(listorderRequest.get(i).getOrderRequest_date().getTime())  %></td>     
                                           <td><%=listorderRequest.get(i).getRequest_type() %>     </td>  
                                           <td><%=listorderRequest.get(i).getStatus() %></td>  
