@@ -81,12 +81,19 @@ public class OrderRequestController {
 		public String loadRequestDetailPage(HttpServletRequest request, Model md, HttpSession session) {
 			
 		String Text_OrderRequest_id = request.getParameter("OrderRequest_id");
+		String request_type = request.getParameter("request_type");
 		int OrderRequest_id = Integer.parseInt(Text_OrderRequest_id);
-		
-			OrderRequest order_r = new OrderRequest(OrderRequest_id,null,null,null,null,null);
+		System.out.println(request_type);
+			OrderRequest order_r = new OrderRequest(OrderRequest_id,null,null,request_type,null,null);
 			session.setAttribute("OrderRequest", order_r);	
 			
-			return "RequestDetail";
+			if(request_type.trim().equals("ไม่มีใบเสนอราคา")) {
+				return "RequestDetail";
+			}else {
+				return "Request_quotation_Detail";
+			}
+			
+			
 		}
 		
 	

@@ -6,11 +6,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.google.protobuf.TextFormat.ParseException;
+
 import bean.File_Quotation;
+import bean.OrderRequest;
 import bean.Product;
+import bean.Quantity;
 public class FileManager {
 	
 	public List<Product> getAllListProduct() {
@@ -88,5 +93,48 @@ public class FileManager {
 		
 		return -1;
 	}
+	
+	
+
+	//show Data File Quotation Detail
+	public List<File_Quotation> getAllQuotation(int OrderRequest_id)throws ParseException, java.text.ParseException {
+		List<File_Quotation> list = new ArrayList<>();
+		ConnectionDB condb = new ConnectionDB();
+		Connection con = condb.getConnection();
+
+		try {
+			Statement stmt = con.createStatement();
+			String sql = "select file_id,company_name,file_name,quotation_date,quotation_no,status_file,orderRequest_id from file_quotation where orderRequest_id = "+OrderRequest_id+";";
+			ResultSet rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				Integer file_id = rs.getInt(1);
+				String company_name = rs.getString(2);
+				String file_name = rs.getString(3);
+				String quotation_date = rs.getString(4);
+				String quotation_no = rs.getString(5);
+				String status_file = rs.getString(6);
+				Integer orderrequest = rs.getInt(7);
+				
+			
+				Calendar caldate = Calendar.getInstance();
+				String pattern = "yyyy-MM-dd";
+				SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+				caldate.setTime(sdf.parse(quotation_date));	
+
+				File_Quotation fq = new File_Quotation(file_id,company_name,file_name,quotation_no,caldate,status_file);	
+				OrderRequest or = new OrderRequest(orderrequest,null,null,null,null,null);
+				list.add(fq);
+			
+			}
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+	
+	
+	
 	
 }

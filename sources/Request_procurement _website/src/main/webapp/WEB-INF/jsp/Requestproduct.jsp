@@ -92,9 +92,10 @@ input {
                       <label for="budget" class="col-form-label">รายละเอียด *</label>
                     
                         <select  style="height: 45px ;width:450px;" class="select-state " id="product"  name="product"   placeholder="ค้นหาตรงนี้..." >
+                          <option  value=""></option>
                           <%	 for(int i = 0 ; i <   listProduct.size() ; i++)  {%>	
-                            <option value=""></option>
-                            <option  value="<%= listProduct.get(i).getProduct_detail() %>_<%= listProduct.get(i).getUnit()%>_<%= listProduct.get(i).getPrice() %>_<%= listProduct.get(i).getProduct_id() %> "  > <%= listProduct.get(i).getProduct_detail() %> </option>	                              
+                            
+                            <option   value="<%= listProduct.get(i).getProduct_detail() %>_<%= listProduct.get(i).getUnit()%>_<%= listProduct.get(i).getPrice() %>_<%= listProduct.get(i).getProduct_id() %> "  > <%= listProduct.get(i).getProduct_detail() %> </option>	                              
 						<%}%>
                           </select>    				
                     </div>
@@ -199,21 +200,23 @@ input {
          </script>
   
    <script type="text/javascript">
-   var form = $("#frm");
+   var form = $("#form");
    var count = 0;
+   
+  
         $(document).ready(function(){
             // Add new row
             $("#add-row").click(function(){
             	count++;
             	var number = document.getElementsByName("number").value;
-       			
             	number = count;
-                var productdetail = $("#product").val();
-                let product=productdetail.split("_") ;
+            	var productdetail = $("#product").val();
+            	let product=productdetail.split("_") ;
                 var totalproduct = $("#totalproduct").val();
                 var pricetotal = parseFloat(product[2])*parseFloat(totalproduct);
                 var unit = $("#unit").val();
-                $(".table tbody tr").last().after(
+                if(productdetail != "" && totalproduct != ""){
+                	$(".table tbody tr").last().after(
                     '<tr class="fadetext" id="select-row" >'+
                         '<td><input type="checkbox" style="margin-top: 8px;"></td>'+
                        // '<td id="no" >'+number+'</td>'+
@@ -224,18 +227,34 @@ input {
                         '<td> <input type="text" name="pu'+number+'" value="'+product[2]+'" readonly> </td>'+
                         '<td> <input type="text" class="subtotal" name="tt'+number+'" value="'+pricetotal+'" readonly"> </td>'+
                     '</tr>'
-                );
-                frm.number.value=count; // to input:hidden
+                	);
+                	  frm.number.value=count; // to input:hidden
               
                 var totals= parseFloat(document.getElementById("totals").textContent);
                 
                 
                 document.getElementById("totals").innerHTML= (totals+pricetotal).toString();
-              
-                
-                $('.form-div row col-md-3').parent('div').remove();
+                   
+                 document.getElementById("product").options[2].disabled = true;
+                  $('.form-div row col-md-3').parent('div').remove();
                   $("#totalproduct").val(null);
                   $("#unit").val(null); 
+              
+                
+                  
+                  
+                  
+                 
+                }
+                
+                 
+              
+                
+                
+                
+                
+                
+              
                  
             })
             
@@ -323,7 +342,7 @@ input {
 function checkproduct(form) {
 	
 	//เช็คกรอกรายการ
-	if(form.product.val == 'ค้นหาตรงนี้' ){
+	if(form.product.value == "" ){
 		alert("กรุณาเลือกรายการที่ต้องการ");
 		return false;
 	}
@@ -341,6 +360,9 @@ function checkproduct(form) {
 			form.totalproduct.focus();
 			return false;
 		}
+	
+	
+
 } 
 </script>  
 
