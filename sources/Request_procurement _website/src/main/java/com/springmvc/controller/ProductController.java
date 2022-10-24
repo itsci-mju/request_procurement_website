@@ -16,8 +16,10 @@ import org.springframework.web.servlet.ModelAndView;
 import bean.OrderRequest;
 import bean.Product;
 import bean.Staff;
+
 import util.OrderRequestManager;
 import util.ProductManager;
+import util.QuantityManager;
 import util.StaffManager;
 
 public class ProductController {
@@ -73,5 +75,46 @@ public class ProductController {
 			return mav;
 	
 	}*/
-
+	
+	
+	
+	  @RequestMapping(value = "/submitEditProduct", method = RequestMethod.POST)
+		public String submitEditPage(HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException {
+			request.setCharacterEncoding("UTF-8");
+			String message = ""; 
+			OrderRequestManager orm = new OrderRequestManager();
+			QuantityManager qm = new QuantityManager();
+			ModelAndView mav = new ModelAndView("Edit_Requestproduct");
+			StaffManager sm = new StaffManager();
+			
+			String username = request.getParameter("username");
+			Staff  s = sm.getStaff(username);
+			
+			int number = Integer.parseInt(request.getParameter("number"));
+			
+			ArrayList<Integer> pid = new ArrayList<Integer>();
+			ProductManager pm = new ProductManager();
+			ArrayList<Integer> qty = new ArrayList<Integer>();
+			ArrayList<Double> total = new ArrayList<Double>();
+			
+			ArrayList<String> product = new ArrayList<String>();
+			for (int i=0 ;i<number; i++) {
+				if(request.getParameter("t"+(i+1))!=null) {
+				 qty.add(Integer.parseInt(request.getParameter("t"+(i+1))));
+				 total.add(Double.parseDouble(request.getParameter("tt"+(i+1)))) ;
+				 product.add(request.getParameter("p"+(i+1)));
+				 pid.add(Integer.parseInt(request.getParameter("id"+(i+1)).trim())) ;
+				}
+			}
+			
+			
+			
+		/*
+			Product m = new Product(pid,product,qty,total);
+			ProductManager pm = new ProductManager();
+			int r = pm.();
+			 session.setAttribute("member", m);	
+			request.setAttribute("Editresult", r);*/
+			return "Edit_Requestproduct";
+		}
 }

@@ -3,12 +3,15 @@
 <%@ page import="bean.*,util.*,java.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<% OrderRequestManager manager = new OrderRequestManager();
+<% Login l = (Login) session.getAttribute("login");
 	ProductManager pmanager = new ProductManager();
-	Product pd = (Product) session.getAttribute("product");
-	Login l = (Login) session.getAttribute("login");
-	List<Product> listProduct = pmanager.getAllListProduct(); 
+	OrderRequest order_q = (OrderRequest) session.getAttribute("OrderRequest");
+	List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_id()); 
+	double sum = 0.0;
+	double totalsEd = 0.0;
+	List<Product> listselect = pmanager.getAllListProduct(); 
 	int number = 0 ;
+	
 	//List<Product> listTypeProduct = pmanager.getTypeProduct();
 	//System.out.println(listProduct.toString());
 	//System.out.println(listTypeProduct.size());
@@ -85,7 +88,7 @@ input {
           <div class="row align-items-stretch no-gutters contact-wrap">
             <div class="col-md-12">
               <div class="form h-100">
-                <h3>รายละเอียดการแจ้งความประสงค์</h3>
+                <h3>แก้ไขรายละเอียดการแจ้งความประสงค์</h3>
                  <form name="form" action=""	method="">
                   <div class="row">
                     <div class="col-md-6 form-group mb-3">
@@ -93,9 +96,9 @@ input {
                     
                         <select  style="height: 45px ;width:450px;" class="select-state " id="product"  name="product"   placeholder="ค้นหาตรงนี้..." >
                           <option  value=""></option>
-                          <%	 for(int i = 0 ; i <   listProduct.size() ; i++)  {%>	
+                          <%	 for(int i = 0 ; i <   listselect.size() ; i++)  {%>	
                             
-                            <option   value="<%= listProduct.get(i).getProduct_detail() %>_<%= listProduct.get(i).getUnit()%>_<%= listProduct.get(i).getPrice() %>_<%= listProduct.get(i).getProduct_id() %> "  > <%= listProduct.get(i).getProduct_detail() %> </option>	                              
+                            <option   value="<%= listselect.get(i).getProduct_detail() %>_<%= listselect.get(i).getUnit()%>_<%= listselect.get(i).getPrice() %>_<%= listselect.get(i).getProduct_id() %> "  > <%= listselect.get(i).getProduct_detail() %> </option>	                              
 						<%}%>
                           </select>    				
                     </div>
@@ -131,6 +134,7 @@ input {
                     <thead class="thead-dark">
                         <tr style="text-align:center;"  >
                             <th>เลือก&nbsp;<input  type="checkbox" id="select-all" style="display: inherit;"></th>
+                           
                             <th>รายละเอียด</th>
                             <th>จำนวน</th> 
                             <th>หน่วย</th>
@@ -138,24 +142,45 @@ input {
                             <th>จำนวนเงิน</th>
                         </tr>
                     </thead>
-                       <tbody>
-                           <tr class="alert" role="alert">
-                               </tr>          
-                    </tbody>
+                    
+                      <% if (listProduct != null){%>
+                                        <%for (int i=0 ; i<listProduct.size(); i++) {%>
+                                     <!-- row input -->
+                                      <tbody style="text-align: center;">
+                                        <tr class="fadetext" id="select-row" role="alert" >
+                                          <td><input type="checkbox" style="margin-top: 8px;"></td>
+                                          
+                                          <td>
+                                          <input type="hidden" name="id_ed<%=i+number%>" value=" <%=listProduct.get(i).getProduct().getProduct_id() %>" readonly  >
+                                          <input type="text" name="p_ed<%=i+number%>" value="<%=listProduct.get(i).getProduct().getProduct_detail() %>" readonly></td>     
+                                          <td><input type="text" name="t_ed<%=i+number%>" value="<%=listProduct.get(i).getQty() %>" readonly></td>  
+                                          <td><input type="text" name="u_ed<%=i+number%>" value="<%=listProduct.get(i).getProduct().getUnit() %>" readonly></td>  
+                                          <td><input type="text"  name="pu_ed<%=i+number%>" value="<%=listProduct.get(i).getProduct().getPrice() %>" readonly></td>  
+                                          <td><input type="text" class="subtotal_ed" name="tt_ed<%=i+number%>"  value="<%=listProduct.get(i).getPrice() %>" readonly></td>  
+                                      
+                                        <label hidden><%=sum += listProduct.get(i).getPrice()  %></label>
+                                        </tr>                
+                                      </tbody>
+                                      	<%} %>
+                                      	 
+                                          
+                                      <%} %>
+                                      <label id="totalEd" hidden>total = <%=sum %></label>
+                                    
                 </table> 
-              <table class="table" >
+              <table class="table">
                    
                <thead class="thead-dark" style="text-align: center;"> 
               	 <tr>
                  	 <th style="text-align: initial;">&nbsp;&nbsp;&nbsp;<button type="button" class="remove-row" id="remove-row" style=" border-radius: 15px; " value="ลบ">&nbsp; ลบ &nbsp;</button></th>
 					 <th style="text-align: end;"> ค่าใช้จ่ายทั้งหมด	 </th> 
-          			 <th><label id="totals">0.0</label></th>
+          			 <th><label id="totals"><%=sum %></label></th>
                  </tr>
                </thead>
               </table>
             </div>
             
-            
+        
             <input type="hidden" id="chList"/>
             <br><br> 
             
@@ -165,7 +190,7 @@ input {
 
              <div>
                 <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" 
-                onclick="getGridData()">ส่งคำขอ</button>             
+                onclick="getGridData()">บันทึกการแก้ไข</button>             
              </div>
              <input type="text" name="number" value="0" hidden>
          </form>   
@@ -228,53 +253,18 @@ input {
                 	);
                 	  frm.number.value=count; // to input:hidden
               
+ 	  				
                 var totals= parseFloat(document.getElementById("totals").textContent);
-                
-                
                 document.getElementById("totals").innerHTML= (totals+pricetotal).toString();
                    
                  document.getElementById("product").options[2].disabled = true;
                   $('.form-div row col-md-3').parent('div').remove();
                   $("#totalproduct").val(null);
                   $("#unit").val(null); 
-              
-                
-                  
-                  
-                  
-                 
-                }
-                
-                 
-              
-                
-                
-                
-                
-                
-              
-                 
+               
+                }  
             })
             
-            //$(function(){
-            //	 var number = document.getElementsByName("number").value;
-            //   	 $('#tt').mask('#,###.##',{reverse : true});
-            //   	 var total_price = function(){
-            //   		 var sum=0;
-            //   		 $('#tt'+number+'').each(function(){
-            //  			 var num = $(this).val().replace(',','');
-            //   			 if(num!=0){
-            //   				 sum += parseFloat(num);	
-            //   			 }
-               			 
-            //   		 });
-             //  		 $('#total').val(sum);
-           //    	 } 
-            //   	 $('#total').keyup(function(){
-          //     		total_price();
-          ///     	 });
-               	 
-            //    });
 
             // Select all checkbox
             $("#select-all").click(function(){
@@ -296,16 +286,17 @@ input {
                     var isChecked = $(this).find('input[type="checkbox"]').is(":checked");
                     var tableSize = $(".table tbody tr").length;
                     if(tableSize == 1){
-                        alert('ไม่มีรายการที่ต้องการลบ.');
+                        alert('มีรายการเหลืออย่างน้อย 1 รายการ.');
                     }else if(isChecked){
                     	
                         $(this).remove();
-                    
-                    
-                        var totals= parseFloat(document.getElementById("totals").textContent);
-                      
+                                       
+                        var totals= parseFloat(document.getElementById("totals").textContent);        
+                        var ped = $(this).find("input[class='subtotal_ed']").val();
                         var p = $(this).find("input[class='subtotal']").val();
-                        document.getElementById("totals").innerHTML= ( totals-parseFloat(p) ).toString() ;
+                        
+                        document.getElementById("totals").innerHTML= (totals-parseFloat(p)).toString() ;
+                        document.getElementById("totals").innerHTML= (totals-parseFloat(ped)).toString() ;
                     }
                 });
             }); 
@@ -359,11 +350,9 @@ function checkproduct(form) {
 			return false;
 		}
 	
-	
-
 } 
 </script>  
-
+	
 <script type="text/javascript">
 
 </script>

@@ -76,6 +76,21 @@ public class OrderRequestController {
 		return "ListRequest";
 	}
 	
+	//โหลดหน้าแก้ไขรายการความประสงค์แบบไม่มีใบเสนอราคา
+		@RequestMapping(value = "/loadEditRequestproduct", method = RequestMethod.GET)
+		public String loadEditRequestProductPage(HttpServletRequest request, Model md, HttpSession session) {
+			String Text_OrderRequest_id = request.getParameter("OrderRequest_id");
+			String request_type = request.getParameter("request_type");
+			int OrderRequest_id = Integer.parseInt(Text_OrderRequest_id);
+			System.out.println(request_type);
+				OrderRequest order_r = new OrderRequest(OrderRequest_id,null,null,request_type,null,null);
+				session.setAttribute("OrderRequest", order_r);	
+				
+			return "Edit_Requestproduct";
+		}
+		
+	
+	
 	//โหลดหน้ารายการรายละเอียดข้อมูลการแจ้งแบบไม่มีใบเสนอราคา
 		@RequestMapping(value = "/loadRequestDetail", method = RequestMethod.GET)
 		public String loadRequestDetailPage(HttpServletRequest request, Model md, HttpSession session) {
@@ -195,6 +210,7 @@ public class OrderRequestController {
 		FileManager fm = new FileManager();
 		ModelAndView mav = new ModelAndView("ListRequest");
 		StaffManager sm = new StaffManager();
+		OrderRequestManager om = new OrderRequestManager();
 				try {          
 			
 					String status  = "กำลังรอการดำเนินการจากหน่วยพันสดุ";
@@ -209,8 +225,8 @@ public class OrderRequestController {
 					orm.insertOrderRequest2(or);
 					
 					//quotation  1
-					String afilequotation = file1.getOriginalFilename();
 					String anamecompany = request.getParameter("a_name_company");
+					String afilequotation = "ใบเสนอราคา_"+om.getMaxFileID()+"_"+anamecompany+".pdf";
 					String anumberquotation = request.getParameter("a_number_quotation");
 					String adatequotation = request.getParameter("a_date_quotation");
 					
@@ -225,8 +241,9 @@ public class OrderRequestController {
 					fq1.setOrderRequest(or);
 					fm.insertFileQuotaion(fq1);
 					//quotation  2
-					String bfilequotation = file2.getOriginalFilename();
 					String bnamecompany = request.getParameter("b_name_company");
+					String bfilequotation = "ใบเสนอราคา_"+om.getMaxFileID()+"_"+bnamecompany+".pdf";
+					
 					String bnumberquotation = request.getParameter("b_number_quotation");
 					String bdatequotation = request.getParameter("b_date_quotation");
 					
@@ -241,8 +258,8 @@ public class OrderRequestController {
 					fm.insertFileQuotaion(fq2);
 					
 					//quotation  3
-					String cfilequotation = file3.getOriginalFilename();
 					String cnamecompany = request.getParameter("c_name_company");
+					String cfilequotation = "ใบเสนอราคา_"+om.getMaxFileID()+"_"+cnamecompany+".pdf";
 					String cnumberquotation = request.getParameter("c_number_quotation");
 					String cdatequotation = request.getParameter("c_date_quotation");
 					

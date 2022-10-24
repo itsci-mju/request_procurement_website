@@ -285,7 +285,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                                      <!-- row input -->
                                       <tbody>
                                         <tr class="alert" role="alert">
-                                          <th  scope="row"><%=i+1  %></th>
+                                          <th  scope="row"><%=listorderRequest.get(i).getOrderRequest_id() %></th>
                                           <td><%=sdf.format(listorderRequest.get(i).getOrderRequest_date().getTime())  %></td>     
                                           <td><%=listorderRequest.get(i).getRequest_type() %>     </td>  
                                           <td><%=listorderRequest.get(i).getStatus() %></td>  
@@ -295,7 +295,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 												<button type="button" class="button-17" role="button" >ดู 
 												&nbsp; 	<i class="gg-eye"></i>										
 												</button></a>&nbsp;
-                                           <a href=""> 
+                                           <a href="loadEditRequestproduct?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>"> 
                                           		<button type="button" class="button-18" role="button" >แก้ไข
 												&nbsp; 	<i class="gg-thermometer"></i>									
 												</button></a> &nbsp;	

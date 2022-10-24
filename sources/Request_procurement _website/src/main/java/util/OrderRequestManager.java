@@ -62,6 +62,26 @@ public class OrderRequestManager {
 		return id + 1;
 	}
 	
+	//Auto getMaxFileID
+	public int getMaxFileID() {
+		ConnectionDB condb = new ConnectionDB();
+		Connection con = condb.getConnection();
+		int id = 0;
+		try {
+			Statement stmt = con.createStatement();
+			String sql = "SELECT Max(file_id) from file_quotation;";
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				id = rs.getInt(1);
+			}
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id + 1;
+	}
+	
 	
 	//เพิ่มข้อมูล ตางรางOrderRequest 
 	public int insertOrderRequest(OrderRequest od){
