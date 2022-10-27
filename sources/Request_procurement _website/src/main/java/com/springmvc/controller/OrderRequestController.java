@@ -352,82 +352,67 @@ public class OrderRequestController {
 		}
 	
 
-	/*
-	//OrderRequest & fileQuotation
-	@RequestMapping(value="/insertOrderRequest", method=RequestMethod.POST)
-	public ModelAndView do_register(HttpServletRequest  request, HttpSession session) throws UnsupportedEncodingException {
-		request.setCharacterEncoding("UTF-8");
-		Lecturer lc = (Lecturer) session.getAttribute("lecturer");
-		OrderRequestManager orm = new OrderRequestManager();
-		String message = null;
-		//OrderRequest or = new OrderRequest();
-		ModelAndView mav = new ModelAndView("insertOrderRequest");
-			try {          
-				
-				//String orderRequest_id = request.getParameter("orderRequest_id");
-				String orderRequest_date = request.getParameter("orderRequest_date");
-				String status = request.getParameter("status");
-				String request_type = "มีใบเสนอราคา";
-				String comment = request.getParameter("comment");
-				
-				Calendar calorderRequest_date = Calendar.getInstance();
-				String pattern = "yyyy/MM/dd";
-				SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-				calorderRequest_date.setTime(sdf.parse(orderRequest_date));
-			//	OrderRequest or = new OrderRequest(orm.getMaxOrderRequestID(),calorderRequest_date,status,request_type,comment);
-				
-				int r = orm.insertOrderRequest(new OrderRequest(orm.getMaxOrderRequestID(),calorderRequest_date,status,request_type,comment));
-				if (r == 1) {
-					for (int i=1;i<=3;i++) {
-						FileManager fm = new FileManager();
-						
-						String anamecompany = request.getParameter("a-name-company");
-						String anumberquotation = request.getParameter("a-number-quotation");
-						String adatequotation = request.getParameter("a-date-quotation");
-						String afilequotation = request.getParameter("a-file-quotation");
-						
-						String bnamecompany = request.getParameter("b-name-company");
-						String bnumberquotation = request.getParameter("b-number-quotation");
-						String bdatequotation = request.getParameter("b-date-quotation");
-						String bfilequotation = request.getParameter("b-file-quotation");
-						
-						String cnamecompany = request.getParameter("c-name-company");
-						String cnumberquotation = request.getParameter("c-number-quotation");
-						String cdatequotation = request.getParameter("c-date-quotation");
-						String cfilequotation = request.getParameter("c-file-quotation");
-						
-					
-						Calendar caldate1 = Calendar.getInstance();
-						Calendar caldate2 = Calendar.getInstance();
-						Calendar caldate3 = Calendar.getInstance();
-						
-						String pattern2 = "yyyy/MM/dd";
-						SimpleDateFormat sdf2 = new SimpleDateFormat(pattern2);
-						try {
-							caldate1.setTime(sdf.parse(adatequotation));
-							caldate2.setTime(sdf.parse(bdatequotation));
-							caldate3.setTime(sdf.parse(cdatequotation));
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					
-				int a = fm.insertFileQuotaion(new File_Quotation(fm.getMaxFilequotationID(),afilequotation,anamecompany,anumberquotation,caldate1,""));
-				
-				
-					}
-					
-				}
-				
-		}catch (Exception e) {
-			e.printStackTrace();
-			message = "โปรดลองใหม่อีกครั้ง....";
+	
+		//Controller Delete OrderRequest 
+		@RequestMapping(value = "/deleteOrderRequest", method = RequestMethod.GET)
+		public String delkidinjectionPage(HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException {
+			OrderRequestManager om = new OrderRequestManager();
+			String orderRequest_id = request.getParameter("OrderRequest_id");
+			
+			om.deleteOrderRequest(orderRequest_id);
+		
+			return "ListRequest";
 		}
-	
-		mav.addObject("message", message); 
-		return mav; 
-	}
-	*/
-	
-}
+		
+		//Controller OrderRequest Product
+		@RequestMapping(value="/EditOrderRequestProduct", method=RequestMethod.POST)
+		public ModelAndView do_EditOrderRequestProduct(HttpServletRequest  request, HttpSession session) throws UnsupportedEncodingException {
+		request.setCharacterEncoding("UTF-8");
+		// Product mb = (Product) session.getAttribute(""); 
+			String message = ""; 
+			ModelAndView mav = new ModelAndView("ListRequest");
+				try {          
+					OrderRequestManager orm = new OrderRequestManager();
+					String orderRequest_id = request.getParameter("OrderRequest_id");
+					QuantityManager qm = new QuantityManager();
+					StaffManager sm = new StaffManager();
+					
+					int number = Integer.parseInt(request.getParameter("number"));
+			
+					ArrayList<Integer> pid = new ArrayList<Integer>();
+				//	System.out.println(number);
+					ProductManager pm = new ProductManager();
+					ArrayList<Integer> qty = new ArrayList<Integer>();
+					ArrayList<Double> total = new ArrayList<Double>();
+					
+					ArrayList<String> product = new ArrayList<String>();
+					for (int i=0 ;i<number; i++) {
+						qm.deleteProduct(orderRequest_id);
+						if(request.getParameter("t"+(i+1))!=null) {
+						 qty.add(Integer.parseInt(request.getParameter("t"+(i+1))));
+						 total.add(Double.parseDouble(request.getParameter("tt"+(i+1)))) ;
+						 product.add(request.getParameter("p"+(i+1)));
+						 pid.add(Integer.parseInt(request.getParameter("id"+(i+1)).trim())) ;
+						}
+					}
+					System.out.println(product);
+					System.out.println(qty);
+					OrderRequest or = new OrderRequest();		
+					or = orm.OrderRequestByID(orderRequest_id);
+					for(int j=0;j<product.size();j++) {
+						Product p = new Product();
+						p.setProduct_id(pid.get(j));
+						Quantity q = new Quantity(qty.get(j),total.get(j),or,p);
+						
+						qm.insertQuantity(q);
+						
+					}
+			
+			}catch (Exception e) {
+				e.printStackTrace();
+				message = "โปรดลองใหม่อีกครั้ง....";
+			}
+				return mav;
+		}
 
+}

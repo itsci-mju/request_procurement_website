@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="bean.*,util.*,java.util.*"%>
+<%@ page import="bean.*,util.*,java.util.*,java.text.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <% Login l = (Login) session.getAttribute("login");
@@ -11,6 +11,8 @@
 	double totalsEd = 0.0;
 	List<Product> listselect = pmanager.getAllListProduct(); 
 	int number = 0 ;
+	
+	DecimalFormat df = new DecimalFormat("###,###,###.00");
 	
 	//List<Product> listTypeProduct = pmanager.getTypeProduct();
 	//System.out.println(listProduct.toString());
@@ -128,7 +130,7 @@ input {
       </div>
             <% if (l != null){ %>
             <!-- Form Table -->
-            <form class="" id="frm" name="frm" action="addOrderRequest?username=<%= l.getUsername()  %>" method="Post">
+            <form class="" id="frm" name="frm" action="EditOrderRequestProduct?username=<%= l.getUsername()  %>&OrderRequest_id=<%= order_q.getOrderRequest_id() %>" method="Post">
             <div class="container product-table"  style="margin-top: -113px;">
                 <table class="table" > 
                     <thead class="thead-dark">
@@ -151,12 +153,12 @@ input {
                                           <td><input type="checkbox" style="margin-top: 8px;"></td>
                                           
                                           <td>
-                                          <input type="hidden" name="id_ed<%=i+number%>" value=" <%=listProduct.get(i).getProduct().getProduct_id() %>" readonly  >
-                                          <input type="text" name="p_ed<%=i+number%>" value="<%=listProduct.get(i).getProduct().getProduct_detail() %>" readonly></td>     
-                                          <td><input type="text" name="t_ed<%=i+number%>" value="<%=listProduct.get(i).getQty() %>" readonly></td>  
-                                          <td><input type="text" name="u_ed<%=i+number%>" value="<%=listProduct.get(i).getProduct().getUnit() %>" readonly></td>  
-                                          <td><input type="text"  name="pu_ed<%=i+number%>" value="<%=listProduct.get(i).getProduct().getPrice() %>" readonly></td>  
-                                          <td><input type="text" class="subtotal_ed" name="tt_ed<%=i+number%>"  value="<%=listProduct.get(i).getPrice() %>" readonly></td>  
+                                          <input type="hidden" name="id<%=i+1%>" value=" <%=listProduct.get(i).getProduct().getProduct_id() %>" readonly  >
+                                          <input type="text" name="p<%=i+1%>" value="<%=listProduct.get(i).getProduct().getProduct_detail() %>" readonly></td>     
+                                          <td><input type="text" name="t<%=i+1%>" value="<%=listProduct.get(i).getQty() %>" readonly></td>  
+                                          <td><input type="text" name="u<%=i+1%>" value="<%=listProduct.get(i).getProduct().getUnit() %>" readonly></td>  
+                                          <td><input type="text"  name="pu<%=i+1%>" value="<%=listProduct.get(i).getProduct().getPrice() %>" readonly></td>  
+                                          <td><input type="text" class="subtotal" name="tt<%=i+1%>"  value="<%=df.format(listProduct.get(i).getPrice()) %>" readonly></td>  
                                       
                                         <label hidden><%=sum += listProduct.get(i).getPrice()  %></label>
                                         </tr>                
@@ -174,7 +176,7 @@ input {
               	 <tr>
                  	 <th style="text-align: initial;">&nbsp;&nbsp;&nbsp;<button type="button" class="remove-row" id="remove-row" style=" border-radius: 15px; " value="ลบ">&nbsp; ลบ &nbsp;</button></th>
 					 <th style="text-align: end;"> ค่าใช้จ่ายทั้งหมด	 </th> 
-          			 <th><label id="totals"><%=sum %></label></th>
+          			 <th><label id="totals"><%=df.format(sum)%></label> &nbsp; <label > บาท </label></th>
                  </tr>
                </thead>
               </table>
@@ -192,7 +194,7 @@ input {
                 <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" 
                 onclick="getGridData()">บันทึกการแก้ไข</button>             
              </div>
-             <input type="text" name="number" value="0" hidden>
+             <input type="text" name="number" id="number" value='<%= listProduct.size() %>'  hidden>
          </form>   
          <%} %>   
          
@@ -224,15 +226,15 @@ input {
   
    <script type="text/javascript">
    var form = $("#form");
-   var count = 0;
+   var count = 0 ;
    
   
         $(document).ready(function(){
             // Add new row
             $("#add-row").click(function(){
             	count++;
-            	var number = document.getElementsByName("number").value;
-            	number = count;
+            	var number =   $("#number").val();
+            	number++;
             	var productdetail = $("#product").val();
             	let product=productdetail.split("_") ;
                 var totalproduct = $("#totalproduct").val();
@@ -248,14 +250,15 @@ input {
                         '<td> <input type="text" name="t'+number+'" value="'+totalproduct+'" readonly> </td>'+
                         '<td> <input type="text" name="u'+number+'" value="'+product[1]+'" readonly> </td>'+
                         '<td> <input type="text" name="pu'+number+'" value="'+product[2]+'" readonly> </td>'+
-                        '<td> <input type="text" class="subtotal" name="tt'+number+'" value="'+pricetotal+'" readonly"> </td>'+
+                        '<td> <input type="text" class="subtotal" name="tt'+number+'" value="'+pricetotal.toFixed(2) +'" readonly"> </td>'+
+                        
                     '</tr>'
                 	);
-                	  frm.number.value=count; // to input:hidden
+                	  frm.number.value=number; // to input:hidden
               
  	  				
                 var totals= parseFloat(document.getElementById("totals").textContent);
-                document.getElementById("totals").innerHTML= (totals+pricetotal).toString();
+                document.getElementById("totals").innerHTML= (totals+pricetotal).toFixed(2) ;
                    
                  document.getElementById("product").options[2].disabled = true;
                   $('.form-div row col-md-3').parent('div').remove();
@@ -292,11 +295,11 @@ input {
                         $(this).remove();
                                        
                         var totals= parseFloat(document.getElementById("totals").textContent);        
-                        var ped = $(this).find("input[class='subtotal_ed']").val();
+                      //  var ped = $(this).find("input[class='subtotal_ed']").val();
                         var p = $(this).find("input[class='subtotal']").val();
                         
-                        document.getElementById("totals").innerHTML= (totals-parseFloat(p)).toString() ;
-                        document.getElementById("totals").innerHTML= (totals-parseFloat(ped)).toString() ;
+                        document.getElementById("totals").innerHTML= (totals-parseFloat(p)).toFixed(2)  ;
+                    //    document.getElementById("totals").innerHTML= (totals-parseFloat(ped)).toString() ;
                     }
                 });
             }); 

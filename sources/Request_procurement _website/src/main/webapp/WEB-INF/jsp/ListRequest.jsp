@@ -5,11 +5,9 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%
 OrderRequestManager qm = new OrderRequestManager();
-
 StaffManager sm = new StaffManager();
 Login l = (Login) session.getAttribute("login");
 List<OrderRequest> listorderRequest = qm.getAllListOrderRequest();
-
 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 %>
 <!DOCTYPE html>
@@ -285,7 +283,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                                      <!-- row input -->
                                       <tbody>
                                         <tr class="alert" role="alert">
-                                          <th  scope="row"><%=listorderRequest.get(i).getOrderRequest_id() %></th>
+                                          <th  scope="row"><%= listorderRequest.size()-i %></th>
                                           <td><%=sdf.format(listorderRequest.get(i).getOrderRequest_date().getTime())  %></td>     
                                           <td><%=listorderRequest.get(i).getRequest_type() %>     </td>  
                                           <td><%=listorderRequest.get(i).getStatus() %></td>  
@@ -299,8 +297,8 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                                           		<button type="button" class="button-18" role="button" >แก้ไข
 												&nbsp; 	<i class="gg-thermometer"></i>									
 												</button></a> &nbsp;	
-										<a href="">
-										<button type="button" class="button-19" role="button" >ยกเลิก
+										<a href="deleteOrderRequest?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>">
+										<button type="button" class="button-19" role="button"  onclick="return confirm('แน่ใจหรือไม่ว่าต้องการลบข้อมูลนี้ ?');">ยกเลิก
 												&nbsp; &nbsp;	<i class="gg-backspace"></i>								
 												</button></a>
 										</td>                                    

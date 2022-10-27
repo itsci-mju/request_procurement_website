@@ -46,43 +46,28 @@ public class QuantityManager {
 		}
 		return -1;
 }
-	/*
-	//show RequestDetail
-			public List<Quantity> getAllListQuantityProduct() throws java.text.ParseException {
-				List<Quantity> list = new ArrayList<>();
-				ConnectionDB condb = new ConnectionDB();
-				Connection con = condb.getConnection();
-				
-				try {
-					Statement stmt = con.createStatement();
-					String sql = "select q.Qid,q.price,q.qty,o.orderRequest_id,p.product_id  "
-							+ "from quatity q inner join orderrequest o ON q.orderRequest_id = o.orderRequest_id "
-							+ "inner join product p ON q.product_id = p.product_id"
-							+ " order by q.Qid;";
-					ResultSet rs = stmt.executeQuery(sql);
-					Quantity q = new Quantity();
-					Staff s = new Staff();
-					Product p = new Product();
-					OrderRequest qr = new OrderRequest();
-					while (rs.next()) {
-						Integer Qid = rs.getInt(1);
-						Integer qty = rs.getInt(3);
-						double price = rs.getDouble(2);
-						Integer orderRequest_id = rs.getInt(4);
-						String product_id = rs.getString(5);
-						
-						
-		
-						//Quantity or = new OrderRequest(qty,price,qr.getOrderRequest_id(),p.getProduct_id());
-						list.add(or);
-					}
-					con.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+	
+	
+	
 
-				return list;
-			}*/
+	
+	//show Update Product
+	public int deleteProduct(String qid) {
+		ConnectionDB condb = new ConnectionDB();
+		Connection con = condb.getConnection();
+
+		try {
+			Statement stmt = con.createStatement();
+			String sql = "	DELETE from quantity WHERE orderRequest_id = '"+qid+"';";
+			int result = stmt.executeUpdate(sql);
+			con.close();
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return -1;
+	}
 	
 	
 	

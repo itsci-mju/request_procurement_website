@@ -24,7 +24,7 @@ import util.StaffManager;
 
 public class ProductController {
 
-	//โหลดข้อมูล Product
+	//Controller Show Product
 	@RequestMapping(value = "/loadallproduct", method = RequestMethod.GET)
 	public String loadallHospitalPage(HttpServletRequest request) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");
@@ -37,47 +37,9 @@ public class ProductController {
 		return "RequestOrderRroduct";
 	}
 	 
-	/*
-	@RequestMapping(value="/addProdct", method=RequestMethod.POST)
-	public ModelAndView do_addOrderRequest(HttpServletRequest  request, HttpSession session,@RequestBody String param) throws UnsupportedEncodingException {
-	request.setCharacterEncoding("UTF-8");
-	// Product mb = (Product) session.getAttribute(""); 
-		String message = ""; 
-		OrderRequestManager orm = new OrderRequestManager();
-		ModelAndView mav = new ModelAndView("RequestOrderProduct");
-		
-		StaffManager sm = new StaffManager();
-			try {          
-			//	String chList = request.getParameter("chList");
-				String status  = "กำลังรอการดำเนินการจากหน่วยพันสดุ";
-				String request_type =  "ไม่มีใบเสนอราคา";
-				String comment = "-";
-				
 
-				String product = request.getParameter("p");
-				String total = request.getParameter("t");
-				String unit = request.getParameter("u");
-				Calendar c = Calendar.getInstance();
-			//	System.out.println(product);
-			//	System.out.println(chList);
-				String username = request.getParameter("username");
-				OrderRequest or = new OrderRequest(orm.getMaxOrderRequestID(),c,status,request_type,comment);
-				Staff  s = sm.getStaff(username);
-				or.setStaff(s);
-				orm.insertOrderRequest2(or);
-				
-				//int r = orm.insertOrderRequest(new OrderRequest(orm.getMaxOrderRequestID(),calorderRequest_date,status,request_type,comment));
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-			message = "โปรดลองใหม่อีกครั้ง....";
-		}
-			return mav;
 	
-	}*/
-	
-	
-	
+	//Controller Submit Product
 	  @RequestMapping(value = "/submitEditProduct", method = RequestMethod.POST)
 		public String submitEditPage(HttpServletRequest request, HttpSession session) throws UnsupportedEncodingException {
 			request.setCharacterEncoding("UTF-8");

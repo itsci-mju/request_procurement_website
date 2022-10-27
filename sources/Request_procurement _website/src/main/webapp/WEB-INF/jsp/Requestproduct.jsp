@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="bean.*,util.*,java.util.*"%>
+<%@ page import="bean.*,util.*,java.util.*,java.text.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <% OrderRequestManager manager = new OrderRequestManager();
@@ -9,6 +9,8 @@
 	Login l = (Login) session.getAttribute("login");
 	List<Product> listProduct = pmanager.getAllListProduct(); 
 	int number = 0 ;
+	
+	DecimalFormat df = new DecimalFormat("###,###,###.00");
 	//List<Product> listTypeProduct = pmanager.getTypeProduct();
 	//System.out.println(listProduct.toString());
 	//System.out.println(listTypeProduct.size());
@@ -149,7 +151,7 @@ input {
               	 <tr>
                  	 <th style="text-align: initial;">&nbsp;&nbsp;&nbsp;<button type="button" class="remove-row" id="remove-row" style=" border-radius: 15px; " value="ลบ">&nbsp; ลบ &nbsp;</button></th>
 					 <th style="text-align: end;"> ค่าใช้จ่ายทั้งหมด	 </th> 
-          			 <th><label id="totals">0.0</label></th>
+          			 <th><label id="totals">0.0 </label> &nbsp; <label > บาท </label></th>
                  </tr>
                </thead>
               </table>
@@ -231,7 +233,7 @@ input {
                 var totals= parseFloat(document.getElementById("totals").textContent);
                 
                 
-                document.getElementById("totals").innerHTML= (totals+pricetotal).toString();
+                document.getElementById("totals").innerHTML= (totals+pricetotal);
                    
                  document.getElementById("product").options[2].disabled = true;
                   $('.form-div row col-md-3').parent('div').remove();
@@ -305,7 +307,7 @@ input {
                         var totals= parseFloat(document.getElementById("totals").textContent);
                       
                         var p = $(this).find("input[class='subtotal']").val();
-                        document.getElementById("totals").innerHTML= ( totals-parseFloat(p) ).toString() ;
+                        document.getElementById("totals").innerHTML= ( totals-parseFloat(p) ) ;
                     }
                 });
             }); 
