@@ -86,7 +86,12 @@ public class OrderRequestController {
 				OrderRequest order_r = new OrderRequest(OrderRequest_id,null,null,request_type,null,null);
 				session.setAttribute("OrderRequest", order_r);	
 				
-			return "Edit_Requestproduct";
+				if(request_type.trim().equals("ไม่มีใบเสนอราคา")) {
+					return "Edit_Requestproduct";
+				}else {
+					return "Edit_Requestquotation";
+				}
+			
 		}
 		
 	
@@ -413,6 +418,157 @@ public class OrderRequestController {
 				message = "โปรดลองใหม่อีกครั้ง....";
 			}
 				return mav;
+		}
+		
+		@RequestMapping(value="/EditOrderRequest2", method=RequestMethod.POST)
+		public ModelAndView do_editaddOrderRequest2
+				(@RequestParam("a_file_quotation") MultipartFile file1,
+				@RequestParam("b_file_quotation") MultipartFile file2,
+				@RequestParam("c_file_quotation") MultipartFile file3  ,
+				HttpServletRequest  request, HttpSession session) throws UnsupportedEncodingException {
+		request.setCharacterEncoding("UTF-8");
+		String message = ""; 
+		OrderRequestManager orm = new OrderRequestManager();
+		QuantityManager qm = new QuantityManager();
+		FileManager fm = new FileManager();
+		ModelAndView mav = new ModelAndView("ListRequest");
+		StaffManager sm = new StaffManager();
+		OrderRequestManager om = new OrderRequestManager();
+				try {          
+					String orderRequest_id  = request.getParameter("OrderRequest_id");
+					String request_type =  "มีใบเสนอราคา";
+					String username = request.getParameter("username");
+					Staff  s = sm.getStaff(username);
+					OrderRequest or = om.OrderRequestByID(orderRequest_id);
+					
+					or.setStaff(s);
+					
+					List<File_Quotation> f = fm.getAllQuotation(Integer.parseInt(orderRequest_id));
+					//quotation  1
+					String anamecompany = request.getParameter("a_name_company");
+					String afilequotation = "ใบเสนอราคา_"+f.get(0).getFile_id()+"_"+anamecompany+".pdf";
+					String anumberquotation = request.getParameter("a_number_quotation");
+					String adatequotation = request.getParameter("a_date_quotation");
+					
+				
+					Calendar cal_adatequotation = Calendar.getInstance();
+					String pattern = "yyyy-MM-dd";
+					SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+					cal_adatequotation.setTime(sdf.parse(adatequotation));
+					
+					File_Quotation fq1 = new File_Quotation(f.get(0).getFile_id(),afilequotation,anamecompany,anumberquotation,cal_adatequotation,request_type);
+			
+					fq1.setOrderRequest(or);
+					fm.updateFileQuotaion(fq1);
+					//quotation  2
+					String bnamecompany = request.getParameter("b_name_company");
+					String bfilequotation = "ใบเสนอราคา_"+f.get(1).getFile_id()+"_"+bnamecompany+".pdf";
+					
+					String bnumberquotation = request.getParameter("b_number_quotation");
+					String bdatequotation = request.getParameter("b_date_quotation");
+					
+					
+					Calendar cal_bdatequotation = Calendar.getInstance();
+					String pattern2 = "yyyy-MM-dd";
+					SimpleDateFormat sdf2 = new SimpleDateFormat(pattern2);
+					cal_bdatequotation.setTime(sdf2.parse(bdatequotation));
+					
+					File_Quotation fq2 = new File_Quotation(f.get(1).getFile_id(),bfilequotation,bnamecompany,bnumberquotation,cal_bdatequotation,request_type);
+					fq2.setOrderRequest(or);
+					fm.updateFileQuotaion(fq2);
+					
+					//quotation  3
+					String cnamecompany = request.getParameter("c_name_company");
+					String cfilequotation = "ใบเสนอราคา_"+f.get(2).getFile_id()+"_"+cnamecompany+".pdf";
+					String cnumberquotation = request.getParameter("c_number_quotation");
+					String cdatequotation = request.getParameter("c_date_quotation");
+					
+					
+					Calendar cal_cdatequotation = Calendar.getInstance();
+					String pattern3 = "yyyy-MM-dd";
+					SimpleDateFormat sdf3 = new SimpleDateFormat(pattern3);
+					cal_cdatequotation.setTime(sdf3.parse(cdatequotation));
+					
+					File_Quotation fq3 = new File_Quotation(f.get(2).getFile_id(),cfilequotation,cnamecompany,cnumberquotation,cal_cdatequotation,request_type);
+					fq3.setOrderRequest(or);
+					fm.updateFileQuotaion(fq3);
+					
+					if (!file1.isEmpty()) {
+					
+							byte[] bytes = file1.getBytes();
+
+							// Creating the directory to store file
+							String rootPath = System.getProperty("catalina.home");
+							File dir = new File(rootPath + File.separator + "tmpFiles");
+							if (!dir.exists())
+								dir.mkdirs();
+
+							// Create the file on server
+							File serverFile = new File(dir.getAbsolutePath()
+									+ File.separator + afilequotation);
+							BufferedOutputStream stream = new BufferedOutputStream(
+									new FileOutputStream(serverFile));
+							stream.write(bytes);
+							stream.close();
+							System.out.println("Server File Location="+ serverFile.getAbsolutePath());
+
+							System.out.println("You successfully uploaded file=" + afilequotation);
+					} else {
+						System.out.println("You failed to upload " + afilequotation+ " because the file was empty.");
+					}    
+					if (!file2.isEmpty()) {
+						
+						byte[] bytes = file2.getBytes();
+
+						// Creating the directory to store file
+						String rootPath = System.getProperty("catalina.home");
+						File dir = new File(rootPath + File.separator + "tmpFiles");
+						if (!dir.exists())
+							dir.mkdirs();
+							
+						// Create the file on server
+						File serverFile = new File(dir.getAbsolutePath()
+								+ File.separator + bfilequotation);
+						BufferedOutputStream stream = new BufferedOutputStream(
+								new FileOutputStream(serverFile));
+						stream.write(bytes);
+						stream.close();
+						System.out.println("Server File Location="+ serverFile.getAbsolutePath());
+
+						System.out.println("You successfully uploaded file=" + bfilequotation);
+				} else {
+					System.out.println("You failed to upload " + bfilequotation+ " because the file was empty.");
+				}    
+					
+					if (!file3.isEmpty()) {
+						
+						byte[] bytes = file3.getBytes();
+
+						// Creating the directory to store file
+						String rootPath = System.getProperty("catalina.home");
+						File dir = new File(rootPath + File.separator + "tmpFiles");
+						if (!dir.exists())
+							dir.mkdirs();
+
+						// Create the file on server
+						File serverFile = new File(dir.getAbsolutePath()
+								+ File.separator + cfilequotation);
+						BufferedOutputStream stream = new BufferedOutputStream(
+								new FileOutputStream(serverFile));
+						stream.write(bytes);
+						stream.close();
+						System.out.println("Server File Location="+ serverFile.getAbsolutePath());
+
+						System.out.println("You successfully uploaded file=" + cfilequotation);
+				} else {
+					System.out.println("You failed to upload " + cfilequotation+ " because the file was empty.");
+				}    
+			}catch (Exception e) {
+				e.printStackTrace();
+				message = "โปรดลองใหม่อีกครั้ง....";
+			}
+				return mav;
+		
 		}
 
 }

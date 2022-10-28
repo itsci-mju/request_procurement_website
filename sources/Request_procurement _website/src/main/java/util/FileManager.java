@@ -94,6 +94,37 @@ public class FileManager {
 		return -1;
 	}
 	
+	public int updateFileQuotaion(File_Quotation f){
+		ConnectionDB condb = new ConnectionDB();
+		Connection con = condb.getConnection();
+		
+		Date date = f.getQuotation_date().getTime(); //date 
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+		Date fileQuotation = f.getQuotation_date().getTime(); //get date 
+		fileQuotation.setDate(date.getDate()); //set  date 
+		String fd = sdf.format(fileQuotation); // date  string
+		
+		try {
+			Statement stmt = con.createStatement();
+			String sql = "update file_quotation "
+						+ "set company_name = '"+ f.getCompany_name() +"', "
+						+ "file_name = '"+ f.getFile_name() +"', "
+						+ "quotation_date = '"+ fd +"', "
+						+ "quotation_no = '"+ f.getQuotation_no() +"', "
+						+ "status_file = '"+ f.getStatus_file() +"' "
+						+ "where file_id = "+ f.getFile_id() +" ";
+			int result = stmt.executeUpdate(sql);
+			con.close();
+			return result;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return -1;
+	}
+	
 	
 
 	//show Data File Quotation Detail
