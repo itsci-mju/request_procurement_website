@@ -6,24 +6,6 @@
 
 Login l = (Login) session.getAttribute("login");
 
-String s = (String)session.getAttribute("regisalert");
-String err = "";
-try {
-	err = (String) session.getAttribute("login");
-	session.setMaxInactiveInterval(1);
-	session.removeAttribute("login");
-} catch (Exception e) {
-	err = "";
-}
-
-int r =0;
-
-try{
- r=(Integer) request.getAttribute("error");
-} 
-catch(Exception e){
-e.printStackTrace();
-}
 %>
 <!DOCTYPE html>
 

@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import bean.Login;
+import bean.Staff;
 import util.LoginManager;
+import util.StaffManager;
 
 @Controller
 public class LoginController {
@@ -46,12 +48,16 @@ public class LoginController {
 		  uname = request.getParameter("uname"); 
 		  String pwd = request.getParameter("pwd");
 		  LoginManager lm = new LoginManager();
-		  
+		  StaffManager sm = new StaffManager();
 		  Login l = new Login(uname, pwd,"");  
-		   l = lm.verifyLogin(l);
+		  l = lm.verifyLogin(l);
+		  Staff s = sm.getStaff(l.getUsername());
 		  if (l != null) { 
-			  md.addAttribute("user", l.getUsername()); 
-			  session.setAttribute("login", l);		
+			  md.addAttribute("user", l.getUsername());
+			  session.setAttribute("login", l);
+			  session.setAttribute("username", l.getUsername());
+			  session.setAttribute("major", String.valueOf(s.getMajor().getMajor_id()));
+			  session.setAttribute("majorName", s.getMajor().getMajor_name());
 			  return "index"; 
 			  } else {
 				  session.setAttribute("login", "ชื่อผู้ใช้หรือรหัสไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง");

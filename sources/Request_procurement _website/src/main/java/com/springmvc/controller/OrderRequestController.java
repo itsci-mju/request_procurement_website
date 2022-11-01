@@ -2,8 +2,12 @@ package com.springmvc.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
@@ -26,6 +30,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +38,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import com.google.protobuf.TextFormat.ParseException;
 
@@ -57,6 +63,7 @@ public class OrderRequestController {
 	//โหลดหน้าหลัก 
 	@RequestMapping(value = "/loadindex", method = RequestMethod.GET)
 	public String loadthomePage() {
+		
 		return "index";
 	}
 	//โหลดหน้าแจ้งความประสงค์แบบไม่มีใบเสนอราคา
@@ -72,13 +79,32 @@ public class OrderRequestController {
 	
 	//โหลดหน้ารายการทั้งหมดที่แจ้งความประสงค์
 	@RequestMapping(value = "/loadpagelistorder", method = RequestMethod.GET)
-	public String loadtListOrderPage() {
+	public String loadtListOrderPage(HttpServletRequest request, Model md, HttpSession session) throws UnsupportedEncodingException {
+		request.setCharacterEncoding("UTF-8");	
+		
+		
+		
 		return "ListRequest";
 	}
 	
-	//โหลดหน้าแก้ไขรายการความประสงค์แบบไม่มีใบเสนอราคา
+	//โหลดหน้ายืนยันการแจ้งความประสงค์
+		@RequestMapping(value = "/loadpageConfirm", method = RequestMethod.GET)
+		public String loadConfirmPage() {
+			return "ConfirmRequest";
+		}
+		
+	//โหลดหน้ารายการทั้งหมดที่แจ้งความประสงค์
+	@RequestMapping(value = "/loadpagelistrequestHistory", method = RequestMethod.GET)
+	public String loadtListRequestHistory(HttpServletRequest request, Model md, HttpSession session) {
+	
+		return "ListRequest_History";
+	}	
+	
+	
+	//โหลดหน้าแก้ไขรายการแจ้งความประสงค์
 		@RequestMapping(value = "/loadEditRequestproduct", method = RequestMethod.GET)
-		public String loadEditRequestProductPage(HttpServletRequest request, Model md, HttpSession session) {
+		public String loadEditRequestProductPage(HttpServletRequest request, Model md, HttpSession session){
+			
 			String Text_OrderRequest_id = request.getParameter("OrderRequest_id");
 			String request_type = request.getParameter("request_type");
 			int OrderRequest_id = Integer.parseInt(Text_OrderRequest_id);
@@ -94,9 +120,8 @@ public class OrderRequestController {
 			
 		}
 		
-	
-	
-	//โหลดหน้ารายการรายละเอียดข้อมูลการแจ้งแบบไม่มีใบเสนอราคา
+
+	//โหลดหน้ารายการรายละเอียดข้อมูลการแจ้งความประสงค์
 		@RequestMapping(value = "/loadRequestDetail", method = RequestMethod.GET)
 		public String loadRequestDetailPage(HttpServletRequest request, Model md, HttpSession session) {
 			
@@ -324,7 +349,6 @@ public class OrderRequestController {
 				} else {
 					System.out.println("You failed to upload " + bfilequotation+ " because the file was empty.");
 				}    
-					
 					if (!file3.isEmpty()) {
 						
 						byte[] bytes = file3.getBytes();
@@ -369,7 +393,25 @@ public class OrderRequestController {
 			return "ListRequest";
 		}
 		
-		//Controller OrderRequest Product
+		@RequestMapping(value = "/pdf", method=RequestMethod.GET)
+		  public void showPdf(HttpServletResponse response, HttpServletRequest request) throws IOException {
+				request.setCharacterEncoding("UTF-8");
+				String filename = request.getParameter("filename");
+				String path = "E:/apache-tomcat-9.0.62/tmpFiles/";
+				response.setContentType("application/pdf");
+			    
+			    
+				response.setHeader("Content-Disposition","inline; filename="+filename+"");
+			    
+			    InputStream inputStream = new FileInputStream(new File(path+filename));
+			    int nRead;
+			    while ((nRead = inputStream.read()) != -1) {
+			        response.getWriter().write(nRead);
+			    }
+		  } 
+		
+		
+		//Controller Edit OrderRequest Product
 		@RequestMapping(value="/EditOrderRequestProduct", method=RequestMethod.POST)
 		public ModelAndView do_EditOrderRequestProduct(HttpServletRequest  request, HttpSession session) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");
@@ -420,6 +462,7 @@ public class OrderRequestController {
 				return mav;
 		}
 		
+		//Controller Edit OrderRequest Quotation
 		@RequestMapping(value="/EditOrderRequest2", method=RequestMethod.POST)
 		public ModelAndView do_editaddOrderRequest2
 				(@RequestParam("a_file_quotation") MultipartFile file1,

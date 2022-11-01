@@ -118,32 +118,92 @@
 
 function checkquotation(frm) {
 	
-	var companyname = /^[A-Za-zก-์\s]{2,50}$/; 
+	var companyname = /^[A-Za-z0-9ก-์\s]{2,150}$/; 
+	var quotationNo = /^[A-Za-z0-9@_]{4,20}$/; 
+	var FILE = /^([A-Za-z0-9ก-์\s_\\.\-\(\):])+(.pdf)$/;
 
-
-	//company name 1
+	//company  1 
 	if(frm.a_name_company.value == "") {
 		alert("กรุณากรอกชื่อบริษัท ที่ 1 ");
 		frm.a_name_company.focus();
 		return false;
 	}
-	//company name 2
+	if(!frm.a_name_company.value.match(companyname)){
+		alert("กรุณากรอกชื่อบริษัทเป็นภาษาไทยและภาษาอังกฤษ");		
+		frm.a_name_company.focus();
+		return false;
+	}
+	//No Quotatuion
+	if(frm.a_number_quotation.value == "") {
+		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 1 ");
+		frm.a_number_quotation.focus();
+		return false;
+	}
+	if(!frm.a_number_quotation.value.match(quotationNo)){
+		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
+		frm.a_number_quotation.focus();
+		return false;
+	}
+	//File
+	if(frm.a_file_quotation.value == "") {
+		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ");
+		frm.a_file_quotation.focus();
+		return false;
+	}
+	if(!frm.a_number_quotation.value.match(FILE)){
+		alert("ชื่อเลขที่ใบเสนอราคาไม่ถูกต้อง");		
+		frm.a_number_quotation.focus();
+		return false;
+	}
+	
+	
+	
+	//company  2 
 	if(frm.b_name_company.value == "") {
 		alert("กรุณากรอกชื่อบริษัท ที่ 2 ");
-		frm.a_name_company.focus();
+		frm.b_name_company.focus();
 		return false;
 	}
-	//company name 3
+	if(frm.b_number_quotation.value == "") {
+		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 2 ");
+		frm.b_number_quotation.focus();
+		return false;
+	}
+	
+	
+	//company  3 
 	if(frm.c_name_company.value == "") {
 		alert("กรุณากรอกชื่อบริษัท ที่ 3");
-		frm.a_name_company.focus();
+		frm.c_name_company.focus();
 		return false;
 	}
+	if(frm.c_number_quotation.value == "") {
+		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 3 ");
+		frm.c_number_quotation.focus();
+		return false;
+	}
+	
+	
+	
 	
 	
 	
 	
 } 
+
+
+function QDate() {
+    var UserDate = document.getElementById("a_date_quotation").value;
+    var ToDate = new Date();
+
+    if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
+         alert("วันที่เริ่มต้องหลังจากวันปัจจุบันเป็นต้นไป");
+         document.getElementById("a_date_quotation").value ="";	         
+          return false;
+     }
+    return true;
+}
+
 </script>       
         
      <!-- script link -->     

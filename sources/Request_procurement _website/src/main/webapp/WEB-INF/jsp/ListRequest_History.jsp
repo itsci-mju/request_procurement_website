@@ -6,9 +6,9 @@
 <%
 OrderRequestManager qm = new OrderRequestManager();
 StaffManager sm = new StaffManager();
+
 Login l = (Login) session.getAttribute("login");
-String major = (String) session.getAttribute("major");     
-List<OrderRequest> listorderRequest = qm.getAllListOrderRequest(major);
+List<OrderRequest> listorderRequest = qm.getAllListOrderRequestHistory();
 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 %>
 <!DOCTYPE html>
@@ -263,60 +263,41 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
              <br>
             <!-- Form Table -->
              <form class="" name="frm" action=""  id="product_form">    
-                     <div class="container product-table" style="height: 500px;">
+                     <div class="container product-table" style="height: 500px;"> 
                         <div class="row">
-                        	<div class="col-md-12">
+                            <div class="col-md-12">
                                 <div class="table-wrap" style="height: 300px;">
                                     <table class="table" id="form_table" style="text-align: center;">
+                                   
                                       <thead class="thead-dark">
                                         <tr>
                                           <th>ลำดับที่</th>
                                           <th>วันที่แจ้ง</th>
-                                          <% if(major.equals("0")){ %>
-                                        	 <th>ชื่อผู้แจ้ง</th>
-                                          	 <th>สาขา</th>
-                                          <% } %>
                                           <th>ประเภทการแจ้งความประสงค์</th>
                                           <th>สถานะ</th>
-                                          <th>ดูรายละเอียด,ยืนยัน /แก้ไข /ยกเลิก</th>
+                                          <th>ดูรายละเอียด</th>
                                         
                                         </tr>
                                       </thead>
                                        <% if (listorderRequest != null){%>
                                         <%for (int i=0 ; i<listorderRequest.size(); i++) {%>
-                                        	<% if(!listorderRequest.get(i).getStatus().equals("ดำเนินการสำเร็จ")){ %> 
-		                                     <!-- row input -->
-		                                      <tbody>
-		                                        <tr class="alert" role="alert">
-		                                          <th  scope="row"><%= listorderRequest.size()-i %></th>
-		                                          <td><%=sdf.format(listorderRequest.get(i).getOrderRequest_date().getTime())  %></td>     
-		                                          <% if(major.equals("0")){ %>
-                                        	 		<td><%= listorderRequest.get(i).getStaff().getStaff_name() %></td>
-                                          	 		<td><%= listorderRequest.get(i).getStaff().getMajor().getMajor_name() %></td>
-                                          		  <% } %>
-		                                          <td><%=listorderRequest.get(i).getRequest_type() %>     </td>  
-		                                          <td><%=listorderRequest.get(i).getStatus() %></td>  
-		                                        
-		                                          <td > 
-		                                           <a href="loadRequestDetail?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>">
-														<button type="button" class="button-17" role="button" >ดู 
-														&nbsp; 	<i class="gg-eye"></i>										
-														</button></a>&nbsp;
-												<% if(!listorderRequest.get(i).getStatus().equals("พัสดุกำลังจัดหาใบเสนอราคา")){ %>
-		                                           <a href="loadEditRequestproduct?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>"> 
-		                                          		<button type="button" class="button-18" role="button" >แก้ไข
-														&nbsp; 	<i class="gg-thermometer"></i>									
-														</button></a> &nbsp;	
-													<a href="deleteOrderRequest?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>">
-												<% } %>
-												<button type="button" class="button-19" role="button"  onclick="return confirm('แน่ใจหรือไม่ว่าต้องการลบข้อมูลนี้ ?');">ยกเลิก
-														&nbsp; &nbsp;	<i class="gg-backspace"></i>								
-														</button></a>
-												</td>                                    
-		
-		                                        </tr>                
-		                                      </tbody>
-		                                      <%} %>
+                                     <!-- row input -->
+                                      <tbody>
+                                        <tr class="alert" role="alert">
+                                          <th  scope="row"><%= listorderRequest.size()-i %></th>
+                                          <td><%=sdf.format(listorderRequest.get(i).getOrderRequest_date().getTime())  %></td>     
+                                          <td><%=listorderRequest.get(i).getRequest_type() %>     </td>  
+                                          <td><%=listorderRequest.get(i).getStatus() %></td>  
+                                        
+                                          <td > 
+                                           <a href="loadRequestDetail?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>">
+												<button type="button" class="button-17" role="button" >ดู 
+												&nbsp; 	<i class="gg-eye"></i>										
+												</button></a>
+										</td>                                    
+
+                                        </tr>                
+                                      </tbody>
                                       	<%} %>
                                       <%} %>
                                     </table>   

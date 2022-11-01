@@ -5,6 +5,7 @@
 
 <%
 
+
 String err = "";
 try {
 	err = (String) session.getAttribute("login");

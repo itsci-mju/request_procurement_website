@@ -135,16 +135,24 @@ public class OrderRequestManager {
 	 */
 
 	// show OrderRequest
-	public List<OrderRequest> getAllListOrderRequest() throws java.text.ParseException {
+	public List<OrderRequest> getAllListOrderRequest(String major) throws java.text.ParseException {
 		List<OrderRequest> list = new ArrayList<>();
 		ConnectionDB condb = new ConnectionDB();
 		Connection con = condb.getConnection();
 
 		try {
 			Statement stmt = con.createStatement();
-			String sql = "select o.orderRequest_id,o.orderRequest_date,o.status,o.request_type,s.username  "
-					+ "from orderrequest o inner join staff s ON o.staff_id = s.staff_id "
-					+ " order by o.orderRequest_date DESC;";
+			String sql;
+			if(!major.equals("0")) {
+				sql = "select o.orderRequest_id,o.orderRequest_date,o.status,o.request_type,s.username  "
+						+ "from orderrequest o inner join staff s ON o.staff_id = s.staff_id where s.major_id = '"+ major +"'  "
+						+ " order by o.orderRequest_date DESC;";
+			}else {
+				sql = "select o.orderRequest_id,o.orderRequest_date,o.status,o.request_type,s.username  "
+						+ "from orderrequest o inner join staff s ON o.staff_id = s.staff_id  "
+						+ " order by o.orderRequest_date DESC;";
+			}
+			
 			ResultSet rs = stmt.executeQuery(sql);
 			Staff s = new Staff();
 			StaffManager sm = new StaffManager();
@@ -188,7 +196,8 @@ public class OrderRequestManager {
 
 		return -1;
 	}
-
+	
+	//  OrderRequestByID
 	public OrderRequest OrderRequestByID(String orderRequestByid ) throws java.text.ParseException {
 		OrderRequest or = new OrderRequest();
 		ConnectionDB condb = new ConnectionDB();
@@ -223,4 +232,82 @@ public class OrderRequestManager {
 		return or;
 	}
 
+	// show OrderRequest History
+		public List<OrderRequest> getAllListOrderRequestHistory() throws java.text.ParseException {
+			List<OrderRequest> list = new ArrayList<>();
+			ConnectionDB condb = new ConnectionDB();
+			Connection con = condb.getConnection();
+
+			try {
+				Statement stmt = con.createStatement();
+				String sql = "select o.orderRequest_id,o.orderRequest_date,o.status,o.request_type,s.username  "
+						+ "from orderrequest o inner join staff s ON o.staff_id = s.staff_id where status = 'ดำเนินการสำเร็จ' "
+						+ " order by o.orderRequest_date DESC;";
+				ResultSet rs = stmt.executeQuery(sql);
+				Staff s = new Staff();
+				StaffManager sm = new StaffManager();
+				while (rs.next()) {
+					Integer orderRequest_id = rs.getInt(1);
+					String orderRequest_date = rs.getString(2);
+					String status = rs.getString(3);
+					String request_type = rs.getString(4);
+					String username = rs.getString(5);
+					s = sm.getStaff(username);
+					Calendar caldate = Calendar.getInstance();
+					String pattern = "yyyy-MM-dd HH:mm:ss";
+					SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+					caldate.setTime(sdf.parse(orderRequest_date));
+
+					OrderRequest or = new OrderRequest(orderRequest_id, caldate, status, request_type, "", s);
+					list.add(or);
+				}
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			return list;
+		}
+	
+		//----------------------------------------------------------------------------------------------
+		//Controller Supplies officer
+			// show OrderRequestBySupplies officer
+		public List<OrderRequest> getAllListOrderRequestBySuppliesOfficer() throws java.text.ParseException {
+			List<OrderRequest> list = new ArrayList<>();
+			ConnectionDB condb = new ConnectionDB();
+			Connection con = condb.getConnection();
+
+			try {
+				Statement stmt = con.createStatement();
+				String sql = "select o.orderRequest_id,o.orderRequest_date,o.status,o.request_type,s.username  "
+						+ "from orderrequest o inner join staff s ON o.staff_id = s.staff_id   "
+						+ " order by o.orderRequest_date DESC;";
+				ResultSet rs = stmt.executeQuery(sql);
+				Staff s = new Staff();
+				StaffManager sm = new StaffManager();
+				while (rs.next()) {
+					Integer orderRequest_id = rs.getInt(1);
+					String orderRequest_date = rs.getString(2);
+					String status = rs.getString(3);
+					String request_type = rs.getString(4);
+					String username = rs.getString(5);
+					s = sm.getStaff(username);
+					Calendar caldate = Calendar.getInstance();
+					String pattern = "yyyy-MM-dd HH:mm:ss";
+					SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+					caldate.setTime(sdf.parse(orderRequest_date));
+
+					OrderRequest or = new OrderRequest(orderRequest_id, caldate, status, request_type, "", s);
+					list.add(or);
+				}
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			return list;
+		}
+		
+		
+	
 }

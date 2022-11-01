@@ -134,7 +134,7 @@ public class ProductManager {
 		}
 	
 	
-		//show Data Product Detail
+		//show Data Products Detail
 				public List<Quantity> getproductdetails(int OrderRequest_id) {
 					List<Quantity> list = new ArrayList<>();
 					ConnectionDB condb = new ConnectionDB();

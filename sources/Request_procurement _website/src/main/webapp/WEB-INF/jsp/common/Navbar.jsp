@@ -5,6 +5,8 @@
 
 <%
 Login l = (Login) session.getAttribute("login");
+String username = (String) session.getAttribute("username"); 
+String mjName = (String) session.getAttribute("majorName");  
 %>
 
 <!DOCTYPE html>
@@ -62,6 +64,12 @@ a{text-decoration:none;}
                 color: rgba(0,0,0,0.7); font-weight: 700; margin-left: 50px;">Faculty of Science, Maejo University</span>
                </div>
             </td>
+            <%
+			if (l != null) {%>
+			<td style="width:350px">
+			<h3 class="" style="font-size: 1.2rem; ;font-weight: 700;color: #017f3f; ">ผู้ใช้ : <%= username %>  &nbsp; สาขา : <%= mjName %>
+			</td>
+			<%}%>
 			
             <td ><%
 			if (l != null) {
@@ -92,8 +100,13 @@ a{text-decoration:none;}
       <!-- ################################################################################################ -->
       <ul class="clear">
         <li class="active"><a href="loadindex">หน้าแรก</a></li>
+      <%if (l != null) {
+		%>
         <li><a class="" href="loadpagelistorder">ประวัติการแจ้งความประสงค์</a>
         </li>
+        <li><a class="" href="loadpagelistrequestHistory">ประวัติรายการที่ดำเนินการสำเร็จ</a>
+        <li><a class="" href="loadpageConfirm">ยืนยันการแจ้งความประสงค์</a>
+        <%}%>
         <li><a class="" href="http://www.science.mju.ac.th/role/role.html">ติดต่อ</a>
         </li>
         

@@ -69,7 +69,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                           <td><%=listFile.get(i).getFile_name() %></td>     
                                           <td> <%=listFile.get(i).getQuotation_no() %> </td>  
                                          <td><%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %></td>  
-                                         <td><%= listFile.get(i).getCompany_name() %></td>  
+                                         <td><a href="pdf?filename=<%= listFile.get(i).getCompany_name() %>"><%= listFile.get(i).getCompany_name() %></td>  
                                      
                                         </tr>                
                                       </tbody>
