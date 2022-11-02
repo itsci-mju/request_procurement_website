@@ -44,6 +44,9 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         <!--head-text-->
        	
 			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง (มีใบเสนอราคา)</h2>
+                <form id="frm" name="frm" action="loadpageAddcommentBySupplise" method="post" >
+                <input type="hidden" name="OrderRequest_id" id="OrderRequest_id" value="<%= order_q.getOrderRequest_id() %>">
+                
                  <div class="container product-table" style="height: 500px;"> 
                         <div class="row">
                             <div class="col-md-12">
@@ -75,34 +78,53 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                       </tbody>
                                       	<%} %>
                                       <%} %>
-                                      
-                                      
-                                    </table> 
-                                    <% if (order_q.getStatus().equals("ข้อมูลความประสงค์ไม่ถูกต้อง")){ %>
-	                                    <div>
-		                                    <label for="exampleFormControlTextarea1">คำเสนอแนะ</label>
-		                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
-					                    </div>
-	                                    
-                                     <%} %>
+                                     
+                                    </table>   
+                                    <div class="form-check">
+                                    <div>  <input class="form-check-input" type="radio" name="quotation_check" id="radio1"  value="1" checked>
+									  <label class="form-check-label" for="flexRadioDefault1" >
+									   ใบเสนอราคาถูกต้อง
+									  </label></div>
+									
+									 <div >
+									  <input class="form-check-input" type="radio" name="quotation_check" id="radio2" value="2">
+									  <label class="form-check-label" for="flexRadioDefault1">
+									   ใบเสนอราคาไม่ถูกต้อง
+									  </label>
+									</div> 
+									</div>
+									 
+
+                                    <%if (majorname.equals("เจ้าหน้าที่")) {%>
+                                    <div>
+                                   
+                                    <label for="exampleFormControlTextarea1">คำเสนอแนะ</label>
+                                    <textarea class="form-control" id="comment" name="comment"></textarea>
                                     
-                                  <div> 
+                                      <div>
+				                    <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm);"> ส่งคำเสนอแนะ  </button>             
+				                    </div>
+                                    
+                                <%} %>
 			          			<!-- Button link-->
 			                    <a class="" href="loadpagelistorder"  style=" margin-left: 37%;">
 			                     <button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button>         
 			              		</a>
                                     </div>
-                                    
+                                   
                                     	
-                                </div>    
+                                </div>   
                             </div>
                         </div>
-					</div>
+                         
+					</div>	
+					</form> 
              
          <br><br><br>
          <br><br><br>
                 <!-- Footer -->
       <div>    <jsp:include page="common/footer.jsp"/>       </div>
+
 
 	<!-- script link -->
   	<script src="layout/scripts/jquery.min.js"></script>

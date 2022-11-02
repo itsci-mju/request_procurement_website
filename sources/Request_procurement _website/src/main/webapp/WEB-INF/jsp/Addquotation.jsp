@@ -4,7 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%Login l = (Login) session.getAttribute("login"); 
-  
+
+String OrderRequest_id = (String) session.getAttribute("OrderRequest_id");     
+
 
 %>
 
@@ -42,11 +44,11 @@
         <!--head-text-->
       
           
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">แจ้งความประสงค์การจัดซื้อจัดจ้าง (มีใบเสนอราคา)</h2>
+			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">เพิ่มใบเสนอราคา </h2>
          <br>
               <% if (l != null){ %>
             <!-- Form Table -->
-             <form class="" id="frm" name="frm" action="addOrderRequest2?username=<%= l.getUsername()  %>"  method="post" enctype="multipart/form-data">
+             <form class="" id="frm" name="frm" action="addQuotationBysupplies?username=<%= l.getUsername() %>&&OrderRequest_id=<%=OrderRequest_id %> "  method="post" enctype="multipart/form-data">
                 
                     <div class="container" style="margin-top: -50px;">
                      
@@ -101,7 +103,7 @@
                  <br><br><br>
                     <!-- Button link-->
                     <div>
-                    <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm);"> ส่งคำขอ  </button>             
+                    <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm);"> เพิ่มใบเสนอราคา  </button>             
                     </div>
                    </form>
                     <%} %>  
@@ -246,16 +248,7 @@ function checkquotation(frm) {
 		return false;
 	}
 
-	
-	
-	
-	
-	
-	
-	
 } 
-
-
 
 </script>       
         

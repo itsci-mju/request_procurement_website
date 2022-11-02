@@ -44,32 +44,43 @@ public class LoginController {
 	
 
 	  @RequestMapping(value = "/login", method = RequestMethod.POST) 
-		  public String  doLogin1(HttpServletRequest request, Model md, HttpSession session) { String
-		  uname = request.getParameter("uname"); 
+		  public String  doLogin1(HttpServletRequest request, Model md, HttpSession session) { 
+		  String uname = request.getParameter("uname"); 
 		  String pwd = request.getParameter("pwd");
 		  LoginManager lm = new LoginManager();
 		  StaffManager sm = new StaffManager();
-		  Login l = new Login(uname, pwd,"");  
-		  l = lm.verifyLogin(l);
-		  Staff s = sm.getStaff(l.getUsername());
+		  Login l = null;
+		  l = lm.verifyLogin( new Login(uname, pwd,""));
+		 
 		  if (l != null) { 
+			  Staff s = sm.getStaff(l.getUsername());
 			  md.addAttribute("user", l.getUsername());
+			  session.setMaxInactiveInterval(60 * 60);
 			  session.setAttribute("login", l);
 			  session.setAttribute("username", l.getUsername());
 			  session.setAttribute("major", String.valueOf(s.getMajor().getMajor_id()));
 			  session.setAttribute("majorName", s.getMajor().getMajor_name());
+			  session.setAttribute("staffname", s.getStaff_name());
+			  if(s.getMajor().getMajor_id()==0){
+				  return "ListRequest"; 
+				  
+			  }else {
 			  return "index"; 
-			  } else {
-				  session.setAttribute("login", "ชื่อผู้ใช้หรือรหัสไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง");
-				  return  "login";
-			} 
-		  }
+			  }
+		}else  {
+			  session.setAttribute("login", "ชื่อผู้ใช้หรือรหัสไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง");
+			  return  "login";
+		} 
+		  
+	  }
+	  
 	  
 	  
 	  @RequestMapping(value = "/logout", method = RequestMethod.GET) 
 	  public String  doLogout(HttpSession session) { 
 		  session.removeAttribute("login");
 		  session.removeAttribute("user");
+		  
 		  return  "login";
 	  }
 	  

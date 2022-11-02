@@ -263,7 +263,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
              <br>
             <!-- Form Table -->
              <form class="" name="frm" action=""  id="product_form">    
-                     <div class="container product-table" style="height: 500px;">
+                     <div class=" product-table" style="height: 500px;">
                         <div class="row">
                         	<div class="col-md-12">
                                 <div class="table-wrap" style="height: 300px;">
@@ -294,24 +294,68 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                                         	 		<td><%= listorderRequest.get(i).getStaff().getStaff_name() %></td>
                                           	 		<td><%= listorderRequest.get(i).getStaff().getMajor().getMajor_name() %></td>
                                           		  <% } %>
-		                                          <td><%=listorderRequest.get(i).getRequest_type() %>     </td>  
-		                                          <td><%=listorderRequest.get(i).getStatus() %></td>  
+		                                          <td><%=listorderRequest.get(i).getRequest_type() %> </td>  
+		                                          
+		                                          <% if(listorderRequest.get(i).getStatus().equals("ยืนยันความประสงค์") && major.equals("0")){ %>
+		                                          	<td><label style="color: orange;">รอยืนยันความประสงค์</label></td>  
+	                                          	  <% }else if(listorderRequest.get(i).getStatus().equals("ยืนยันความประสงค์") && !major.equals("0")){ %>
+	                                          	    <td><label style="color: green;"><%=listorderRequest.get(i).getStatus() %></label></td>  
+		                                          <% }else if(listorderRequest.get(i).getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ")){ %>
+		                                          	<td><label style="color: orange;"><%=listorderRequest.get(i).getStatus() %></label></td>  
+	                                          	  <% }else if(listorderRequest.get(i).getStatus().equals("รอยืนยันความประสงค์") && major.equals("0")){ %>
+	                                          		<td><label style="color: orange;"><%= listorderRequest.get(i).getStatus() %></label></td>  
+                                          		  <% }else if(listorderRequest.get(i).getStatus().equals("รอยืนยันความประสงค์") && !major.equals("0")){ %>
+                                          		    <td><label style="color: green;">ยืนยันความประสงค์</label></td>  
+		                                          <% }else if(listorderRequest.get(i).getStatus().equals("ข้อมูลความประสงค์ไม่ถูกต้อง")){ %>
+		                                          	<td><label style="color: red;"><%=listorderRequest.get(i).getStatus() %></label></td> 
+		                                          <% }else if(listorderRequest.get(i).getStatus().equals("ยืนยันความประสงค์สำเร็จ")){ %>
+		                                          	<td><label style="color: green;"><%=listorderRequest.get(i).getStatus() %></label></td> 
+		                                          <% } %>
 		                                        
 		                                          <td > 
 		                                           <a href="loadRequestDetail?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>">
 														<button type="button" class="button-17" role="button" >ดู 
 														&nbsp; 	<i class="gg-eye"></i>										
 														</button></a>&nbsp;
-												<% if(!listorderRequest.get(i).getStatus().equals("พัสดุกำลังจัดหาใบเสนอราคา")){ %>
-		                                           <a href="loadEditRequestproduct?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>"> 
+												<% if(listorderRequest.get(i).getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") || listorderRequest.get(i).getStatus().equals("ข้อมูลความประสงค์ไม่ถูกต้อง") ){ %>						 	
+		                                           <a href="loadEditRequestproduct?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>  "> 
 		                                          		<button type="button" class="button-18" role="button" >แก้ไข
 														&nbsp; 	<i class="gg-thermometer"></i>									
 														</button></a> &nbsp;	
-													<a href="deleteOrderRequest?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>">
-												<% } %>
+															
+														<%}%>
+														<% if((listorderRequest.get(i).getStatus().equals("ยืนยันความประสงค์") && !major.equals("0")) || (listorderRequest.get(i).getStatus().equals("รอยืนยันความประสงค์") && !major.equals("0"))){ %>
+														   <a href="loadpageConfirm?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>">
+														<button type="button" class="button-17" role="button" >ยืนยัน
+														&nbsp; 	<i class="gg-eye"></i>										
+														</button></a>&nbsp;
+													
+														<%}%>
+															<% if(listorderRequest.get(i).getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") && listorderRequest.get(i).getRequest_type().equals("มีใบเสนอราคา")&& major.equals("0") ){ %>
+															<a href="loadpageQuotationDetailBySupplise?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>"> 
+		                                          		<button type="button" class="button-18" role="button" >ตรวจสอบ
+														&nbsp; 	<i class="gg-thermometer"></i>									
+														</button></a> &nbsp;
+															
+														<%}%>
+															<% if(listorderRequest.get(i).getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") && listorderRequest.get(i).getRequest_type().equals("ไม่มีใบเสนอราคา")&& major.equals("0") ){ %>
+															<a href="loadpageAddQuotation?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>"> 
+		                                          		<button type="button" class="button-18" role="button" >เพิ่มใบเสนอราคา
+														&nbsp; 	<i class="gg-thermometer"></i>									
+														</button></a> &nbsp;
+															
+														<%}%>
+												<% if(listorderRequest.get(i).getStatus().equals("ดำเนินการไม่สำเร็จ") ){ %>
+												<a href="deleteOrderRequest?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>">												
+												<button type="button" class="button-19" role="button"  onclick="return confirm('แน่ใจหรือไม่ว่าต้องการลบข้อมูลนี้ ?');">ลบ
+														&nbsp; &nbsp;	<i class="gg-backspace"></i>								
+														</button></a>
+												<%}else {%>
+												<a href="deleteOrderRequest?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>">												
 												<button type="button" class="button-19" role="button"  onclick="return confirm('แน่ใจหรือไม่ว่าต้องการลบข้อมูลนี้ ?');">ยกเลิก
 														&nbsp; &nbsp;	<i class="gg-backspace"></i>								
 														</button></a>
+												<%} %>
 												</td>                                    
 		
 		                                        </tr>                

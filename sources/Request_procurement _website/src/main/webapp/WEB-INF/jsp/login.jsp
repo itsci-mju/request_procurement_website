@@ -99,8 +99,13 @@ font-family: 'Kanit', sans-serif;
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" Onclick="return check(frm)">เข้าสู่ระบบ</button>
 					</div>
-
-				
+					<br>
+					<% if(err != null){ %>
+						<div class="" style="width:500px">
+							<label style="color: red;"><%= err %></label>
+						</div>
+						
+					<% } %>
 
 				
 				</form>
@@ -122,7 +127,7 @@ font-family: 'Kanit', sans-serif;
 <script type="text/javascript">
 
 function check(frm) {
-	var un1 = /^[A-Za-z0-9]{4,30}$/; 
+	var un1 = /^[A-Za-z0-9@_]{4,30}$/; 
 	var password1 = /^[A-Za-z0-9@_]{4,15}$/; 
 	//ชื่อผู้ใช้
 	if(frm.uname.value == "") {
@@ -130,11 +135,11 @@ function check(frm) {
 		frm.uname.focus();
 		return false;
 	}
-	if(!frm.uname.value.match(un1)){
+	/*if(!frm.uname.value.match(un1)){
 		alert("กรุณากรอกชื่อผู้ใช้เป็นภาษาอังกฤษและตัวเลข มีตัวอักษร 6-30 เท่านั้น");		
 		frm.uname.focus();
 		return false;
-	}
+	}*/
 	
 	//รหัส
 	if(frm.pwd.value == "") {

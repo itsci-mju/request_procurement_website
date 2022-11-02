@@ -76,18 +76,15 @@ String  nowDate = caldateformat.format(calendar.getTime());
                                       	<%} %>
                                       <%} %>
                                     </table>   
-                                    
-                                   <div class="mb-3" >
-									  <label for="exampleFormControlTextarea1" class="form-label">คำเสนอแนะ</label>
-									  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-									</div>
+                                   
 									
                                     <br>
                                     
                                      
                                     <div>                                    
                                     <h4 style="text-align: center;">แบบยืนยันความประสงค์ในการขอซื้อของจ้าง</h4>
-                                    <form>
+                                   <form class="" id="frm" name="frm" action="addConfirmform"  method="post">
+                					<input type="hidden" name="OrderRequest_id" value="<%= order_q.getOrderRequest_id() %>">
                                   <h6 style="text-align: right;"> วันที่ <%=caldateformat.format(calendar.getTime()) %> </h6>
                                     <table class="table">
 									  <thead  class="thead-dark">
@@ -114,21 +111,21 @@ String  nowDate = caldateformat.format(calendar.getTime());
 									   <td style="width: 148px;">ใช้เงิน :</td>
 									   <td>
 									   		<div class="form-check">
-											  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+											  <input class="form-check-input" type="radio" value="เงินรายได้" name="money_type" id="money_type1">
 											  <label class="form-check-label" for="flexCheckDefault">เงินรายได้ </label></div>
 									   </td>
 									 
 									   <td>
 									   <div class="form-check">
-											  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+											  <input class="form-check-input" type="radio" value="เงินสะสมเพื่อการบริหารรายได้" name="money_type" id="money_type2">
 											  <label class="form-check-label" for="flexCheckDefault"> เงินสะสมเพื่อการบริหารรายได้</label></div>
 									   </td>
 									   
 									   <td>
 									   <div class="form-check">
-											  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"> 
+											  <input class="form-check-input" type="radio" value="" name="money_type" id="money_type3"> 
 											  <label class="form-check-label" for="flexCheckDefault"> อื่นๆ </label>
-											  <span><input style="width:150px" type="text" class="form-control" >
+											  <span><input style="width:150px" type="text" class="form-control" name="money_type_etc">
 											 </span>
 											</div>
 											  
@@ -143,14 +140,14 @@ String  nowDate = caldateformat.format(calendar.getTime());
 									   เหตุผลความจำเป็น : 
 									   </td>
 									   <td> <div class="form-check">
-											  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+											  <input class="form-check-input" type="radio" value="1" name="necessity_type" id="necessity_type1" >
 											  <label class="form-check-label" for="flexCheckChecked">
 											  เพื่อใช้สำหรับการเรียนการสอน รายวิชา</label>
 											</div>
 										</td>	
 										
 										<td>
-										 <input style="width:150px" type="text" class="form-control" >
+										 <input style="width:150px" type="text" class="form-control" name="necessity_type1_text" >
 											 
 										</td>
 									</tr>									
@@ -158,7 +155,7 @@ String  nowDate = caldateformat.format(calendar.getTime());
 									<td></td>
 									<td>
 										 <div class="form-check">
-											  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+											  <input class="form-check-input" type="radio" value="2" name="necessity_type" id="necessity_type2"  >
 											  <label class="form-check-label" for="flexCheckChecked">
 											  เพื่อใช้สำหรับการเรียนการสอน รายวิชา วท.498											  
 											  </label>
@@ -169,21 +166,21 @@ String  nowDate = caldateformat.format(calendar.getTime());
 										</td>
 										
 										<td>
-										<input style="width:150px" type="text" class="form-control" >
+										<input style="width:150px" type="text" class="form-control" name="necessity_type2_text1">
 										</td>
 										<td></td>
 										<td><label class="form-check-label" for="flexCheckChecked">&nbsp;&nbsp; ชื่อ-นามสกุล นักศึกษา</label>&nbsp;&nbsp; 
 										</td>
 										
 										<td>
-										<input style="width:150px" type="text" class="form-control" >
+										<input style="width:150px" type="text" class="form-control" name="necessity_type2_text2">
 										</td>
 									</tr>
 									
 									<tr>
 									  <td> </td>
 									   <td> <div class="form-check">
-											  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+											  <input class="form-check-input" type="radio" value="เพื่อใช้ในการปฎิบัติงานในหลักสูตร" name="necessity_type" id="necessity_type3"  >
 											  <label class="form-check-label" for="flexCheckChecked">
 										  เพื่อใช้ในการปฎิบัติงานในหลักสูตร</label>
 											</div>
@@ -194,7 +191,7 @@ String  nowDate = caldateformat.format(calendar.getTime());
 										<tr>
 									  <td> </td>
 									   <td> <div class="form-check">
-											  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+											  <input class="form-check-input" type="radio" value="เพื่อใช้ในโครงการตามยุตธศาสตร์" name="necessity_type" id="necessity_type4" >
 											  <label class="form-check-label" for="flexCheckChecked">
 										  เพื่อใช้ในโครงการตามยุตธศาสตร์</label>
 											</div>
@@ -205,14 +202,14 @@ String  nowDate = caldateformat.format(calendar.getTime());
 									  <td>
 									   </td>
 									   <td> <div class="form-check">
-											  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+											  <input class="form-check-input" type="radio" value="" name="necessity_type" id="necessity_type5" >
 											  <label class="form-check-label" for="flexCheckChecked">
 											  อื่นๆ </label>
 											</div>
 										</td>	
 										
 										<td>
-										 <input style="width:150px" type="text" class="form-control" >
+										 <input style="width:150px" type="text" class="form-control" name="necessity_type_etc">
 											 
 										</td>
 									</tr>	
@@ -233,7 +230,7 @@ String  nowDate = caldateformat.format(calendar.getTime());
 										</td>	
 										
 										<td>
-										 <input style="width:250px" type="text" class="form-control" >
+										 <input style="width:250px" type="text" class="form-control" name="chairman_Board_name">
 											 
 										</td>
 										
@@ -244,7 +241,7 @@ String  nowDate = caldateformat.format(calendar.getTime());
 										</td>	
 										
 										<td>
-										 <input style="width:250px" type="text" class="form-control" >
+										 <input style="width:250px" type="text" class="form-control" name="board_name1">
 											 
 										</td>
 										
@@ -255,7 +252,7 @@ String  nowDate = caldateformat.format(calendar.getTime());
 										</td>	
 										
 										<td>
-										 <input style="width:250px" type="text" class="form-control" >
+										 <input style="width:250px" type="text" class="form-control" name="board_name2">
 											 
 										</td>
 									
@@ -270,8 +267,11 @@ String  nowDate = caldateformat.format(calendar.getTime());
                                  <div style="text-align:center"> 
                                   <label class="form-check-label" for="flexCheckChecked">ผู้เสนอ / ผู้ต้องการใช้พัสดุ</label>
 									</div>
-										  
-								
+							 <br><br>			  
+								 <!-- Button link-->
+                    <div>
+                    <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm);"> เพิ่มใบเสนอราคา  </button>             
+                    </div>
                                     
                                     </form>
                                        	  <!-- Button link-->

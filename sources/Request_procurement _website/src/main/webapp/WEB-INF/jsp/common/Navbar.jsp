@@ -7,6 +7,7 @@
 Login l = (Login) session.getAttribute("login");
 String username = (String) session.getAttribute("username"); 
 String mjName = (String) session.getAttribute("majorName");  
+String staffname = (String) session.getAttribute("staffname");  
 %>
 
 <!DOCTYPE html>
@@ -66,14 +67,17 @@ a{text-decoration:none;}
             </td>
             <%
 			if (l != null) {%>
+			<% if(mjName.equals("เจ้าหน้าที่")){ %>
 			<td style="width:350px">
-			<h3 class="" style="font-size: 1.2rem; ;font-weight: 700;color: #017f3f; ">ผู้ใช้ : <%= username %>  &nbsp; สาขา : <%= mjName %>
+			<h3 class="" style="font-size: 1.2rem; ;font-weight: 700;color: #017f3f; ">ผู้ใช้ : <%= staffname %>  &nbsp; ตำแหน่ง : <%= mjName %> </h3>
+			</td>
+				<%}else {%>
+				<td style="width:350px">
+			<h3 class="" style="font-size: 1.2rem; ;font-weight: 700;color: #017f3f; ">ผู้ใช้ : <%= staffname %>  &nbsp; สาขา : <%= mjName %> </h3>
 			</td>
 			<%}%>
-			
-            <td ><%
-			if (l != null) {
-			%>
+			<%}%>
+            <td ><%	if (l != null) {%>
 			 <a href="logout"><h3 class="login-hover" style="font-size: 1.2rem; background-color: #017f3f;font-weight: 700; ">ออกจากระบบ &nbsp;<i class="gg-mail-reply"></i></h3></a>  	
              <%
 			} else {
@@ -99,13 +103,14 @@ a{text-decoration:none;}
     <nav id="mainav" style="margin-top: -50px"> 
       <!-- ################################################################################################ -->
       <ul class="clear">
+      <%if (l != null) {%>
+		<% if(!mjName.equals("เจ้าหน้าที่")){ %>
         <li class="active"><a href="loadindex">หน้าแรก</a></li>
-      <%if (l != null) {
-		%>
+      <%}%>
         <li><a class="" href="loadpagelistorder">ประวัติการแจ้งความประสงค์</a>
         </li>
         <li><a class="" href="loadpagelistrequestHistory">ประวัติรายการที่ดำเนินการสำเร็จ</a>
-        <li><a class="" href="loadpageConfirm">ยืนยันการแจ้งความประสงค์</a>
+        
         <%}%>
         <li><a class="" href="http://www.science.mju.ac.th/role/role.html">ติดต่อ</a>
         </li>

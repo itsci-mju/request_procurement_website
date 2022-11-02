@@ -95,11 +95,19 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                           <td><input type="file" class="form-control" id="c-row4" name="c_file_quotation" style="width: 250px" value="<%= listFile.get(2).getCompany_name() %>"><%= listFile.get(2).getCompany_name() %></td>                                                                         
                                         </tr>         
                                       </tbody>
-                                    </table>   
+                                    </table>  
+                                     
                                 </div>  
+                                <% if (order_q.getStatus().equals("ข้อมูลความประสงค์ไม่ถูกต้อง")){ %>
+                                    <div>
+	                                    <label for="exampleFormControlTextarea1">คำเสนอแนะ</label>
+	                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
+				                    </div>
+                                <%} %>
                             </div>	
                         </div>
                     </div>   
+                    
                  <br><br><br>
                     <!-- Button link-->
                     <div>
