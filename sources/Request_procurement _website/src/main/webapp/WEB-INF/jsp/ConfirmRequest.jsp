@@ -38,6 +38,23 @@ String  nowDate = caldateformat.format(calendar.getTime());
 	     <link href='https://css.gg/lock.css' rel='stylesheet'>
     	 <link href='https://css.gg/mail.css' rel='stylesheet'>
 </head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap');
+ .h4font{
+ font-family: 'Kanit', sans-serif;
+ }
+
+ .inputRadio{
+ height: 35px;
+    font-size: 14px;
+    font-weight: 600;
+ }
+ .formcon{
+     background-color: #F4F9F9;
+    border: solid; 
+    padding: 25px;
+    border-radius: 90px;}
+</style>
 <body id="page-top">
         <!-- Navigation -->
        <jsp:include page="common/Navbar.jsp"/>
@@ -81,11 +98,11 @@ String  nowDate = caldateformat.format(calendar.getTime());
                                     <br>
                                     
                                      
-                                    <div>                                    
-                                    <h4 style="text-align: center;">แบบยืนยันความประสงค์ในการขอซื้อของจ้าง</h4>
+                                    <div class="formcon">                                    
+                                  <h4 style="text-align: center;">  <b>แบบยืนยันความประสงค์ในการขอซื้อของจ้าง</b></h4>
                                    <form class="" id="frm" name="frm" action="addConfirmform"  method="post">
                 					<input type="hidden" name="OrderRequest_id" value="<%= order_q.getOrderRequest_id() %>">
-                                  <h6 style="text-align: right;"> วันที่ <%=caldateformat.format(calendar.getTime()) %> </h6>
+                                  <h6 style="text-align: right;" class="h4font"> <b>วันที่ <%=caldateformat.format(calendar.getTime()) %></b> </h6>
                                     <table class="table">
 									  <thead  class="thead-dark">
 									    <tr>
@@ -106,164 +123,121 @@ String  nowDate = caldateformat.format(calendar.getTime());
 									    </tr>	
 									    </thead>
 									     </table>	
-									   <table class="">				    
-									   <tr>
-									   <td style="width: 148px;">ใช้เงิน :</td>
-									   <td>
-									   		<div class="form-check">
-											  <input class="form-check-input" type="radio" value="เงินรายได้" name="money_type" id="money_type1">
-											  <label class="form-check-label" for="flexCheckDefault">เงินรายได้ </label></div>
-									   </td>
 									 
-									   <td>
-									   <div class="form-check">
-											  <input class="form-check-input" type="radio" value="เงินสะสมเพื่อการบริหารรายได้" name="money_type" id="money_type2">
-											  <label class="form-check-label" for="flexCheckDefault"> เงินสะสมเพื่อการบริหารรายได้</label></div>
-									   </td>
-									   
-									   <td>
-									   <div class="form-check">
-											  <input class="form-check-input" type="radio" value="" name="money_type" id="money_type3"> 
-											  <label class="form-check-label" for="flexCheckDefault"> อื่นๆ </label>
-											  <span><input style="width:150px" type="text" class="form-control" name="money_type_etc">
-											 </span>
-											</div>
-											  
-									   </td>
-																												   
-									 </tr>
-									  </table>
-									  									  
-									  <table >
-									 <tr>
-									  <td>
-									   เหตุผลความจำเป็น : 
-									   </td>
-									   <td> <div class="form-check">
-											  <input class="form-check-input" type="radio" value="1" name="necessity_type" id="necessity_type1" >
-											  <label class="form-check-label" for="flexCheckChecked">
-											  เพื่อใช้สำหรับการเรียนการสอน รายวิชา</label>
-											</div>
-										</td>	
+									 	<div>
+									 	 <h4><b> ใช้เงิน :</b> </h4> 
+									 	 
+									 	 
+									 	</div>	
+									 	
+										<div class="form-check">
+											 <input class="" type="radio" value="เงินรายได้" name="money_type" id="money_type1">
+										<label class="form-check-label" for="flexCheckDefault">เงินรายได้ </label> 
+										</div>
 										
-										<td>
-										 <input style="width:150px" type="text" class="form-control" name="necessity_type1_text" >
-											 
-										</td>
-									</tr>									
-									<tr>
-									<td></td>
-									<td>
-										 <div class="form-check">
-											  <input class="form-check-input" type="radio" value="2" name="necessity_type" id="necessity_type2"  >
+										<div class="form-check">
+											  <input class="" type="radio" value="เงินสะสมเพื่อการบริหารรายได้" name="money_type" id="money_type2">
+											  <label class="form-check-label" for="flexCheckDefault"> เงินสะสมเพื่อการบริหารรายได้</label>
+										</div>
+										<div class="form-check">
+											  <input class="" type="radio" value="" name="money_type" id="money_type3"> 
+											  <label class="form-check-label" for="flexCheckDefault"> อื่นๆ :</label>	
+											   <input style="width:150px" type="text" class="inputRadio" name="money_type_etc"> 																								   
+														
+										</div> 
+									  	
+									  	<br>		
+									 	<div>
+									 	<h4><b>เหตุผลความจำเป็น : </b> </h4> 
+									 	</div>									  
+										<div class="form-check">
+											  <input class="" type="radio" value="1" name="necessity_type" id="necessity_type1" >
+											  <label class="form-check-label" for="flexCheckChecked">
+											  เพื่อใช้สำหรับการเรียนการสอน รายวิชา :</label>
+											   <input style="width:150px" type="text" class="inputRadio" name="necessity_type1_text" >
+										</div>
+											
+										<div class="form-check" style="margin-top:5px">
+											  <input class="" type="radio" value="2" name="necessity_type" id="necessity_type2"  >
 											  <label class="form-check-label" for="flexCheckChecked">
 											  เพื่อใช้สำหรับการเรียนการสอน รายวิชา วท.498											  
 											  </label>
-											  </div>
-										</td>	
-
-										<td ><label  class="form-check-label" for="flexCheckChecked">&nbsp;&nbsp; หัวข้อ </label>&nbsp;&nbsp;
-										</td>
+											  
+											  <label  class="form-check-label" for="flexCheckChecked">&nbsp;&nbsp; หัวข้อ : </label>
+											  <input style="width:150px" type="text" class="inputRadio" name="necessity_type2_text1">&nbsp; 
+											  
+											  <label class="form-check-label" for="flexCheckChecked">&nbsp;&nbsp; ชื่อ-นามสกุล นักศึกษา :</label>&nbsp;
+											<input style="width:150px" type="text" class="inputRadio" name="necessity_type2_text2">
+											  
+											  
+										</div>
 										
-										<td>
-										<input style="width:150px" type="text" class="form-control" name="necessity_type2_text1">
-										</td>
-										<td></td>
-										<td><label class="form-check-label" for="flexCheckChecked">&nbsp;&nbsp; ชื่อ-นามสกุล นักศึกษา</label>&nbsp;&nbsp; 
-										</td>
+										<div class="form-check" style="margin-top:5px">
+											  <input class="" type="radio" value="เพื่อใช้ในการปฎิบัติงานในหลักสูตร" name="necessity_type" id="necessity_type3"  >
+											  <label class="form-check-label" for="flexCheckChecked">เพื่อใช้ในการปฎิบัติงานในหลักสูตร </label>
+										</div>
 										
-										<td>
-										<input style="width:150px" type="text" class="form-control" name="necessity_type2_text2">
-										</td>
-									</tr>
-									
-									<tr>
-									  <td> </td>
-									   <td> <div class="form-check">
-											  <input class="form-check-input" type="radio" value="เพื่อใช้ในการปฎิบัติงานในหลักสูตร" name="necessity_type" id="necessity_type3"  >
-											  <label class="form-check-label" for="flexCheckChecked">
-										  เพื่อใช้ในการปฎิบัติงานในหลักสูตร</label>
-											</div>
-										</td>	
+										<div class="form-check" style="margin-top:5px">
+											  <input class="" type="radio" value="เพื่อใช้ในโครงการตามยุตธศาสตร์" name="necessity_type" id="necessity_type4" >
+											  <label class="form-check-label" for="flexCheckChecked">เพื่อใช้ในโครงการตามยุตธศาสตร์ </label>
+										</div>  
 										
-									
-									</tr>
-										<tr>
-									  <td> </td>
-									   <td> <div class="form-check">
-											  <input class="form-check-input" type="radio" value="เพื่อใช้ในโครงการตามยุตธศาสตร์" name="necessity_type" id="necessity_type4" >
-											  <label class="form-check-label" for="flexCheckChecked">
-										  เพื่อใช้ในโครงการตามยุตธศาสตร์</label>
-											</div>
-										</td>	
-
-									</tr>
-									 <tr>
-									  <td>
-									   </td>
-									   <td> <div class="form-check">
-											  <input class="form-check-input" type="radio" value="" name="necessity_type" id="necessity_type5" >
-											  <label class="form-check-label" for="flexCheckChecked">
-											  อื่นๆ </label>
-											</div>
-										</td>	
-										
-										<td>
-										 <input style="width:150px" type="text" class="form-control" name="necessity_type_etc">
-											 
-										</td>
-									</tr>	
-
-                                    </table>
+										<div class="form-check" style="margin-top:5px">
+											  <input class="" type="radio" value="" name="necessity_type" id="necessity_type5" >
+											  <label class="form-check-label" for="flexCheckChecked">อื่นๆ :</label>
+											  <input style="width:150px" type="text" class="inputRadio" name="necessity_type_etc">	 
+											</div>	  
+                                    
+                                    <br>
+                                    
                                     
                                     
                                     <table>
-                                    <br>
-                                   	<h4> คณะกรรมการตรวจรับพัสดุ (วงเงิน 10,000.- ขึ้นไป กรรมการ 3 ท่าน) : </h4>
+                                    
+                                   	<h4><b>คณะกรรมการตรวจรับพัสดุ (วงเงิน 10,000.- ขึ้นไป กรรมการ 3 ท่าน) :</b>  </h4>
 									 
 									<tr>
 									<td></td>
 									  <td> <div class="form-check">
-											  <label class="form-check-label" for="flexCheckChecked">1. ประธานกรรมการ&nbsp;&nbsp;
+											  <label class="form-check-label" for="flexCheckChecked">1.ประธานกรรมการ:&nbsp;&nbsp;
 											  </label>
 											</div>
 										</td>	
 										
 										<td>
-										 <input style="width:250px" type="text" class="form-control" name="chairman_Board_name">
+										 <input style="width:250px" type="text" class="inputRadio" name="chairman_Board_name">
 											 
 										</td>
 										
 										  <td> <div class="form-check">
-											  <label class="form-check-label" for="flexCheckChecked">2. กรรมการ&nbsp;&nbsp;
+											  <label class="form-check-label" for="flexCheckChecked">2.กรรมการ:&nbsp;&nbsp;
 											  </label>
 											</div>
 										</td>	
 										
 										<td>
-										 <input style="width:250px" type="text" class="form-control" name="board_name1">
+										 <input style="width:250px" type="text" class="inputRadio" name="board_name1">
 											 
 										</td>
 										
 											  <td> <div class="form-check">
-											  <label class="form-check-label" for="flexCheckChecked">3. กรรมการ&nbsp;&nbsp;
+											  <label class="form-check-label" for="flexCheckChecked">3.กรรมการ:&nbsp;&nbsp;
 											  </label>
 											</div>
 										</td>	
 										
 										<td>
-										 <input style="width:250px" type="text" class="form-control" name="board_name2">
+										 <input style="width:250px" type="text" class="inputRadio" name="board_name2">
 											 
 										</td>
 									
 									</tr>	
-									
-							
+
                                     </table>
                                     <br><br>
-                                        <div > 
-                                   <input style="width:250px" type="text" class="form-control" >
-											 </div>
+                                   <div > 
+                                   <input style="width:250px ; margin-left: 428px;" type="text" class="inputRadio" >
+								  </div>
                                  <div style="text-align:center"> 
                                   <label class="form-check-label" for="flexCheckChecked">ผู้เสนอ / ผู้ต้องการใช้พัสดุ</label>
 									</div>
@@ -272,13 +246,14 @@ String  nowDate = caldateformat.format(calendar.getTime());
                     <div>
                     <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm);"> เพิ่มใบเสนอราคา  </button>             
                     </div>
-                                    
-                                    </form>
-                                       	  <!-- Button link-->
-				               	  <div>
-				                    <a class="" href="loadpagelistorder"  style=" margin-left: 37%;">
-				                     <button   style="  margin-top: 150px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button>         
-				              		</a></div>
+                      <div>
+				     <a class="" href="loadpagelistorder"  style=" margin-left: 37%;">
+				     <button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button>         
+				     </a>
+				     </div> 
+                           </form>
+                                       
+				               	
 									</div>
                                     </div>                                   
                                 </div>    
@@ -288,11 +263,9 @@ String  nowDate = caldateformat.format(calendar.getTime());
             
                	 
           			
-            
-
-         <br><br><br> <br><br><br> <br><br><br>
+        
                 <!-- Footer -->
-      <div>    <jsp:include page="common/footer.jsp"/>       </div>
+      <div style=" margin-top: 350px;" >   <jsp:include page="common/footer.jsp"/>       </div>
 
 	<!-- script link -->
   	<script src="layout/scripts/jquery.min.js"></script>

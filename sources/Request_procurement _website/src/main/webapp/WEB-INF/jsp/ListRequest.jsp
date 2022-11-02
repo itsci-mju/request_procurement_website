@@ -10,6 +10,8 @@ Login l = (Login) session.getAttribute("login");
 String major = (String) session.getAttribute("major");     
 List<OrderRequest> listorderRequest = qm.getAllListOrderRequest(major);
 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+String status1 = "รอยืนยันความประสงค์";
+String status2 = "ยืนยันความประสงค์";
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -284,7 +286,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                                       </thead>
                                        <% if (listorderRequest != null){%>
                                         <%for (int i=0 ; i<listorderRequest.size(); i++) {%>
-                                        	<% if(!listorderRequest.get(i).getStatus().equals("ดำเนินการสำเร็จ")){ %> 
+                                        	<% if(!listorderRequest.get(i).getStatus().equals("ยืนยันความประสงค์สำเร็จ")){ %> 
 		                                     <!-- row input -->
 		                                      <tbody>
 		                                        <tr class="alert" role="alert">
@@ -297,7 +299,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		                                          <td><%=listorderRequest.get(i).getRequest_type() %> </td>  
 		                                          
 		                                          <% if(listorderRequest.get(i).getStatus().equals("ยืนยันความประสงค์") && major.equals("0")){ %>
-		                                          	<td><label style="color: orange;">รอยืนยันความประสงค์</label></td>  
+		                                          	<td><label style="color: orange;"><b><%=status1 %></b></label></td>  
 	                                          	  <% }else if(listorderRequest.get(i).getStatus().equals("ยืนยันความประสงค์") && !major.equals("0")){ %>
 	                                          	    <td><label style="color: green;"><%=listorderRequest.get(i).getStatus() %></label></td>  
 		                                          <% }else if(listorderRequest.get(i).getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ")){ %>
@@ -305,7 +307,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	                                          	  <% }else if(listorderRequest.get(i).getStatus().equals("รอยืนยันความประสงค์") && major.equals("0")){ %>
 	                                          		<td><label style="color: orange;"><%= listorderRequest.get(i).getStatus() %></label></td>  
                                           		  <% }else if(listorderRequest.get(i).getStatus().equals("รอยืนยันความประสงค์") && !major.equals("0")){ %>
-                                          		    <td><label style="color: green;">ยืนยันความประสงค์</label></td>  
+                                          		    <td><label style="color: green;"><b><%=status2 %></b></label></td>  
 		                                          <% }else if(listorderRequest.get(i).getStatus().equals("ข้อมูลความประสงค์ไม่ถูกต้อง")){ %>
 		                                          	<td><label style="color: red;"><%=listorderRequest.get(i).getStatus() %></label></td> 
 		                                          <% }else if(listorderRequest.get(i).getStatus().equals("ยืนยันความประสงค์สำเร็จ")){ %>

@@ -263,7 +263,7 @@ public class OrderRequestManager {
 			try {
 				Statement stmt = con.createStatement();
 				String sql = "select o.orderRequest_id,o.orderRequest_date,o.status,o.request_type,s.username  "
-						+ "from orderrequest o inner join staff s ON o.staff_id = s.staff_id where status = 'ดำเนินการสำเร็จ' "
+						+ "from orderrequest o inner join staff s ON o.staff_id = s.staff_id where status = 'ยืนยันความประสงค์สำเร็จ' "
 						+ " order by o.orderRequest_date DESC;";
 				ResultSet rs = stmt.executeQuery(sql);
 				Staff s = new Staff();

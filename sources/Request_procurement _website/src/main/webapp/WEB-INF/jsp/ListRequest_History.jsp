@@ -263,7 +263,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
              <br>
             <!-- Form Table -->
              <form class="" name="frm" action=""  id="product_form">    
-                     <div class="container product-table" style="height: 500px;"> 
+                     <div class="product-table" style="height: 500px;"> 
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="table-wrap" style="height: 300px;">

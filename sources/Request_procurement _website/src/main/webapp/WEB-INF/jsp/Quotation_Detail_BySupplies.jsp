@@ -120,10 +120,9 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 					</div>	
 					</form> 
              
-         <br><br><br>
-         <br><br><br>
+      
                 <!-- Footer -->
-      <div>    <jsp:include page="common/footer.jsp"/>       </div>
+      <div style=" margin-top: 350px;" >    <jsp:include page="common/footer.jsp"/>       </div>
 
 
 	<!-- script link -->
