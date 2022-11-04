@@ -18,35 +18,36 @@ import bean.Product;
 import bean.Quantity;
 public class FileManager {
 	
-	public List<Product> getAllListProduct() {
-		List<Product> list = new ArrayList<>();
-		ConnectionDB condb = new ConnectionDB();
-		Connection con = condb.getConnection();
-
-		try {
-			Statement stmt = con.createStatement();
-			String sql = "select product_id,product_detail,unit,type,price from product order by product_id";
-			ResultSet rs = stmt.executeQuery(sql);
-			while (rs.next()) {
-				Integer product_id = rs.getInt(1);
-				String product_detail = rs.getString(2);
-				String unit = rs.getString(3);
-				String type = rs.getString(4);
-				String price = rs.getString(5);
-				Product p = new Product();
-				list.add(p);
-			}
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return list;
-	}
+//	//select list product
+//	public List<Product> getAllListProduct() {
+//		List<Product> list = new ArrayList<>();
+//		ConnectionDB condb = new ConnectionDB();
+//		Connection con = condb.getConnection();
+//
+//		try {
+//			Statement stmt = con.createStatement();
+//			String sql = "select product_id,product_detail,unit,type,price from product order by product_id";
+//			ResultSet rs = stmt.executeQuery(sql);
+//			while (rs.next()) {
+//				Integer product_id = rs.getInt(1);
+//				String product_detail = rs.getString(2);
+//				String unit = rs.getString(3);
+//				String type = rs.getString(4);
+//				String price = rs.getString(5);
+//				Product p = new Product();
+//				list.add(p);
+//			}
+//			con.close();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return list;
+//	}
+//	
 	
 	
-	
-	
+	//Max File
 	public int getMaxFilequotationID() {
 		ConnectionDB condb = new ConnectionDB();
 		Connection con = condb.getConnection();
@@ -66,6 +67,7 @@ public class FileManager {
 		return id + 1;
 	}
 
+	//insert File
 	public int insertFileQuotaion(File_Quotation f){
 		ConnectionDB condb = new ConnectionDB();
 		Connection con = condb.getConnection();

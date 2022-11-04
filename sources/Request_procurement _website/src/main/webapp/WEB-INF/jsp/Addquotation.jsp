@@ -6,8 +6,10 @@
 <%Login l = (Login) session.getAttribute("login"); 
 
 String OrderRequest_id = (String) session.getAttribute("OrderRequest_id");     
-
-
+ProductManager pmanager = new ProductManager();
+OrderRequest order_q = (OrderRequest) session.getAttribute("OrderRequest");
+List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_id()); 
+double sum = 0.0;
 %>
 
 <!DOCTYPE html>
@@ -42,9 +44,10 @@ String OrderRequest_id = (String) session.getAttribute("OrderRequest_id");
       <jsp:include page="common/Navbar.jsp"/>
      
         <!--head-text-->
+             
       
-          
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">เพิ่มใบเสนอราคา </h2>
+     
+			
          <br>
               <% if (l != null){ %>
             <!-- Form Table -->
@@ -55,6 +58,58 @@ String OrderRequest_id = (String) session.getAttribute("OrderRequest_id");
                         <div class="row"> 
                             <div class="col-md-12">
                                 <div class="table-wrap">
+                                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง <span  style="color:#FF884B;">(ไม่มีใบเสนอราคา)</span></b></h2>
+         
+                                  <table class="table" id="form_table" style="text-align: center;">
+                                   
+                                      <thead class="thead-dark">
+                                        <tr>
+                                            <th>ลำดับที่</th>
+				                            <th>รายละเอียด</th>
+				                            <th>จำนวน</th> 
+				                            <th>หน่วย</th>
+				                            <th>ราคา/หน่วย</th> 
+				                            <th>จำนวนเงิน</th>
+                                        <th></th>
+                                        </tr>
+                                      </thead>
+                                       <% if (listProduct != null){%>
+                                        <%for (int i=0 ; i<listProduct.size(); i++) {%>
+                                     <!-- row input -->
+                                      <tbody>
+                                        <tr class="alert" role="alert">
+                                          <th  scope="row"><%= i+1 %></th>
+                                          <td><%=listProduct.get(i).getProduct().getProduct_detail() %></td>     
+                                          <td> <%=listProduct.get(i).getQty() %> </td>  
+                                          <td><%=listProduct.get(i).getProduct().getUnit() %></td>  
+                                         <td><%=listProduct.get(i).getProduct().getPrice() %></td>  
+                                          <td><%=listProduct.get(i).getPrice() %></td>  
+                                          
+                                        </tr>                
+                                      </tbody>
+                                      	<%} %>
+                                      <%} %>
+                                     
+                                       <thead class="thead-dark">
+                                        <tr>
+                                            <th></th>
+				                            <th></th>
+				                            <th></th> 
+				                            <th></th>
+				                            <th>ค่าใช้จ่ายทั้งหมด</th> 
+				                            
+				                          <% for (int j=0 ; j<listProduct.size(); j++ ){%>
+				                          <label hidden><%=sum = sum+listProduct.get(j).getPrice() %></label>
+				                          
+				                            <%} %>
+				                            <th >
+				                          <label><%=sum%> </label>
+				                           </th>
+                                        <th>บาท</th>
+                                        </tr>
+                                      </thead>
+                                    </table> 
+                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;;"><b>เพิ่มใบเสนอราคา </b></h2>
                                     <table class="table" id="form_table" style="text-align: center;">
                                       <thead class="thead-dark">
                                         <tr>
@@ -100,14 +155,14 @@ String OrderRequest_id = (String) session.getAttribute("OrderRequest_id");
                             </div>
                         </div>
                     </div>   
-                 <br><br><br>
+                 
                     <!-- Button link-->
                     <div>
                     <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm);"> เพิ่มใบเสนอราคา  </button>             
                     </div>
                    </form>
                     <%} %>  
-                    <div><a class="" href="loadindex">
+                    <div><a class="" href="loadpagelistorder">
                      <button   style=" margin-left: 37%; margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button>         
               		</a>	</div>
                 	

@@ -12,6 +12,7 @@ List<OrderRequest> listorderRequest = qm.getAllListOrderRequest(major);
 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 String status1 = "รอยืนยันความประสงค์";
 String status2 = "ยืนยันความประสงค์";
+int a = 0;
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,6 +39,9 @@ String status2 = "ยืนยันความประสงค์";
     <link href='https://css.gg/eye.css' rel='stylesheet'>
     <link href='https://css.gg/thermometer.css' rel='stylesheet'>
     <link href='https://css.gg/backspace.css' rel='stylesheet'>
+    <link href='https://css.gg/check.css' rel='stylesheet'>
+    <link href='https://css.gg/search-found.css' rel='stylesheet'>
+    <link href='https://css.gg/check-o.css' rel='stylesheet'>
 <style>
 .product-table{
  max-height:700px ;
@@ -261,7 +265,34 @@ String status2 = "ยืนยันความประสงค์";
         <!-- Navigation -->
        <jsp:include page="common/Navbar.jsp"/>  
         <!--head-text-->      
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">ประวัติการแจ้งความประสงค์การจัดซื้อจัดจ้าง</h2>
+          	<div class="container">
+			<div>
+                <h1 style="text-align: center;" class="masthead-heading text-uppercase mb-0" >"<b> ยินดี<span style="color:#017f3f">ต้อนรับ</span></b>"</h1>
+            </div>
+            <div>
+                <h2 style="text-align: center;" class="masthead-heading text-uppercase mb-0" >กรุณาเลือกประเภทการแจ้งความประสงค์ตามที่ต้องการ</h2>
+            </div>
+            <div>
+                <form class=" validate-form" name="frm" action="" method=GET>
+                    <span class="login100-form-title p-b-43">
+                    </span>
+                                <div>
+                                <a class="" href="loadpageorder1" >
+                                <input id="tt" class="login100-form-btn2" type="button" value="แจ้งความประสงค์จัดซื้อจัดจ้าง (ไม่มีใบเสนอราคา)">
+                                </a>
+                                </div>
+                
+                                <div   style=" margin-top: 22px;">
+                                <a class="" href="loadpageorder2">
+                                    <input id="tt" class="login100-form-btn2 "    type="button" value="แจ้งความประสงค์จัดซื้อจัดจ้าง (มีใบเสนอราคา)">
+                                </a>
+                                </div>         
+                            </form> 
+		            </div>
+				</div>
+        
+        
+			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>ประวัติการแจ้งความประสงค์การจัดซื้อจัดจ้าง</b></h2>
              <br>
             <!-- Form Table -->
              <form class="" name="frm" action=""  id="product_form">    
@@ -284,13 +315,13 @@ String status2 = "ยืนยันความประสงค์";
                                         
                                         </tr>
                                       </thead>
-                                       <% if (listorderRequest != null){%>
+                                      <% if (listorderRequest != null){%>                                  
                                         <%for (int i=0 ; i<listorderRequest.size(); i++) {%>
                                         	<% if(!listorderRequest.get(i).getStatus().equals("ยืนยันความประสงค์สำเร็จ")){ %> 
 		                                     <!-- row input -->
 		                                      <tbody>
 		                                        <tr class="alert" role="alert">
-		                                          <th  scope="row"><%= listorderRequest.size()-i %></th>
+		                                          <th  scope="row"><%= i+1 %></th>
 		                                          <td><%=sdf.format(listorderRequest.get(i).getOrderRequest_date().getTime())  %></td>     
 		                                          <% if(major.equals("0")){ %>
                                         	 		<td><%= listorderRequest.get(i).getStaff().getStaff_name() %></td>
@@ -329,14 +360,14 @@ String status2 = "ยืนยันความประสงค์";
 														<% if((listorderRequest.get(i).getStatus().equals("ยืนยันความประสงค์") && !major.equals("0")) || (listorderRequest.get(i).getStatus().equals("รอยืนยันความประสงค์") && !major.equals("0"))){ %>
 														   <a href="loadpageConfirm?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>">
 														<button type="button" class="button-17" role="button" >ยืนยัน
-														&nbsp; 	<i class="gg-eye"></i>										
+														&nbsp; 	<i class="gg-check"></i>									
 														</button></a>&nbsp;
 													
 														<%}%>
 															<% if(listorderRequest.get(i).getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") && listorderRequest.get(i).getRequest_type().equals("มีใบเสนอราคา")&& major.equals("0") ){ %>
 															<a href="loadpageQuotationDetailBySupplise?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>"> 
 		                                          		<button type="button" class="button-18" role="button" >ตรวจสอบ
-														&nbsp; 	<i class="gg-thermometer"></i>									
+														&nbsp; 	<i class="gg-search-found"></i>									
 														</button></a> &nbsp;
 															
 														<%}%>
@@ -372,12 +403,12 @@ String status2 = "ยืนยันความประสงค์";
 					</div>
                    </form>
                 <br><br><br>
-                    <!-- Button link-->
+                    <!-- Button link
                 
                     <a class="" href="loadindex"  style=" margin-left: 37%;">
                      <button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button>         
               		</a>
-        
+        -->
          <br><br><br>
                 <!-- Footer -->
       <div>    <jsp:include page="common/footer.jsp"/>       </div>

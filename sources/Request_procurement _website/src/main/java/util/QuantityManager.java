@@ -26,7 +26,7 @@ import bean.Staff;
 public class QuantityManager {
 	
 
-	//เพิ่มข้อมูล ตางรางOrderRequest 
+	//insert OrderRequest 
 	public int insertQuantity(Quantity q){
 		ConnectionDB condb = new ConnectionDB();
 		Connection con = condb.getConnection();

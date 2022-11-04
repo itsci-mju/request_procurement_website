@@ -29,6 +29,7 @@ Login l = (Login) session.getAttribute("login");
     <link href='https://css.gg/lock.css' rel='stylesheet'>
     <link href='https://css.gg/mail.css' rel='stylesheet'>
     <link href='https://css.gg/chevron-right.css' rel='stylesheet'>
+    <link href='https://css.gg/smile.css' rel='stylesheet'>
 </head>
 
 <style>
@@ -41,18 +42,13 @@ font-family: 'Kanit', sans-serif;
 
 <body id="top">
 
- <jsp:include page="common/Navbar.jsp"/>
-    
-  
-<!-- ################################################################################################ -->
-
+ 		<jsp:include page="common/Navbar.jsp"/>
 <section> 
-
 </section>
     <!-- ################################################################################################ -->
   	<div class="container">
 			<div>
-                <h1 style="text-align: center;" class="masthead-heading text-uppercase mb-0" >" ยินดีต้อนรับ "</h1>
+                <h1 style="text-align: center;" class="masthead-heading text-uppercase mb-0" >"<b> ยินดี<span style="color:#017f3f">ต้อนรับ</span></b>"</h1>
             </div>
             <div>
                 <h2 style="text-align: center;" class="masthead-heading text-uppercase mb-0" >กรุณาเลือกประเภทการแจ้งความประสงค์ตามที่ต้องการ</h2>
@@ -61,8 +57,7 @@ font-family: 'Kanit', sans-serif;
                 <form class=" validate-form" name="frm" action="" method=GET>
                     <span class="login100-form-title p-b-43">
                     </span>
-                    
-                        
+
                                 <div>
                                 <a class="" href="loadpageorder1" >
                                 <input id="tt" class="login100-form-btn2" type="button" value="แจ้งความประสงค์จัดซื้อจัดจ้าง (ไม่มีใบเสนอราคา)">

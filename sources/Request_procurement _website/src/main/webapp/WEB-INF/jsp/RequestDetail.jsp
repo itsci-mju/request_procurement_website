@@ -40,7 +40,7 @@ double sum = 0.0;
      
         <!--head-text-->
        	
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง (ไม่มีใบเสนอราคา)</h2>
+			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง <span  style="color:#FF884B;">(ไม่มีใบเสนอราคา)</span></b></h2>
                  <div class="container product-table" style="height: 500px;"> 
                         <div class="row">
                             <div class="col-md-12">

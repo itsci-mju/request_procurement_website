@@ -31,18 +31,19 @@ public class LoginController {
 		// TODO Auto-generated constructor stub
 	}
 
- 
+	//load Error
 	@RequestMapping(value = "/loaderror", method = RequestMethod.GET)
 	public String loaderrorPage() {
 		return "error";
 	}
 	
+	//load Login page
 	@RequestMapping(value = "/loadlogin", method = RequestMethod.GET)
 	public String loadLoginPage() {
 		return "login";
 	}
 	
-
+	//Login Controller & sent session data
 	  @RequestMapping(value = "/login", method = RequestMethod.POST) 
 		  public String  doLogin1(HttpServletRequest request, Model md, HttpSession session) { 
 		  String uname = request.getParameter("uname"); 
@@ -65,7 +66,7 @@ public class LoginController {
 				  return "ListRequest"; 
 				  
 			  }else {
-			  return "index"; 
+			  return "ListRequest"; 
 			  }
 		}else  {
 			  session.setAttribute("login", "ชื่อผู้ใช้หรือรหัสไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง");
@@ -75,7 +76,7 @@ public class LoginController {
 	  }
 	  
 	  
-	  
+	//Logout
 	  @RequestMapping(value = "/logout", method = RequestMethod.GET) 
 	  public String  doLogout(HttpSession session) { 
 		  session.removeAttribute("login");
@@ -83,54 +84,9 @@ public class LoginController {
 		  
 		  return  "login";
 	  }
-	  
-	  
-	/*  @RequestMapping(value = "/logout", method = RequestMethod.GET) 
-	  public String  doLogout(HttpSession session) { 
-		  session.removeAttribute("member");
-		  session.removeAttribute("hospital");
-		 
-		  return  "index";
-	  }*/
-	
-
-	/*@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String doLogin(HttpServletRequest request, Model md, HttpSession session,
-			@ModelAttribute("userlogin") Login userlogin, BindingResult br) {
-			try {
-				System.out.println(br.getAllErrors().size());
-				
-				if(br.hasErrors()) {
-					System.out.println("server side validation");
-				}else {
-					LoginManager lm = new LoginManager();
-					String message =lm.doHibernateLogin(userlogin);
-					if(message.equals("เข้าสู่ระบบสำเร็จ")) {
-						session.setAttribute("emp_username",userlogin.getUsername());
-						return "myprofile";
-					}else {
-						md.addAttribute("error_msg",message);
-					}
-				}
-				return "homeselect";
-			}catch(Exception e) {
-				md.addAttribute("userlogin",userlogin);
-				
-				return "homeselect";
-			}
-		}*/
+	    
 	
 	}
 
-/*
- * @RequestMapping(value = "/viewmyprofile", method = RequestMethod.GET) public
- * String getProfile(HttpSession session) { //Student stu = (Student)
- * session.getAttribute("student"); 
- * Loginbean stu = (Loginbean)  session.getAttribute("student");
- *  StudentManager sm = new StudentManager();
- * 
- * stu = sm.getStudent(stu.getUsername());
- * 
- * return "myprofile"; }
- */
+
 

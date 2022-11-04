@@ -41,6 +41,19 @@ public class ConfirmForm {
 	private String board_name2 ;
 	
 
+	@Column (name="company_name" ,length = 150)
+	private String company_name ;
+	
+
+	
+	@Column (name="quotation_date" )
+	private Calendar quotation_date ;
+	
+	@Column (name="quotation_no" ,length = 20)
+	private String quotation_no ;
+
+	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="orderRequest_id",nullable=false,referencedColumnName="orderRequest_id")
     private OrderRequest orderRequest;
@@ -53,7 +66,7 @@ public class ConfirmForm {
 	}
 
 	public ConfirmForm(int form_id, Calendar confirm_date, String money_type, String necessity_type,
-			String chairman_Board_name, String board_name1, String board_name2, OrderRequest orderRequest) {
+			String chairman_Board_name, String board_name1, String board_name2,String company_name,Calendar quotation_date,String quotation_no, OrderRequest orderRequest) {
 		super();
 		this.form_id = form_id;
 		this.confirm_date = confirm_date;
@@ -62,6 +75,9 @@ public class ConfirmForm {
 		this.chairman_Board_name = chairman_Board_name;
 		this.board_name1 = board_name1;
 		this.board_name2 = board_name2;
+		this.company_name = company_name;
+		this.quotation_date = quotation_date;
+		this.quotation_no = quotation_no;
 		this.orderRequest = orderRequest;
 	}
 
@@ -128,6 +144,32 @@ public class ConfirmForm {
 	public void setOrderRequest(OrderRequest orderRequest) {
 		this.orderRequest = orderRequest;
 	}
+
+	public String getCompany_name() {
+		return company_name;
+	}
+
+	public void setCompany_name(String company_name) {
+		this.company_name = company_name;
+	}
+
+	public Calendar getQuotation_date() {
+		return quotation_date;
+	}
+
+	public void setQuotation_date(Calendar quotation_date) {
+		this.quotation_date = quotation_date;
+	}
+
+	public String getQuotation_no() {
+		return quotation_no;
+	}
+
+	public void setQuotation_no(String quotation_no) {
+		this.quotation_no = quotation_no;
+	}
+	
+	
 	
 	
 }

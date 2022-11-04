@@ -15,7 +15,6 @@ String staffname = (String) session.getAttribute("staffname");
 <head>
 <meta charset="ISO-8859-1">
 
-  
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -33,6 +32,11 @@ String staffname = (String) session.getAttribute("staffname");
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+   
+   		<link href='https://css.gg/user-remove.css' rel='stylesheet'>
+   		<link href='https://css.gg/user.css' rel='stylesheet'>
+   		<link href='https://css.gg/phone.css' rel='stylesheet'>
+   		
     </head>
    
 <style type="text/css">
@@ -78,11 +82,11 @@ a{text-decoration:none;}
 			<%}%>
 			<%}%>
             <td ><%	if (l != null) {%>
-			 <a href="logout"><h3 class="login-hover" style="font-size: 1.2rem; background-color: #017f3f;font-weight: 700; ">ออกจากระบบ &nbsp;<i class="gg-mail-reply"></i></h3></a>  	
+			 <a href="logout"><h3 class="login-hover" style="width:200px;font-size: 1.2rem; background-color: #017f3f;font-weight: 700; ">ออกจากระบบ &nbsp;<i class="gg-user-remove"></i></h3></a>  	
              <%
 			} else {
 			%>
-              <a href="loadlogin"><h3 class="login-hover" style="font-size: 1.2rem;background-color: #017f3f; font-weight: 700; ">เข้าสู่ระบบ &nbsp;<i class="gg-mail-reply"></i></h3></a>
+              <a href="loadlogin"><h3 class="login-hover" style="width:200px;font-size: 1.2rem;background-color: #017f3f; font-weight: 700; ">เข้าสู่ระบบ &nbsp;<i class="gg-user"></i></h3></a>
             </td>
 		<%}%>
            </tr>
@@ -104,15 +108,14 @@ a{text-decoration:none;}
       <!-- ################################################################################################ -->
       <ul class="clear">
       <%if (l != null) {%>
-		<% if(!mjName.equals("เจ้าหน้าที่")){ %>
-        <li class="active"><a href="loadindex">หน้าแรก</a></li>
-      <%}%>
-        <li><a class="" href="loadpagelistorder">ประวัติการแจ้งความประสงค์</a>
-        </li>
+		
+        <li class="active"><a href="loadpagelistorder">หน้าแรก</a></li>
+      
+      
         <li><a class="" href="loadpagelistrequestHistory">ประวัติรายการที่ดำเนินการสำเร็จ</a>
         
         <%}%>
-        <li><a class="" href="http://www.science.mju.ac.th/role/role.html">ติดต่อ</a>
+        <li><a  class="" href="http://www.science.mju.ac.th/role/role.html">ติดต่อ </a>
         </li>
         
       </ul>

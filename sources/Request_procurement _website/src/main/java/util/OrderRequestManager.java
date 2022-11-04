@@ -99,7 +99,7 @@ public class OrderRequestManager {
 		return id + 1;
 	}
 
-	// เพิ่มข้อมูล ตางรางOrderRequest
+	// insert OrderRequest 
 	public int insertOrderRequest(OrderRequest od) {
 		ConnectionDB condb = new ConnectionDB();
 		Connection con = condb.getConnection();
@@ -122,7 +122,7 @@ public class OrderRequestManager {
 		return -1;
 	}
 
-	// เพิ่มข้อมูล ตางรางOrderRequest
+	// insert OrderRequest 2 
 	public int insertOrderRequest2(OrderRequest od) {
 		ConnectionDB condb = new ConnectionDB();
 		Connection con = condb.getConnection();
@@ -155,7 +155,7 @@ public class OrderRequestManager {
 	 * "failed to save orderRequest"; } }
 	 */
 
-	// show OrderRequest
+	// select list OrderRequest
 	public List<OrderRequest> getAllListOrderRequest(String major) throws java.text.ParseException {
 		List<OrderRequest> list = new ArrayList<>();
 		ConnectionDB condb = new ConnectionDB();
@@ -166,11 +166,11 @@ public class OrderRequestManager {
 			String sql;
 			if(!major.equals("0")) {
 				sql = "select o.orderRequest_id,o.orderRequest_date,o.status,o.request_type,s.username  "
-						+ "from orderrequest o inner join staff s ON o.staff_id = s.staff_id where s.major_id = '"+ major +"'  "
+						+ "from orderrequest o inner join staff s ON o.staff_id = s.staff_id where s.major_id = '"+ major +"' and status != 'ยืนยันความประสงค์สำเร็จ'  "
 						+ " order by o.orderRequest_date DESC;";
 			}else {
 				sql = "select o.orderRequest_id,o.orderRequest_date,o.status,o.request_type,s.username  "
-						+ "from orderrequest o inner join staff s ON o.staff_id = s.staff_id  "
+						+ "from orderrequest o inner join staff s ON o.staff_id = s.staff_id  where status != 'ยืนยันความประสงค์สำเร็จ'  "
 						+ " order by o.orderRequest_date DESC;";
 			}
 			
@@ -264,7 +264,7 @@ public class OrderRequestManager {
 				Statement stmt = con.createStatement();
 				String sql = "select o.orderRequest_id,o.orderRequest_date,o.status,o.request_type,s.username  "
 						+ "from orderrequest o inner join staff s ON o.staff_id = s.staff_id where status = 'ยืนยันความประสงค์สำเร็จ' "
-						+ " order by o.orderRequest_date DESC;";
+						+ " order by o.orderRequest_date ASC;";
 				ResultSet rs = stmt.executeQuery(sql);
 				Staff s = new Staff();
 				StaffManager sm = new StaffManager();
@@ -350,6 +350,7 @@ public class OrderRequestManager {
 			return -1;
 		}
 		
+		//update status&Comment
 		public int updateStatusAndAddComment(String OrderRequest_id,String status,String comment){
 			ConnectionDB condb = new ConnectionDB();
 			Connection con = condb.getConnection();
@@ -371,6 +372,7 @@ public class OrderRequestManager {
 			return -1;
 		}
 		
+		//update Type
 		public int updateType(String OrderRequest_id){
 			ConnectionDB condb = new ConnectionDB();
 			Connection con = condb.getConnection();
@@ -389,6 +391,7 @@ public class OrderRequestManager {
 			return -1;
 		}
 		
+		//insert Confirm Form
 		public int insertConfirmForm(ConfirmForm cf) {
 			ConnectionDB condb = new ConnectionDB();
 			Connection con = condb.getConnection();

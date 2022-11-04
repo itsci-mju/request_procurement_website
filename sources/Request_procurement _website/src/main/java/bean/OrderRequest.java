@@ -33,7 +33,7 @@ public class OrderRequest {
 	@Column (name="request_type" , length = 50, nullable = false)
 	private String request_type ;
 	
-	@Column (name="comment" ,length = 150, nullable = false)
+	@Column (name="comment" ,length = 255, nullable = false)
 	private String comment ;
 	
 	

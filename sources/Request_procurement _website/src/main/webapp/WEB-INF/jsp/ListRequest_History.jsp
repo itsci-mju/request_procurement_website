@@ -259,7 +259,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         <!-- Navigation -->
        <jsp:include page="common/Navbar.jsp"/>  
         <!--head-text-->      
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">ประวัติการแจ้งความประสงค์การจัดซื้อจัดจ้าง</h2>
+			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>ประวัติการแจ้งความประสงค์การจัดซื้อจัดจ้างที่</b> <span style="color:#017f3f"><b>ดำเนินการสำเร็จแล้ว</b> </span></h2>
              <br>
             <!-- Form Table -->
              <form class="" name="frm" action=""  id="product_form">    
@@ -284,13 +284,13 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                                      <!-- row input -->
                                       <tbody>
                                         <tr class="alert" role="alert">
-                                          <th  scope="row"><%= listorderRequest.size()-i %></th>
+                                          <th  scope="row"><%= i+1 %></th>
                                           <td><%=sdf.format(listorderRequest.get(i).getOrderRequest_date().getTime())  %></td>     
-                                          <td><%=listorderRequest.get(i).getRequest_type() %>     </td>  
-                                          <td><%=listorderRequest.get(i).getStatus() %></td>  
+                                          <td><%=listorderRequest.get(i).getRequest_type() %> </td>  
+                                          <td><label style="color:Green;"><%=listorderRequest.get(i).getStatus() %></label> </td>  
                                         
                                           <td > 
-                                           <a href="loadRequestDetail?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>">
+                                           <a href="loadConfirmFormDetail?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>">
 												<button type="button" class="button-17" role="button" >ดู 
 												&nbsp; 	<i class="gg-eye"></i>										
 												</button></a>
@@ -309,7 +309,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                 <br><br><br>
                     <!-- Button link-->
                 
-                    <a class="" href="loadindex"  style=" margin-left: 37%;">
+                    <a class="" href="loadpagelistorder"  style=" margin-left: 37%;">
                      <button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button>         
               		</a>
         

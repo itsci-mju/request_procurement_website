@@ -42,7 +42,7 @@
         <!--head-text-->
       
           
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">แจ้งความประสงค์การจัดซื้อจัดจ้าง (มีใบเสนอราคา)</h2>
+			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>แจ้งความประสงค์การจัดซื้อจัดจ้าง <span  style="color:#FF884B;">(มีใบเสนอราคา)</span></b></h2>
          <br>
               <% if (l != null){ %>
             <!-- Form Table -->
@@ -98,14 +98,14 @@
                             </div>
                         </div>
                     </div>   
-                 <br><br><br>
+             
                     <!-- Button link-->
                     <div>
                     <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm);"> ส่งคำขอ  </button>             
                     </div>
                    </form>
                     <%} %>  
-                    <div><a class="" href="loadindex">
+                    <div><a class="" href="loadpagelistorder">
                      <button   style=" margin-left: 37%; margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button>         
               		</a>	</div>
                 	

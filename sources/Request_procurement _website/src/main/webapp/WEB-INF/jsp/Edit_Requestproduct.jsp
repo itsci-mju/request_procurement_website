@@ -199,7 +199,7 @@ input {
          <%} %>   
          
             <div>
-                <a class="" href="loadindex"  style=" margin-left: 37%;"><button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button></a>
+                <a class="" href="loadpagelistorder"  style=" margin-left: 37%;"><button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button></a>
               </div>
    
               <br><br><br><br><br>

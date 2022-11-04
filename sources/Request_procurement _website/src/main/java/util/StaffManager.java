@@ -16,7 +16,7 @@ import bean.Staff;
 
 public class StaffManager {
 	
-	//โหลดข้อมูล Staff
+	//select Staff
 	public Staff getStaff(String username) {
 		try {
 			SessionFactory sessionFactory = HibernateConnection.doHibernateConnection();

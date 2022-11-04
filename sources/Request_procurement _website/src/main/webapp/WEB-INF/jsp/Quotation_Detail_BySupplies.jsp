@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%
-
+request.setCharacterEncoding("UTF-8");	
 Login l = (Login) session.getAttribute("login");
 FileManager fmanager = new FileManager();
 OrderRequest order_q = (OrderRequest) session.getAttribute("OrderRequest");
@@ -72,7 +72,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                           <td><%=listFile.get(i).getFile_name() %></td>     
                                           <td> <%=listFile.get(i).getQuotation_no() %> </td>  
                                          <td><%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %></td>  
-                                         <td><a href="pdf?filename=<%= listFile.get(i).getCompany_name() %>"><%= listFile.get(i).getCompany_name() %></a></td>  
+                                         <td><a href="/pdff/<%= listFile.get(i).getCompany_name() %>"><%= listFile.get(i).getCompany_name() %></a></td>  
                                      
                                         </tr>                
                                       </tbody>
@@ -99,7 +99,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                     <div>
                                    
                                     <label for="exampleFormControlTextarea1">คำเสนอแนะ</label>
-                                    <textarea class="form-control" id="comment" name="comment"></textarea>
+                                    <textarea class="form-control" id="comment" name="comment" disabled="true"></textarea>
                                     
                                       <div>
 				                    <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm);"> ส่งคำเสนอแนะ  </button>             
@@ -123,6 +123,21 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
       
                 <!-- Footer -->
       <div style=" margin-top: 350px;" >    <jsp:include page="common/footer.jsp"/>       </div>
+<script>
+
+
+const checked_Quotation = document.getElementsByName("quotation_check");
+window.addEventListener('click', function(event) {
+    const comment = document.getElementsByName("comment");
+    if(checked_Quotation[1].checked){
+    	comment[0].disabled=false;
+    }else{
+    	comment[0].disabled=true;
+    }
+}, true);
+
+</script>
+
 
 
 	<!-- script link -->

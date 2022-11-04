@@ -58,7 +58,7 @@ font-family: 'Kanit', sans-serif;
 
 .product-table{
  max-height:400px ;
- overflow:scroll;
+ 
  overflow-x:hidden;
  padding-top:0;
 }
@@ -103,7 +103,7 @@ input {
                     </div>
                      <div class="row">
                     <div class="col-md-6 form-group mb-3" style="width:400px;">
-                      <label for="" class="col-form-label">จำนวน *</label>
+                      <label for="" class="col-form-label"><b>จำนวน *</b></label>
                       <input type="number" class="form-control" name="totalproduct" id="totalproduct" placeholder="กรุณากรอกจำนวน" min="1" max="999"  style="height: 35px ; font-size: 14px; font-weight: 600;" required>
                     </div>
                   </div>
@@ -174,7 +174,7 @@ input {
          <%} %>   
          
             <div>
-                <a class="" href="loadindex"  style=" margin-left: 37%;"><button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button></a>
+                <a class="" href="loadpagelistorder"  style=" margin-left: 37%;"><button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button></a>
               </div>
    
               <br><br><br><br><br>
@@ -258,25 +258,6 @@ input {
                  
             })
             
-            //$(function(){
-            //	 var number = document.getElementsByName("number").value;
-            //   	 $('#tt').mask('#,###.##',{reverse : true});
-            //   	 var total_price = function(){
-            //   		 var sum=0;
-            //   		 $('#tt'+number+'').each(function(){
-            //  			 var num = $(this).val().replace(',','');
-            //   			 if(num!=0){
-            //   				 sum += parseFloat(num);	
-            //   			 }
-               			 
-            //   		 });
-             //  		 $('#total').val(sum);
-           //    	 } 
-            //   	 $('#total').keyup(function(){
-          //     		total_price();
-          ///     	 });
-               	 
-            //    });
 
             // Select all checkbox
             $("#select-all").click(function(){

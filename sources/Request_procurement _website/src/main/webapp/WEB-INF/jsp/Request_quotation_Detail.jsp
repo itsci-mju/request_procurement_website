@@ -5,14 +5,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%
-
+request.setCharacterEncoding("UTF-8");	
 Login l = (Login) session.getAttribute("login");
+String OrderRequest_id = (String) session.getAttribute("OrderRequest_id");    
 FileManager fmanager = new FileManager();
 OrderRequest order_q = (OrderRequest) session.getAttribute("OrderRequest");
 List<File_Quotation> listFile = (List<File_Quotation>) fmanager.getAllQuotation(order_q.getOrderRequest_id()); 
 String majorname = (String) session.getAttribute("majorName");   
 System.out.println(listFile.toString());
 
+
+ProductManager pmanager = new ProductManager();
+List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_id()); 
+double sum = 0.0;
 
 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 %>
@@ -43,11 +48,67 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
      
         <!--head-text-->
        	
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง (มีใบเสนอราคา)</h2>
+			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง <span  style="color:#FF884B;">(มีใบเสนอราคา)</span></b></h2>
                  <div class="container product-table" style="height: 500px;"> 
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="table-wrap" style="height: 300px;">
+                                
+                                  <div class="table-wrap" style="height: 300px;">
+                                    <table class="table" id="form_table" style="text-align: center;">
+                                   
+                                      <thead class="thead-dark">
+                                        <tr>
+                                            <th>ลำดับที่</th>
+				                            <th>รายละเอียด</th>
+				                            <th>จำนวน</th> 
+				                            <th>หน่วย</th>
+				                            <th>ราคา/หน่วย</th> 
+				                            <th>จำนวนเงิน</th>
+                                        <th></th>
+                                        </tr>
+                                      </thead>
+                                       <% if (listProduct != null){%>
+                                        <%for (int i=0 ; i<listProduct.size(); i++) {%>
+                                     <!-- row input -->
+                                      <tbody>
+                                        <tr class="alert" role="alert">
+                                          <th  scope="row"><%= i+1 %></th>
+                                          <td><%=listProduct.get(i).getProduct().getProduct_detail() %></td>     
+                                          <td> <%=listProduct.get(i).getQty() %> </td>  
+                                          <td><%=listProduct.get(i).getProduct().getUnit() %></td>  
+                                         <td><%=listProduct.get(i).getProduct().getPrice() %></td>  
+                                          <td><%=listProduct.get(i).getPrice() %></td>  
+                                          
+                                        </tr>                
+                                      </tbody>
+                                      	<%} %>
+                                      <%} %>
+                                     
+                                       <thead class="thead-dark">
+                                        <tr>
+                                            <th></th>
+				                            <th></th>
+				                            <th></th> 
+				                            <th></th>
+				                            <th>ค่าใช้จ่ายทั้งหมด</th> 
+				                            
+				                          <% for (int j=0 ; j<listProduct.size(); j++ ){%>
+				                          <label hidden><%=sum = sum+listProduct.get(j).getPrice() %></label>
+				                          
+				                            <%} %>
+				                            <th >
+				                          <label><%=sum%> </label>
+				                           </th>
+                                        <th>บาท</th>
+                                        </tr>
+                                      </thead>
+                                    </table>   
+                                    
+                                </div>    
+                                
+                                
+                                
                                     <table class="table" id="form_table" style="text-align: center;">
                                    
                                       <thead class="thead-dark">
@@ -69,7 +130,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                           <td><%=listFile.get(i).getFile_name() %></td>     
                                           <td> <%=listFile.get(i).getQuotation_no() %> </td>  
                                          <td><%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %></td>  
-                                         <td><a href="pdf?filename=<%= listFile.get(i).getCompany_name() %>"><%= listFile.get(i).getCompany_name() %></a></td>  
+                                         <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"><%= listFile.get(i).getCompany_name() %></a></td>  
                                      
                                         </tr>                
                                       </tbody>
@@ -79,6 +140,9 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                       
                                     </table> 
                                     <% if (order_q.getStatus().equals("ข้อมูลความประสงค์ไม่ถูกต้อง")){ %>
+                                    	 <div>
+		                                    <label for="exampleFormControlTextarea1">*หมายเหตุผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
+					                    </div>
 	                                    <div>
 		                                    <label for="exampleFormControlTextarea1">คำเสนอแนะ</label>
 		                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>

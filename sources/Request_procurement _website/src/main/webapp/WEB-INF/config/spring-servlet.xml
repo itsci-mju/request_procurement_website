@@ -38,6 +38,7 @@
 	<mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
 
 	<mvc:resources location="/images/" mapping="/images/**"></mvc:resources>
+	<mvc:resources location="/pdf/" mapping="/pdf/**"></mvc:resources>
 	<mvc:resources location="/vendor/" mapping="/vendor/**"></mvc:resources>
 
 

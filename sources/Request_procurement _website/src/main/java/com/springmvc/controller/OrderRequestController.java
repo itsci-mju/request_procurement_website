@@ -61,96 +61,10 @@ public class OrderRequestController {
 		// TODO Auto-generated constructor stub
 		
 	}
-	//โหลดหน้าหลัก 
-	@RequestMapping(value = "/loadindex", method = RequestMethod.GET)
-	public String loadthomePage() {
-		
-		return "index";
-	}
-	//โหลดหน้าแจ้งความประสงค์แบบไม่มีใบเสนอราคา
-	@RequestMapping(value = "/loadpageorder1", method = RequestMethod.GET)
-	public String loadtRequestproductPage() {
-		return "Requestproduct";
-	}
-	//โหลดหน้าแจ้งความประสงค์แบบมีใบเสนอราคา
-	@RequestMapping(value = "/loadpageorder2", method = RequestMethod.GET)
-	public String loadtRequestquotationPage() {
-		return "Requestquotation";
-	}
-	
-	//โหลดหน้ารายการทั้งหมดที่แจ้งความประสงค์
-	@RequestMapping(value = "/loadpagelistorder", method = RequestMethod.GET)
-	public String loadtListOrderPage(HttpServletRequest request, Model md, HttpSession session) throws UnsupportedEncodingException {
-		request.setCharacterEncoding("UTF-8");	
-	
-		return "ListRequest";
-	}
-	
-	//โหลดหน้ายืนยันการแจ้งความประสงค์
-		@RequestMapping(value = "/loadpageConfirm", method = RequestMethod.GET)
-		public String loadConfirmPage(HttpServletRequest request, Model md, HttpSession session) throws java.text.ParseException {
-			String Text_OrderRequest_id = request.getParameter("OrderRequest_id");
-			String request_type = request.getParameter("request_type");
-			int OrderRequest_id = Integer.parseInt(Text_OrderRequest_id);
-			OrderRequestManager orm = new OrderRequestManager();
-			OrderRequest order_r = orm.OrderRequestByID(Text_OrderRequest_id);
-			session.setAttribute("OrderRequest", order_r);	
-			
-			return "ConfirmRequest";
-		}
-		
-	//โหลดหน้ารายการทั้งหมดที่แจ้งความประสงค์
-	@RequestMapping(value = "/loadpagelistrequestHistory", method = RequestMethod.GET)
-	public String loadtListRequestHistory(HttpServletRequest request, Model md, HttpSession session) {
-	
-		return "ListRequest_History";
-	}	
 	
 	
-	//โหลดหน้าแก้ไขรายการแจ้งความประสงค์
-		@RequestMapping(value = "/loadEditRequestproduct", method = RequestMethod.GET)
-		public String loadEditRequestProductPage(HttpServletRequest request, Model md, HttpSession session) throws java.text.ParseException{
-			
-			String Text_OrderRequest_id = request.getParameter("OrderRequest_id");
-			String request_type = request.getParameter("request_type");
-			int OrderRequest_id = Integer.parseInt(Text_OrderRequest_id);
-			OrderRequestManager orm = new OrderRequestManager();
-			OrderRequest order_r = orm.OrderRequestByID(Text_OrderRequest_id);
-			session.setAttribute("OrderRequest", order_r);	
-				
-				if(request_type.trim().equals("ไม่มีใบเสนอราคา")) {
-					return "Edit_Requestproduct";
-				}else {
-					return "Edit_Requestquotation";
-				}
-			
-		}
-		
 	
-	
-	//โหลดหน้ารายการรายละเอียดข้อมูลการแจ้งความประสงค์
-		@RequestMapping(value = "/loadRequestDetail", method = RequestMethod.GET)
-		public String loadRequestDetailPage(HttpServletRequest request, Model md, HttpSession session) throws java.text.ParseException {
-			
-		String Text_OrderRequest_id = request.getParameter("OrderRequest_id");
-		String request_type = request.getParameter("request_type");
-		int OrderRequest_id = Integer.parseInt(Text_OrderRequest_id);
-		System.out.println(request_type);
-		OrderRequestManager orm = new OrderRequestManager();
-			OrderRequest order_r = orm.OrderRequestByID(Text_OrderRequest_id);
-			session.setAttribute("OrderRequest", order_r);	
-			
-			if(request_type.trim().equals("ไม่มีใบเสนอราคา")) {
-				return "RequestDetail";
-			}else {
-				return "Request_quotation_Detail";
-			}
-			
-			
-		}
-		
-		
-	//Controller OrderRequest Product
+	//insert OrderRequest Product Controller by lecturer
 	@RequestMapping(value="/addOrderRequest", method=RequestMethod.POST)
 	public ModelAndView do_addOrderRequest(HttpServletRequest  request, HttpSession session) throws UnsupportedEncodingException {
 	request.setCharacterEncoding("UTF-8");
@@ -161,7 +75,7 @@ public class OrderRequestController {
 		ModelAndView mav = new ModelAndView("ListRequest");
 		StaffManager sm = new StaffManager();
 			try {          
-			//	String chList = request.getParameter("chList");
+			//	orderRequest
 				String status  = "กำลังรอการดำเนินการจากหน่วยพัสดุ";
 				String request_type =  "ไม่มีใบเสนอราคา";
 				String comment = "-";
@@ -173,9 +87,8 @@ public class OrderRequestController {
 				or.setStaff(s);
 				orm.insertOrderRequest2(or);
 				
-			//	Quantity_Pk qpk = new Quantity_Pk();
-			//	qpk.setOrderRequest_pk(or);
-				int number = Integer.parseInt(request.getParameter("number"));
+				//number get value from screen
+			int number = Integer.parseInt(request.getParameter("number"));
 		
 				ArrayList<Integer> pid = new ArrayList<Integer>();
 			//	System.out.println(number);
@@ -183,6 +96,7 @@ public class OrderRequestController {
 				ArrayList<Integer> qty = new ArrayList<Integer>();
 				ArrayList<Double> total = new ArrayList<Double>();
 				
+				//loop insert
 				ArrayList<String> product = new ArrayList<String>();
 				for (int i=0 ;i<number; i++) {
 					if(request.getParameter("t"+(i+1))!=null) {
@@ -192,11 +106,9 @@ public class OrderRequestController {
 					 pid.add(Integer.parseInt(request.getParameter("id"+(i+1)).trim())) ;
 					}
 				}
-				System.out.println(product);
-				System.out.println(qty);
-				
-				//List<Product> pd = pm.listAllProducts();
-				
+				//System.out.println(product);
+				//System.out.println(qty);
+						
 				for(int j=0;j<product.size();j++) {
 					Product p = new Product();
 					p.setProduct_id(pid.get(j));
@@ -204,26 +116,7 @@ public class OrderRequestController {
 					
 					qm.insertQuantity(q);
 				}
-				/*
-				double total = 0;
-					for (int j=0;j< pm.listAllProducts().size()-1;j++) {
-						if(pm.listAllProducts().get(j).getProduct_detail().equals(product)) {
-							int Product_id = pm.listAllProducts().get(j).getProduct_id();
-							String Product_detail = pm.listAllProducts().get(j).getProduct_detail();
-							String Unit =  pm.listAllProducts().get(j).getUnit();
-							String Type =  pm.listAllProducts().get(j).getType();
-							double Price =  pm.listAllProducts().get(j).getPrice();
-							
-							Product p = new Product(Product_id,Product_detail,Unit,Type,Price);
-							qpk.setProduct_pk(p);
-							double price = pm.listAllProducts().get(j).getPrice();
-							total = price*qty;
-							System.out.println(total);
-							Quantity q = new Quantity(qty,total,qpk);
-							qm.insertQuantity(q);
-						}
-					}		
-				}*/
+				
 		}catch (Exception e) {
 			e.printStackTrace();
 			message = "โปรดลองใหม่อีกครั้ง....";
@@ -233,7 +126,7 @@ public class OrderRequestController {
 	
 	
 
-	//Controller OrderRequest FileQuotation
+	//insert OrderRequest FileQuotation Controller by lecturer
 		@RequestMapping(value="/addOrderRequest2", method=RequestMethod.POST)
 		public ModelAndView do_addOrderRequest2
 				(@RequestParam("a_file_quotation") MultipartFile file1,
@@ -263,7 +156,7 @@ public class OrderRequestController {
 					
 					//quotation  1
 					String anamecompany = request.getParameter("a_name_company");
-					String afilequotation = "ใบเสนอราคา_"+om.getMaxFileID()+"_"+anamecompany+".pdf";
+					String afilequotation = "Quotation_"+om.getMaxFileID()+"_"+anamecompany+".pdf";
 					String anumberquotation = request.getParameter("a_number_quotation");
 					String adatequotation = request.getParameter("a_date_quotation");
 					
@@ -279,7 +172,7 @@ public class OrderRequestController {
 					fm.insertFileQuotaion(fq1);
 					//quotation  2
 					String bnamecompany = request.getParameter("b_name_company");
-					String bfilequotation = "ใบเสนอราคา_"+om.getMaxFileID()+"_"+bnamecompany+".pdf";
+					String bfilequotation = "Quotation_"+om.getMaxFileID()+"_"+bnamecompany+".pdf";
 					
 					String bnumberquotation = request.getParameter("b_number_quotation");
 					String bdatequotation = request.getParameter("b_date_quotation");
@@ -296,7 +189,7 @@ public class OrderRequestController {
 					
 					//quotation  3
 					String cnamecompany = request.getParameter("c_name_company");
-					String cfilequotation = "ใบเสนอราคา_"+om.getMaxFileID()+"_"+cnamecompany+".pdf";
+					String cfilequotation = "Quotation_"+om.getMaxFileID()+"_"+cnamecompany+".pdf";
 					String cnumberquotation = request.getParameter("c_number_quotation");
 					String cdatequotation = request.getParameter("c_date_quotation");
 					
@@ -304,7 +197,7 @@ public class OrderRequestController {
 					Calendar cal_cdatequotation = Calendar.getInstance();
 					String pattern3 = "yyyy-MM-dd";
 					SimpleDateFormat sdf3 = new SimpleDateFormat(pattern3);
-					cal_bdatequotation.setTime(sdf3.parse(bdatequotation));
+					cal_cdatequotation.setTime(sdf3.parse(cdatequotation));
 					
 					File_Quotation fq3 = new File_Quotation(fm.getMaxFilequotationID(),cfilequotation,cnamecompany,cnumberquotation,cal_cdatequotation,request_type);
 					fq3.setOrderRequest(or);
@@ -313,21 +206,15 @@ public class OrderRequestController {
 					if (!file1.isEmpty()) {
 					
 							byte[] bytes = file1.getBytes();
-
-							// Creating the directory to store file
-							String rootPath = System.getProperty("catalina.home");
-							File dir = new File(rootPath + File.separator + "tmpFiles");
-							if (!dir.exists())
-								dir.mkdirs();
+							String path = request.getServletContext().getRealPath("/")+ "pdf/";
 
 							// Create the file on server
-							File serverFile = new File(dir.getAbsolutePath()
-									+ File.separator + afilequotation);
+							File serverFile = new File(path + afilequotation);
 							BufferedOutputStream stream = new BufferedOutputStream(
 									new FileOutputStream(serverFile));
 							stream.write(bytes);
 							stream.close();
-							System.out.println("Server File Location="+ serverFile.getAbsolutePath());
+							System.out.println("Server File Location="+ path);
 
 							System.out.println("You successfully uploaded file=" + afilequotation);
 					} else {
@@ -336,21 +223,15 @@ public class OrderRequestController {
 					if (!file2.isEmpty()) {
 						
 						byte[] bytes = file2.getBytes();
+						String path = request.getServletContext().getRealPath("/")+ "pdf/";
 
-						// Creating the directory to store file
-						String rootPath = System.getProperty("catalina.home");
-						File dir = new File(rootPath + File.separator + "tmpFiles");
-						if (!dir.exists())
-							dir.mkdirs();
-							
 						// Create the file on server
-						File serverFile = new File(dir.getAbsolutePath()
-								+ File.separator + bfilequotation);
+						File serverFile = new File(path + bfilequotation);
 						BufferedOutputStream stream = new BufferedOutputStream(
 								new FileOutputStream(serverFile));
 						stream.write(bytes);
 						stream.close();
-						System.out.println("Server File Location="+ serverFile.getAbsolutePath());
+						System.out.println("Server File Location="+ path);
 
 						System.out.println("You successfully uploaded file=" + bfilequotation);
 				} else {
@@ -359,22 +240,16 @@ public class OrderRequestController {
 					if (!file3.isEmpty()) {
 						
 						byte[] bytes = file3.getBytes();
-
-						// Creating the directory to store file
-						String rootPath = System.getProperty("catalina.home");
-						File dir = new File(rootPath + File.separator + "tmpFiles");
-						if (!dir.exists())
-							dir.mkdirs();
+						String path = request.getServletContext().getRealPath("/")+ "pdf/";
 
 						// Create the file on server
-						File serverFile = new File(dir.getAbsolutePath()
-								+ File.separator + cfilequotation);
+						File serverFile = new File(path + cfilequotation);
 						BufferedOutputStream stream = new BufferedOutputStream(
 								new FileOutputStream(serverFile));
 						stream.write(bytes);
 						stream.close();
-						System.out.println("Server File Location="+ serverFile.getAbsolutePath());
-
+						System.out.println("Server File Location="+ path);
+						
 						System.out.println("You successfully uploaded file=" + cfilequotation);
 				} else {
 					System.out.println("You failed to upload " + cfilequotation+ " because the file was empty.");
@@ -400,37 +275,18 @@ public class OrderRequestController {
 			return "ListRequest";
 		}
 		
-		@RequestMapping(value = "/pdf", method=RequestMethod.GET)
-		  public void showPdf(HttpServletResponse response, HttpServletRequest request) throws IOException {
-				request.setCharacterEncoding("UTF-8");
-				String filename = request.getParameter("filename");
-				String path = "E:/apache-tomcat-9.0.62/tmpFiles/";
-				response.setContentType("application/pdf");
-			    
-			    
-				response.setHeader("Content-Disposition","inline; filename="+filename+"");
-			    
-				InputStream inputStream = new FileInputStream(new File(path+filename));
-			    int nRead;
-			    while ((nRead = inputStream.read()) != -1) {
-			        response.getWriter().write(nRead);
-			    }
-			   
-			    inputStream.close();
-			   
-			  
-			    
-		  } 
+	
 		
 		
-		//Controller Edit OrderRequest Product
+		// Edit OrderRequest Product Controller  by lecturer
 		@RequestMapping(value="/EditOrderRequestProduct", method=RequestMethod.POST)
 		public ModelAndView do_EditOrderRequestProduct(HttpServletRequest  request, HttpSession session) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("UTF-8");
 		// Product mb = (Product) session.getAttribute(""); 
 			String message = ""; 
 			ModelAndView mav = new ModelAndView("ListRequest");
-				try {          
+				try {  
+					// orderRequest        
 					OrderRequestManager orm = new OrderRequestManager();
 					String orderRequest_id = request.getParameter("OrderRequest_id");
 					QuantityManager qm = new QuantityManager();
@@ -454,8 +310,8 @@ public class OrderRequestController {
 						 pid.add(Integer.parseInt(request.getParameter("id"+(i+1)).trim())) ;
 						}
 					}
-					System.out.println(product);
-					System.out.println(qty);
+					//System.out.println(product);
+					//System.out.println(qty);
 					OrderRequest or = new OrderRequest();		
 					or = orm.OrderRequestByID(orderRequest_id);
 					for(int j=0;j<product.size();j++) {
@@ -474,7 +330,7 @@ public class OrderRequestController {
 				return mav;
 		}
 		
-		//Controller Edit OrderRequest Quotation
+		//Edit OrderRequest Quotation Controller by lecturer
 		@RequestMapping(value="/EditOrderRequest2", method=RequestMethod.POST)
 		public ModelAndView do_editaddOrderRequest2
 				(@RequestParam("a_file_quotation") MultipartFile file1,
@@ -489,7 +345,8 @@ public class OrderRequestController {
 		ModelAndView mav = new ModelAndView("ListRequest");
 		StaffManager sm = new StaffManager();
 		OrderRequestManager om = new OrderRequestManager();
-				try {          
+				try {  
+					// orderRequest
 					String orderRequest_id  = request.getParameter("OrderRequest_id");
 					String request_type =  "มีใบเสนอราคา";
 					String username = request.getParameter("username");
@@ -501,7 +358,7 @@ public class OrderRequestController {
 					List<File_Quotation> f = fm.getAllQuotation(Integer.parseInt(orderRequest_id));
 					//quotation  1
 					String anamecompany = request.getParameter("a_name_company");
-					String afilequotation = "ใบเสนอราคา_"+f.get(0).getFile_id()+"_"+anamecompany+".pdf";
+					String afilequotation = "Quotation_"+f.get(0).getFile_id()+"_"+anamecompany+".pdf";
 					String anumberquotation = request.getParameter("a_number_quotation");
 					String adatequotation = request.getParameter("a_date_quotation");
 					
@@ -517,7 +374,7 @@ public class OrderRequestController {
 					fm.updateFileQuotaion(fq1);
 					//quotation  2
 					String bnamecompany = request.getParameter("b_name_company");
-					String bfilequotation = "ใบเสนอราคา_"+f.get(1).getFile_id()+"_"+bnamecompany+".pdf";
+					String bfilequotation = "Quotation_"+f.get(1).getFile_id()+"_"+bnamecompany+".pdf";
 					
 					String bnumberquotation = request.getParameter("b_number_quotation");
 					String bdatequotation = request.getParameter("b_date_quotation");
@@ -534,7 +391,7 @@ public class OrderRequestController {
 					
 					//quotation  3
 					String cnamecompany = request.getParameter("c_name_company");
-					String cfilequotation = "ใบเสนอราคา_"+f.get(2).getFile_id()+"_"+cnamecompany+".pdf";
+					String cfilequotation = "Quotation_"+f.get(2).getFile_id()+"_"+cnamecompany+".pdf";
 					String cnumberquotation = request.getParameter("c_number_quotation");
 					String cdatequotation = request.getParameter("c_date_quotation");
 					
@@ -551,22 +408,16 @@ public class OrderRequestController {
 					
 					if (!file1.isEmpty()) {
 					
-							byte[] bytes = file1.getBytes();
+						byte[] bytes = file1.getBytes();
+						String path = request.getServletContext().getRealPath("/")+ "pdf/";
 
-							// Creating the directory to store file
-							String rootPath = System.getProperty("catalina.home");
-							File dir = new File(rootPath + File.separator + "tmpFiles");
-							if (!dir.exists())
-								dir.mkdirs();
-
-							// Create the file on server
-							File serverFile = new File(dir.getAbsolutePath()
-									+ File.separator + afilequotation);
-							BufferedOutputStream stream = new BufferedOutputStream(
-									new FileOutputStream(serverFile));
-							stream.write(bytes);
-							stream.close();
-							System.out.println("Server File Location="+ serverFile.getAbsolutePath());
+						// Create the file on server
+						File serverFile = new File(path + afilequotation);
+						BufferedOutputStream stream = new BufferedOutputStream(
+								new FileOutputStream(serverFile));
+						stream.write(bytes);
+						stream.close();
+						System.out.println("Server File Location="+ path);
 
 							System.out.println("You successfully uploaded file=" + afilequotation);
 					} else {
@@ -575,21 +426,15 @@ public class OrderRequestController {
 					if (!file2.isEmpty()) {
 						
 						byte[] bytes = file2.getBytes();
+						String path = request.getServletContext().getRealPath("/")+ "pdf/";
 
-						// Creating the directory to store file
-						String rootPath = System.getProperty("catalina.home");
-						File dir = new File(rootPath + File.separator + "tmpFiles");
-						if (!dir.exists())
-							dir.mkdirs();
-							
 						// Create the file on server
-						File serverFile = new File(dir.getAbsolutePath()
-								+ File.separator + bfilequotation);
+						File serverFile = new File(path + bfilequotation);
 						BufferedOutputStream stream = new BufferedOutputStream(
 								new FileOutputStream(serverFile));
 						stream.write(bytes);
 						stream.close();
-						System.out.println("Server File Location="+ serverFile.getAbsolutePath());
+						System.out.println("Server File Location="+ path);
 
 						System.out.println("You successfully uploaded file=" + bfilequotation);
 				} else {
@@ -599,21 +444,15 @@ public class OrderRequestController {
 					if (!file3.isEmpty()) {
 						
 						byte[] bytes = file3.getBytes();
-
-						// Creating the directory to store file
-						String rootPath = System.getProperty("catalina.home");
-						File dir = new File(rootPath + File.separator + "tmpFiles");
-						if (!dir.exists())
-							dir.mkdirs();
+						String path = request.getServletContext().getRealPath("/")+ "pdf/";
 
 						// Create the file on server
-						File serverFile = new File(dir.getAbsolutePath()
-								+ File.separator + cfilequotation);
+						File serverFile = new File(path + cfilequotation);
 						BufferedOutputStream stream = new BufferedOutputStream(
 								new FileOutputStream(serverFile));
 						stream.write(bytes);
 						stream.close();
-						System.out.println("Server File Location="+ serverFile.getAbsolutePath());
+						System.out.println("Server File Location="+ path);
 
 						System.out.println("You successfully uploaded file=" + cfilequotation);
 				} else {
@@ -628,35 +467,17 @@ public class OrderRequestController {
 		}
 		
 		
+		
+		
 	
 		
 		
 		
 //-----------------------------------------------------supplies officer--------------------------------
 		
-		//โหลดหน้าเพิ่มใบเสนอราคา
-		@RequestMapping(value = "/loadpageAddQuotation", method = RequestMethod.GET)
-		public String loadtAddQuotationPage(HttpServletRequest  request, HttpSession session) {
-			String OrderRequest_id = request.getParameter("OrderRequest_id");
-			session.setAttribute("OrderRequest_id", OrderRequest_id);	
-			return "Addquotation";
-		}
+	
 		
-		//โหลดหน้ารายการทั้งหมดที่แจ้งความประสงค์
-		@RequestMapping(value = "/loadpageQuotationDetailBySupplise", method = RequestMethod.GET)
-		public String loadtQuotationDetailBySupplise(HttpServletRequest request, Model md, HttpSession session) throws java.text.ParseException {
-
-			String OrderRequest_id = request.getParameter("OrderRequest_id");
-			String request_type = request.getParameter("request_type");
-			
-			OrderRequestManager orm = new OrderRequestManager();
-			OrderRequest order_r = orm.OrderRequestByID(OrderRequest_id);
-			session.setAttribute("OrderRequest", order_r);	
-			
-			return "Quotation_Detail_BySupplies";
-		}	
-		
-		//comment
+		//Add Comment Controller
 		@RequestMapping(value = "/loadpageAddcommentBySupplise", method = RequestMethod.POST)
 		public String loadtAddcommentBySupplise(HttpServletRequest request, Model md, HttpSession session) throws java.text.ParseException {
 			
@@ -675,7 +496,7 @@ public class OrderRequestController {
 		}	
 		
 
-		//Controller OrderRequest FileQuotation
+		// Add  FileQuotation By Supplies officer Controller
 			@RequestMapping(value="/addQuotationBysupplies", method=RequestMethod.POST)
 			public ModelAndView do_addQuotationBysupplies
 					(@RequestParam("a_file_quotation") MultipartFile file1,
@@ -706,7 +527,7 @@ public class OrderRequestController {
 						
 						//quotation  1
 						String anamecompany = request.getParameter("a_name_company");
-						String afilequotation = "ใบเสนอราคา_"+om.getMaxFileID()+"_"+anamecompany+".pdf";
+						String afilequotation = "Quotation_"+om.getMaxFileID()+"_"+anamecompany+".pdf";
 						String anumberquotation = request.getParameter("a_number_quotation");
 						String adatequotation = request.getParameter("a_date_quotation");
 						
@@ -724,10 +545,10 @@ public class OrderRequestController {
 						fq1.setOrderRequest(or);
 						
 						result = fm.insertFileQuotaion(fq1);
+						
 						//quotation  2
 						String bnamecompany = request.getParameter("b_name_company");
-						String bfilequotation = "ใบเสนอราคา_"+om.getMaxFileID()+"_"+bnamecompany+".pdf";
-						
+						String bfilequotation = "Quotation_"+om.getMaxFileID()+"_"+bnamecompany+".pdf";						
 						String bnumberquotation = request.getParameter("b_number_quotation");
 						String bdatequotation = request.getParameter("b_date_quotation");
 						
@@ -743,7 +564,7 @@ public class OrderRequestController {
 						
 						//quotation  3
 						String cnamecompany = request.getParameter("c_name_company");
-						String cfilequotation = "ใบเสนอราคา_"+om.getMaxFileID()+"_"+cnamecompany+".pdf";
+						String cfilequotation = "Quotation_"+om.getMaxFileID()+"_"+cnamecompany+".pdf";
 						String cnumberquotation = request.getParameter("c_number_quotation");
 						String cdatequotation = request.getParameter("c_date_quotation");
 						
@@ -751,7 +572,7 @@ public class OrderRequestController {
 						Calendar cal_cdatequotation = Calendar.getInstance();
 						String pattern3 = "yyyy-MM-dd";
 						SimpleDateFormat sdf3 = new SimpleDateFormat(pattern3);
-						cal_bdatequotation.setTime(sdf3.parse(bdatequotation));
+						cal_cdatequotation.setTime(sdf3.parse(cdatequotation));
 						
 						File_Quotation fq3 = new File_Quotation(fm.getMaxFilequotationID(),cfilequotation,cnamecompany,cnumberquotation,cal_cdatequotation,request_type);
 						fq3.setOrderRequest(or);
@@ -759,22 +580,16 @@ public class OrderRequestController {
 						
 						if (!file1.isEmpty()) {
 						
-								byte[] bytes = file1.getBytes();
+							byte[] bytes = file1.getBytes();
+							String path = request.getServletContext().getRealPath("/")+ "pdf/";
 
-								// Creating the directory to store file
-								String rootPath = System.getProperty("catalina.home");
-								File dir = new File(rootPath + File.separator + "tmpFiles");
-								if (!dir.exists())
-									dir.mkdirs();
-
-								// Create the file on server
-								File serverFile = new File(dir.getAbsolutePath()
-										+ File.separator + afilequotation);
-								BufferedOutputStream stream = new BufferedOutputStream(
-										new FileOutputStream(serverFile));
-								stream.write(bytes);
-								stream.close();
-								System.out.println("Server File Location="+ serverFile.getAbsolutePath());
+							// Create the file on server
+							File serverFile = new File(path + afilequotation);
+							BufferedOutputStream stream = new BufferedOutputStream(
+									new FileOutputStream(serverFile));
+							stream.write(bytes);
+							stream.close();
+							System.out.println("Server File Location="+ path);
 
 								System.out.println("You successfully uploaded file=" + afilequotation);
 						} else {
@@ -783,21 +598,15 @@ public class OrderRequestController {
 						if (!file2.isEmpty()) {
 							
 							byte[] bytes = file2.getBytes();
+							String path = request.getServletContext().getRealPath("/")+ "pdf/";
 
-							// Creating the directory to store file
-							String rootPath = System.getProperty("catalina.home");
-							File dir = new File(rootPath + File.separator + "tmpFiles");
-							if (!dir.exists())
-								dir.mkdirs();
-								
 							// Create the file on server
-							File serverFile = new File(dir.getAbsolutePath()
-									+ File.separator + bfilequotation);
+							File serverFile = new File(path + bfilequotation);
 							BufferedOutputStream stream = new BufferedOutputStream(
 									new FileOutputStream(serverFile));
 							stream.write(bytes);
 							stream.close();
-							System.out.println("Server File Location="+ serverFile.getAbsolutePath());
+							System.out.println("Server File Location="+ path);
 
 							System.out.println("You successfully uploaded file=" + bfilequotation);
 					} else {
@@ -806,21 +615,15 @@ public class OrderRequestController {
 						if (!file3.isEmpty()) {
 							
 							byte[] bytes = file3.getBytes();
-
-							// Creating the directory to store file
-							String rootPath = System.getProperty("catalina.home");
-							File dir = new File(rootPath + File.separator + "tmpFiles");
-							if (!dir.exists())
-								dir.mkdirs();
+							String path = request.getServletContext().getRealPath("/")+ "pdf/";
 
 							// Create the file on server
-							File serverFile = new File(dir.getAbsolutePath()
-									+ File.separator + cfilequotation);
+							File serverFile = new File(path + cfilequotation);
 							BufferedOutputStream stream = new BufferedOutputStream(
 									new FileOutputStream(serverFile));
 							stream.write(bytes);
 							stream.close();
-							System.out.println("Server File Location="+ serverFile.getAbsolutePath());
+							System.out.println("Server File Location="+ path);
 
 							System.out.println("You successfully uploaded file=" + cfilequotation);
 					} else {
@@ -832,9 +635,7 @@ public class OrderRequestController {
 						orm.updateStatus("รอยืนยันความประสงค์", OrderRequest_id);
 						orm.updateType(OrderRequest_id);
 					}
-						
-					
-					
+		
 				}catch (Exception e) {
 					e.printStackTrace();
 					message = "โปรดลองใหม่อีกครั้ง....";
@@ -844,49 +645,5 @@ public class OrderRequestController {
 			
 			}
 			
-			@RequestMapping(value="/addConfirmform", method=RequestMethod.POST)
-			public ModelAndView do_addConfirmform (HttpServletRequest  request, HttpSession session) throws UnsupportedEncodingException, java.text.ParseException {
-				request.setCharacterEncoding("UTF-8");
-				ModelAndView mav = new ModelAndView("ListRequest");
-				String message = ""; 
-				OrderRequestManager orm = new OrderRequestManager();
-				Calendar confirm_date = Calendar.getInstance();
-				String board_name1 = request.getParameter("board_name1");
-				String board_name2 = request.getParameter("board_name2");
-				String chairman_Board_name = request.getParameter("chairman_Board_name");
-				
-				String money_type = request.getParameter("money_type");
-				if(money_type.equals("")) {
-					money_type = request.getParameter("money_type_etc");
-				}
-				
-				String necessity_type = request.getParameter("necessity_type");
-				String necessity_type1_text;
-				String necessity_type2_text1;
-				String necessity_type2_text2;
-				
-				if(necessity_type.equals("")) {
-					necessity_type = request.getParameter("necessity_type_etc");
-				}else if(necessity_type.equals("1")) {
-					necessity_type1_text = request.getParameter("necessity_type1_text");
-					necessity_type = "เพื่อใช้สำหรับการเรียนการสอน รายวิชา "+necessity_type1_text;
-				}else if(necessity_type.equals("2")) {
-					necessity_type2_text1 = request.getParameter("necessity_type2_text1");
-					necessity_type2_text2 = request.getParameter("necessity_type2_text2");
-					necessity_type = "เพื่อใช้สำหรับการเรียนการสอน รายวิชา วท.498 หัวข้อ "+necessity_type2_text1+" ชื่อ-นามสกุล นักศึกษา "+necessity_type2_text2;
-				}
-				
-				String OrderRequest_id = request.getParameter("OrderRequest_id"); 
-				
-				OrderRequest or = orm.OrderRequestByID(OrderRequest_id);
-				
-				ConfirmForm cf = new ConfirmForm(orm.getMaxConfirmFormID(),confirm_date,money_type,necessity_type,chairman_Board_name,board_name1,board_name2,or);
-				
-				
-				orm.insertConfirmForm(cf);
-				orm.updateStatus("ยืนยันความประสงค์สำเร็จ", OrderRequest_id);
-				
-				
-				return mav;
-			}
+		
 }

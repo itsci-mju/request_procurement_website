@@ -16,7 +16,7 @@ String staffname = (String) session.getAttribute("staffname");
 Calendar calendar = Calendar.getInstance();
 SimpleDateFormat caldateformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 String  nowDate = caldateformat.format(calendar.getTime());
-String result = "";
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,7 +62,7 @@ String result = "";
      
         <!--head-text-->
        	
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">การแจ้งความประสงค์การจัดซื้อจัดจ้าง </h2>
+			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">ยืนยันการแจ้งความประสงค์การจัดซื้อจัดจ้าง</h2>
                  <div class="container product-table" style="height: 1000px;"> 
                         <div class="row">
                             <div class="col-md-12">
@@ -97,11 +97,11 @@ String result = "";
                                    
 									
                                     <br>
-                                    
+                                 
                                      
                                     <div class="formcon">                                    
-                                 <h4 style="text-align: center;">  <b>แบบยืนยันความประสงค์ในการขอซื้อของจ้าง</b></h4>
-                                   <form class="" id="frm" name="frm" action="addConfirmform?quotation_no=<%= result  %>"  method="post">
+                                  <h4 style="text-align: center;">  <b>แบบยืนยันความประสงค์ในการขอซื้อของจ้าง</b></h4>
+                                   <form class="" id="frm" name="frm" action="addConfirmform"  method="post">
                 					<input type="hidden" name="OrderRequest_id" value="<%= order_q.getOrderRequest_id() %>">
                                   <h6 style="text-align: right;" class="h4font"> <b>วันที่ <%=caldateformat.format(calendar.getTime()) %></b> </h6>
                                     <table class="table">
@@ -109,23 +109,18 @@ String result = "";
 									    <tr>
 									      <th scope="col" style="width: 160px;">ใบเสนอราคา บริษัท : </th>								    
 								      <th scope="col" style="width: 350px;">
-								      <select style="width: 300px; color: black;"  name="company_name" id="company_name" onchange='validate()'>
-									        <% if (listFile != null){%>
-                                      	 <option disabled selected>กรุณาเลือกใบเสนอราคาที่ต้องการ</option>
-                                          <%for (int i=0 ; i<listFile.size(); i++) {%>					 
-										  <option value="<%=listFile.get(i).getFile_name() %>"><%=listFile.get(i).getFile_name() %></option>
-										<%} %>
-                                    <%} %>
-										</select>								
-										</th>									
+								   			 <th scope="col"><label id="no" ></label></th>						
+										</th>	
+																
 									      <th scope="col" >เลขที่</th>
-									      <th scope="col"><label  id="quotation_no" name="quotation_no"  ></label></th>
+									      <th scope="col"><label id="quotation_no" name="quotation_no"></label></th>
 									      <th scope="col">วันที่ใบเสนอราคา</th>
-									      <th scope="col"><label id="quotation_date" name="quotation_date"></label></th>								      
+									      <th scope="col"><label id="quotation_date" name="quotation_date"></label></th>
+ 																		      
 									    </tr>	
 									    </thead>
 									     </table>	
-									 	<h6 style="color:red"  class="h4font"><b>*หมายเหตุ เลือกใบเสนอราคาตามความต้องการ*</b> </h6> 
+									   
 									 	<div>
 									 	 <h4><b> ใช้เงิน :</b> </h4> 
 									 	 
@@ -133,18 +128,18 @@ String result = "";
 									 	</div>	
 									 	
 										<div class="form-check">
-											 <input class="" type="radio" value="เงินรายได้" name="money_type" id="money_type1" >
+											 <input class="" type="radio" value="เงินรายได้" name="money_type" id="money_type1" <% if(cf_form.getMoney_type().equals("เงินรายได้")){ %> checked <% } %>>
 										<label class="form-check-label" for="flexCheckDefault">เงินรายได้ </label> 
 										</div>
 										
 										<div class="form-check">
-											  <input class="" type="radio" value="เงินสะสมเพื่อการบริหารรายได้" name="money_type" id="money_type2">
+											  <input class="" type="radio" value="เงินสะสมเพื่อการบริหารรายได้" name="money_type" id="money_type2" <% if(cf_form.getMoney_type().equals("เงินสะสมเพื่อการบริหารรายได้")){ %> checked <% } %>>
 											  <label class="form-check-label" for="flexCheckDefault"> เงินสะสมเพื่อการบริหารรายได้</label>
 										</div>
 										<div class="form-check">
-											  <input class="" type="radio" value="" name="money_type" id="money_type3" value="Yes"> 
+											  <input class="" type="radio" value="" name="money_type" id="money_type3" value="Yes" <% if(!cf_form.getMoney_type().equals("เงินรายได้") && !cf_form.getMoney_type().equals("เงินสะสมเพื่อการบริหารรายได้")){ %> checked <% } %>> 
 											  <label class="form-check-label" for="flexCheckDefault"> อื่นๆ :</label>	
-											  <input style="width:150px" type="text" class="inputRadio" name="money_type_etc" > 																								   
+											  <input style="width:150px" type="text" class="inputRadio" name="money_type_etc" disabled="true" readonly<% if(!cf_form.getMoney_type().equals("เงินรายได้") && !cf_form.getMoney_type().equals("เงินสะสมเพื่อการบริหารรายได้")){ %> value="<%= cf_form.getMoney_type() %>" <% } %>>  																								   
 														
 										</div> 
 									  	
@@ -153,41 +148,41 @@ String result = "";
 									 	<h4><b>เหตุผลความจำเป็น : </b> </h4> 
 									 	</div>									  
 										<div class="form-check">
-											  <input class="" type="radio" value="1" name="necessity_type" id="necessity_type1" >
+											  <input class="" type="radio" value="1" name="necessity_type" id="necessity_type1" <% if(cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา")){ %> checked <% } %>>
 											  <label class="form-check-label" for="flexCheckChecked">
 											  เพื่อใช้สำหรับการเรียนการสอน รายวิชา :</label>
-											   <input style="width:150px" type="text" class="inputRadio" name="necessity_type1_text">
+											   <input style="width:150px" type="text" class="inputRadio" name="necessity_type1_text" disabled="true"  readonly<% if(cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา")){ %> value="<%= cf_form.getNecessity_type() %>" <% } %>>
 										</div>
 											
 										<div class="form-check" style="margin-top:5px">
-											  <input class="" type="radio" value="2" name="necessity_type" id="necessity_type2"  >
+											  <input class="" type="radio" value="2" name="necessity_type" id="necessity_type2"  <% if(cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา วท.498")){ %> checked <% } %>>
 											  <label class="form-check-label" for="flexCheckChecked">
 											  เพื่อใช้สำหรับการเรียนการสอน รายวิชา วท.498											  
 											  </label>
 											  
 											  <label  class="form-check-label" for="flexCheckChecked">&nbsp;&nbsp; หัวข้อ : </label>
-											  <input style="width:150px" type="text" class="inputRadio" name="necessity_type2_text1" >&nbsp; 
+											  <input style="width:150px" type="text" class="inputRadio" name="necessity_type2_text1" disabled="true" readonly<% if(cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา วท.498")){ %> value="<%= cf_form.getNecessity_type() %>" <% } %>>&nbsp; 
 											  
 											  <label class="form-check-label" for="flexCheckChecked">&nbsp;&nbsp; ชื่อ-นามสกุล นักศึกษา :</label>&nbsp;
-											<input style="width:150px" type="text" class="inputRadio" name="necessity_type2_text2" >
+											<input style="width:150px" type="text" class="inputRadio" name="necessity_type2_text2" disabled="true" readonly<% if(cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา วท.498")){ %> value="<%= cf_form.getNecessity_type() %>" <% } %>>
 											  
 											  
 										</div>
 										
 										<div class="form-check" style="margin-top:5px">
-											  <input class="" type="radio" value="เพื่อใช้ในการปฎิบัติงานในหลักสูตร" name="necessity_type" id="necessity_type3"  >
+											  <input class="" type="radio" value="เพื่อใช้ในการปฎิบัติงานในหลักสูตร" name="necessity_type" id="necessity_type3"  <% if(cf_form.getNecessity_type().contains("เพื่อใช้ในการปฎิบัติงานในหลักสูตร")){ %> checked <% } %>>
 											  <label class="form-check-label" for="flexCheckChecked">เพื่อใช้ในการปฎิบัติงานในหลักสูตร </label>
 										</div>
 										
 										<div class="form-check" style="margin-top:5px">
-											  <input class="" type="radio" value="เพื่อใช้ในโครงการตามยุตธศาสตร์" name="necessity_type" id="necessity_type4" >
+											  <input class="" type="radio" value="เพื่อใช้ในโครงการตามยุตธศาสตร์" name="necessity_type" id="necessity_type4" <% if(cf_form.getNecessity_type().contains("เพื่อใช้ในโครงการตามยุตธศาสตร์")){ %> checked <% } %>>
 											  <label class="form-check-label" for="flexCheckChecked">เพื่อใช้ในโครงการตามยุตธศาสตร์ </label>
 										</div>  
 										
 										<div class="form-check" style="margin-top:5px">
-											  <input class="" type="radio" value="" name="necessity_type" id="necessity_type5" >
+											  <input class="" type="radio" value="" name="necessity_type" id="necessity_type5" <% if(!cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา วท.498") && !cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา") && !cf_form.getNecessity_type().contains("เพื่อใช้ในการปฎิบัติงานในหลักสูตร") && !cf_form.getNecessity_type().contains("เพื่อใช้ในโครงการตามยุตธศาสตร์")){ %> checked <% } %>>
 											  <label class="form-check-label" for="flexCheckChecked">อื่นๆ :</label>
-											  <input style="width:150px" type="text" class="inputRadio" name="necessity_type_etc" >	 
+											  <input style="width:150px" type="text" class="inputRadio" name="necessity_type_etc" disabled="true" readonly<% if(!cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา วท.498") && !cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา") && !cf_form.getNecessity_type().contains("เพื่อใช้ในการปฎิบัติงานในหลักสูตร") && !cf_form.getNecessity_type().contains("เพื่อใช้ในโครงการตามยุตธศาสตร์")){ %> value="<%=cf_form.getNecessity_type() %>" <% } %>>	 
 											</div>	  
                                     
                                     <br>
@@ -201,13 +196,14 @@ String result = "";
 									<tr>
 									<td></td>
 									  <td> <div class="form-check">
-											  <label class="form-check-label" for="flexCheckChecked">1.ประธานกรรมการ:&nbsp;&nbsp;</label>
-											  
+											  <label class="form-check-label" for="flexCheckChecked">1.ประธานกรรมการ:&nbsp;&nbsp;
+											  </label>
 											</div>
 										</td>	
 										
 										<td>
-										 <input style="width:250px" type="text" class="inputRadio" name="chairman_Board_name" >		 
+										 <input style="width:250px" type="text" class="inputRadio" name="chairman_Board_name"  value="<%=cf_form.getChairman_Board_name() %>" readonly>
+											 
 										</td>
 										
 										  <td> <div class="form-check">
@@ -217,7 +213,7 @@ String result = "";
 										</td>	
 																				
 										<td>
-										 <input style="width:250px" type="text" class="inputRadio" name="board_name1">											 
+										 <input style="width:250px" type="text" class="inputRadio" name="board_name1"  value="<%=cf_form.getBoard_name1() %>" readonly>											 
 										</td>
 										
 											  <td> <div class="form-check">
@@ -227,7 +223,7 @@ String result = "";
 										</td>	
 										
 										<td>
-										 <input style="width:250px" type="text" class="inputRadio" name="board_name2">
+										 <input style="width:250px" type="text" class="inputRadio" name="board_name2" value="<%=cf_form.getBoard_name2() %>" readonly>
 											 
 										</td>
 									
@@ -243,10 +239,8 @@ String result = "";
 									</div>
 							 <br><br>			  
 								 <!-- Button link-->
-                    <div>
-                    <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkconfirm(frm);"> ยืนยืนความประสงค์  </button>             
-                    </div>
-                
+                   
+                 
                       <div>
 				     <a class="" href="loadpagelistorder"  style=" margin-left: 37%;">
 				     <button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button>         
@@ -259,115 +253,13 @@ String result = "";
                             </div>
                         </div>
                    <br><br>
-
+            
+               	 
+          			
         
                 <!-- Footer -->
       <div style=" margin-top: 350px;" >   <jsp:include page="common/footer.jsp"/>       </div>
       
-    
-<script type="text/javascript">
-function checkconfirm(frm) {
-	
-	var Board_name = /^[ก-์A-Za-z]{2,50}$/;
-	
-	//Money Type
-    var checked_moneyType = document.getElementsByName("money_type");
-    var i=0;
-    var ChooseMoneyType = false;
-    
-    for(i=0;i<checked_moneyType.length;i++){
-        if(checked_moneyType[i].checked){
-            ChooseMoneyType = true;
-            break;
-        }
-    }
-    if(!ChooseMoneyType){
-        alert("กรุณาเลือกประเภทการใช้เงิน");
-        return ChooseMoneyType;
-    }
-    
-	//necessity type
-    var checked_necessity_type = document.getElementsByName("necessity_type");
-    var i=0;
-    var Choosenecessity_type = false;
-    
-    for(i=0;i<checked_necessity_type.length;i++){
-        if(checked_necessity_type[i].checked){
-        	Choosenecessity_type = true;
-            break;
-        }
-    }
-    if(!Choosenecessity_type){
-        alert("กรุณาเลือกเหตุผลความจำเป็น");
-        return Choosenecessity_type;
-    }
-    
-   
-     
-	//chairman_Board_name
-	if(frm.chairman_Board_name.value == "") {
-		alert("กรุณากรอกชื่อประธานกรรมการ");
-		frm.chairman_Board_name.focus();
-		return false;
-	}
-	if(!frm.chairman_Board_name.value.match(Board_name)){
-		alert("กรุณากรอกชื่อประธานกรรมการ เป็นภาษาไทยหรือภาษาอังกฤษเท่านั้น");		
-		frm.chairman_Board_name.focus();
-		return false;
-	}
-	
-	//Board_name1
-	if(frm.board_name1.value == "") {
-		alert("กรุณากรอกกรรมการคนที่ 1");
-		frm.board_name1.focus();
-		return false;
-	}
-	if(!frm.board_name1.value.match(Board_name)){
-		alert("กรุณากรอกชื่อกรรมการคนที่ 1 เป็นภาษาไทยหรือภาษาอังกฤษเท่านั้น");		
-		frm.board_name1.focus();
-		return false;
-	}
-	
-	//Board_name2
-	if(frm.board_name2.value == "") {
-		alert("กรุณากรอกชื่อกรรมการคนที่ 2");
-		frm.board_name2.focus();
-		return false;
-	}
-	if(!frm.board_name2.value.match(Board_name)){
-		alert("กรุณากรอกชื่อกรรมการคนที่ 2 เป็นภาษาไทยหรือภาษาอังกฤษเท่านั้น");		
-		frm.board_name2.focus();
-		return false;
-	}
-	
-	
-
-	
-}  
-
-
-
-function validate(){
-	 var ddl = document.getElementById("company_name");
-	 var selectedValue = ddl.options[ddl.selectedIndex].value;
-	 //var results
-	
-		 <%for (int i=0; i<listFile.size(); i++) {%>
-		 	if (selectedValue == '<%= listFile.get(i).getFile_name() %>'){
-		 		var no = '<%=listFile.get(i).getQuotation_no() %>' ;
-		 		var dateno = '<%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %>' ;
-		 		document.getElementById("quotation_no").innerHTML = no ;   	 		 
-		 		document.getElementById("quotation_date").innerHTML =  dateno;   
-		 		
-		 
-		   }
-		 <%} %>
-	 
-	}
-
-
-    </script> 
-
 
 	<!-- script link -->
   	<script src="layout/scripts/jquery.min.js"></script>
