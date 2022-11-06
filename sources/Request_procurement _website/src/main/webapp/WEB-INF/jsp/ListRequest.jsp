@@ -44,7 +44,7 @@ int a = 0;
     <link href='https://css.gg/check-o.css' rel='stylesheet'>
 <style>
 .product-table{
- max-height:700px ;
+ max-height:1500px ;
 
  overflow:scroll;
  overflow-x:hidden;
@@ -265,6 +265,8 @@ int a = 0;
         <!-- Navigation -->
        <jsp:include page="common/Navbar.jsp"/>  
         <!--head-text-->      
+        
+        <% if (!major.equals("0") ){ %>
           	<div class="container">
 			<div>
                 <h1 style="text-align: center;" class="masthead-heading text-uppercase mb-0" >"<b> ยินดี<span style="color:#017f3f">ต้อนรับ</span></b>"</h1>
@@ -290,16 +292,16 @@ int a = 0;
                             </form> 
 		            </div>
 				</div>
-        
+         <% } %>
         
 			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>ประวัติการแจ้งความประสงค์การจัดซื้อจัดจ้าง</b></h2>
              <br>
             <!-- Form Table -->
              <form class="" name="frm" action=""  id="product_form">    
-                     <div class=" product-table" style="height: 500px;">
+                     <div class=" product-table">
                         <div class="row">
                         	<div class="col-md-12">
-                                <div class="table-wrap" style="height: 300px;">
+                          
                                     <table class="table" id="form_table" style="text-align: center;">
                                       <thead class="thead-dark">
                                         <tr>
@@ -311,8 +313,9 @@ int a = 0;
                                           <% } %>
                                           <th>ประเภทการแจ้งความประสงค์</th>
                                           <th>สถานะ</th>
-                                          <th>ดูรายละเอียด,ยืนยัน /แก้ไข /ยกเลิก</th>
-                                        
+                                      
+                                           <th>ดูรายละเอียด,ยืนยัน /แก้ไข /ตรวจสอบ /ยกเลิก</th>
+                                       
                                         </tr>
                                       </thead>
                                       <% if (listorderRequest != null){%>                                  
@@ -339,7 +342,9 @@ int a = 0;
 	                                          		<td><label style="color: orange;"><%= listorderRequest.get(i).getStatus() %></label></td>  
                                           		  <% }else if(listorderRequest.get(i).getStatus().equals("รอยืนยันความประสงค์") && !major.equals("0")){ %>
                                           		    <td><label style="color: green;"><b><%=status2 %></b></label></td>  
-		                                          <% }else if(listorderRequest.get(i).getStatus().equals("ข้อมูลความประสงค์ไม่ถูกต้อง")){ %>
+		                                          <% }else if(listorderRequest.get(i).getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง")){ %>
+		                                          	<td><label style="color: red;"><%=listorderRequest.get(i).getStatus() %></label></td> 
+		                                          	<% }else if(listorderRequest.get(i).getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")){ %>
 		                                          	<td><label style="color: red;"><%=listorderRequest.get(i).getStatus() %></label></td> 
 		                                          <% }else if(listorderRequest.get(i).getStatus().equals("ยืนยันความประสงค์สำเร็จ")){ %>
 		                                          	<td><label style="color: green;"><%=listorderRequest.get(i).getStatus() %></label></td> 
@@ -350,13 +355,16 @@ int a = 0;
 														<button type="button" class="button-17" role="button" >ดู 
 														&nbsp; 	<i class="gg-eye"></i>										
 														</button></a>&nbsp;
-												<% if(listorderRequest.get(i).getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") || listorderRequest.get(i).getStatus().equals("ข้อมูลความประสงค์ไม่ถูกต้อง") ){ %>						 	
-		                                           <a href="loadEditRequestproduct?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>  "> 
+												<% if(listorderRequest.get(i).getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") || listorderRequest.get(i).getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง") 
+														|| listorderRequest.get(i).getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")
+														|| listorderRequest.get(i).getStatus().equals("รอยืนยันความประสงค์") && major.equals("0")  ){ %>
+																	 	
+		                                           <a href="loadEditRequestproduct?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type() %>  "> 
 		                                          		<button type="button" class="button-18" role="button" >แก้ไข
 														&nbsp; 	<i class="gg-thermometer"></i>									
 														</button></a> &nbsp;	
-															
-														<%}%>
+															<%}%>
+														
 														<% if((listorderRequest.get(i).getStatus().equals("ยืนยันความประสงค์") && !major.equals("0")) || (listorderRequest.get(i).getStatus().equals("รอยืนยันความประสงค์") && !major.equals("0"))){ %>
 														   <a href="loadpageConfirm?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>">
 														<button type="button" class="button-17" role="button" >ยืนยัน
@@ -364,20 +372,45 @@ int a = 0;
 														</button></a>&nbsp;
 													
 														<%}%>
-															<% if(listorderRequest.get(i).getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") && listorderRequest.get(i).getRequest_type().equals("มีใบเสนอราคา")&& major.equals("0") ){ %>
+															<% if(listorderRequest.get(i).getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") 
+																	&& listorderRequest.get(i).getRequest_type().equals("มีใบเสนอราคา")
+																	&& major.equals("0")  ){ %>
 															<a href="loadpageQuotationDetailBySupplise?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>"> 
 		                                          		<button type="button" class="button-18" role="button" >ตรวจสอบ
 														&nbsp; 	<i class="gg-search-found"></i>									
 														</button></a> &nbsp;
 															
 														<%}%>
-															<% if(listorderRequest.get(i).getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") && listorderRequest.get(i).getRequest_type().equals("ไม่มีใบเสนอราคา")&& major.equals("0") ){ %>
+														
+															<% if(listorderRequest.get(i).getStatus().equals("รอยืนยันความประสงค์") 
+																	&& listorderRequest.get(i).getRequest_type().equals("ไม่มีใบเสนอราคา")
+																	&& !major.equals("0")  ){ %>
+															<a href="loadpageQuotationDetailByLecturer?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>"> 
+		                                          		<button type="button" class="button-18" role="button" >ตรวจสอบ
+														&nbsp; 	<i class="gg-search-found"></i>									
+														</button></a> &nbsp;
+															
+														<%}%>
+													
+														
+															<% if(listorderRequest.get(i).getRequest_type().equals("มีใบเสนอราคา")  && major.equals("0") && listorderRequest.get(i).getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") || listorderRequest.get(i).getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง") ){ %>
 															<a href="loadpageAddQuotation?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>"> 
 		                                          		<button type="button" class="button-18" role="button" >เพิ่มใบเสนอราคา
 														&nbsp; 	<i class="gg-thermometer"></i>									
 														</button></a> &nbsp;
 															
 														<%}%>
+														
+															<% if(listorderRequest.get(i).getRequest_type().equals("มีใบเสนอราคา")  && !major.equals("0") && listorderRequest.get(i).getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") || listorderRequest.get(i).getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง")   ){ %>
+															<a href="loadpageAddQuotation?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>"> 
+		                                          		<button type="button" class="button-18" role="button" >เพิ่มใบเสนอราคา
+														&nbsp; 	<i class="gg-thermometer"></i>									
+														</button></a> &nbsp;
+															
+														<%}%>
+														
+														
+														
 												<% if(listorderRequest.get(i).getStatus().equals("ดำเนินการไม่สำเร็จ") ){ %>
 												<a href="deleteOrderRequest?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>">												
 												<button type="button" class="button-19" role="button"  onclick="return confirm('แน่ใจหรือไม่ว่าต้องการลบข้อมูลนี้ ?');">ลบ
@@ -397,7 +430,7 @@ int a = 0;
                                       	<%} %>
                                       <%} %>
                                     </table>   
-                                </div>    
+                                  
                             </div>
                         </div>
 					</div>

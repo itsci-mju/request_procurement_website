@@ -56,6 +56,9 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         <div class="row"> 
                             <div class="col-md-12">
                                 <div class="table-wrap">
+                                
+                             
+                                
                                     <table class="table" id="form_table" style="text-align: center;">
                                       <thead class="thead-dark">
                                         <tr>
@@ -98,7 +101,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                     </table>  
                                      
                                 </div>  
-                                <% if (order_q.getStatus().equals("ข้อมูลความประสงค์ไม่ถูกต้อง")){ %>
+                                <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง")){ %>
                                     <div>
 	                                    <label for="exampleFormControlTextarea1">คำเสนอแนะ</label>
 	                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>

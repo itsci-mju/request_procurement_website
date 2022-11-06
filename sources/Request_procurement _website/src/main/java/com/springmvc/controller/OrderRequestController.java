@@ -467,6 +467,23 @@ public class OrderRequestController {
 		}
 		
 		
+		//Add Comment Controller ByLecturer
+		@RequestMapping(value = "/loadAddcommentByLecturer", method = RequestMethod.POST)
+		public String loadtAddcommentByLecturer(HttpServletRequest request, Model md, HttpSession session) throws java.text.ParseException {
+			
+			String OrderRequest_id = request.getParameter("OrderRequest_id");
+			String quotation_check = request.getParameter("quotation_check");
+			String comment = request.getParameter("comment");
+			OrderRequestManager orm = new OrderRequestManager();
+			
+			if(quotation_check.equals("1")) {
+				orm.updateStatus("ยืนยันความประสงค์",OrderRequest_id);
+			}else if(quotation_check.equals("2")) {
+				orm.updateStatusAndAddComment(OrderRequest_id, "ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง", comment);
+			}
+			
+			return "ListRequest";
+		}	
 		
 		
 	
@@ -489,7 +506,7 @@ public class OrderRequestController {
 			if(quotation_check.equals("1")) {
 				orm.updateStatus("ยืนยันความประสงค์",OrderRequest_id);
 			}else if(quotation_check.equals("2")) {
-				orm.updateStatusAndAddComment(OrderRequest_id, "ข้อมูลความประสงค์ไม่ถูกต้อง", comment);
+				orm.updateStatusAndAddComment(OrderRequest_id, "ข้อมูลใบเสนอราคาไม่ถูกต้อง", comment);
 			}
 			
 			return "ListRequest";
@@ -633,7 +650,7 @@ public class OrderRequestController {
 					//update Status OrderRequest
 					if(result == 1) {
 						orm.updateStatus("รอยืนยันความประสงค์", OrderRequest_id);
-						orm.updateType(OrderRequest_id);
+						
 					}
 		
 				}catch (Exception e) {

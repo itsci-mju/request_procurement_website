@@ -165,5 +165,19 @@ public class MappingController {
 			
 			return "Quotation_Detail_BySupplies";
 		}	
+		
+		//Load Quotation Detail page
+		@RequestMapping(value = "/loadpageQuotationDetailByLecturer", method = RequestMethod.GET)
+		public String loadtQuotationDetailByLecturer(HttpServletRequest request, Model md, HttpSession session) throws java.text.ParseException {
+
+			String OrderRequest_id = request.getParameter("OrderRequest_id");
+			String request_type = request.getParameter("request_type");
+			
+			OrderRequestManager orm = new OrderRequestManager();
+			OrderRequest order_r = orm.OrderRequestByID(OrderRequest_id);
+			session.setAttribute("OrderRequest", order_r);	
+			
+			return "Quotation_Detail_BySupplies";
+		}	
 	
 }

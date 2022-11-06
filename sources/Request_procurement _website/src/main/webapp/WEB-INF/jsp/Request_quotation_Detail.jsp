@@ -53,62 +53,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="table-wrap" style="height: 300px;">
-                                
-                                  <div class="table-wrap" style="height: 300px;">
-                                    <table class="table" id="form_table" style="text-align: center;">
-                                   
-                                      <thead class="thead-dark">
-                                        <tr>
-                                            <th>ลำดับที่</th>
-				                            <th>รายละเอียด</th>
-				                            <th>จำนวน</th> 
-				                            <th>หน่วย</th>
-				                            <th>ราคา/หน่วย</th> 
-				                            <th>จำนวนเงิน</th>
-                                        <th></th>
-                                        </tr>
-                                      </thead>
-                                       <% if (listProduct != null){%>
-                                        <%for (int i=0 ; i<listProduct.size(); i++) {%>
-                                     <!-- row input -->
-                                      <tbody>
-                                        <tr class="alert" role="alert">
-                                          <th  scope="row"><%= i+1 %></th>
-                                          <td><%=listProduct.get(i).getProduct().getProduct_detail() %></td>     
-                                          <td> <%=listProduct.get(i).getQty() %> </td>  
-                                          <td><%=listProduct.get(i).getProduct().getUnit() %></td>  
-                                         <td><%=listProduct.get(i).getProduct().getPrice() %></td>  
-                                          <td><%=listProduct.get(i).getPrice() %></td>  
-                                          
-                                        </tr>                
-                                      </tbody>
-                                      	<%} %>
-                                      <%} %>
-                                     
-                                       <thead class="thead-dark">
-                                        <tr>
-                                            <th></th>
-				                            <th></th>
-				                            <th></th> 
-				                            <th></th>
-				                            <th>ค่าใช้จ่ายทั้งหมด</th> 
-				                            
-				                          <% for (int j=0 ; j<listProduct.size(); j++ ){%>
-				                          <label hidden><%=sum = sum+listProduct.get(j).getPrice() %></label>
-				                          
-				                            <%} %>
-				                            <th >
-				                          <label><%=sum%> </label>
-				                           </th>
-                                        <th>บาท</th>
-                                        </tr>
-                                      </thead>
-                                    </table>   
-                                    
-                                </div>    
-                                
-                                
-                                
+                                        
                                     <table class="table" id="form_table" style="text-align: center;">
                                    
                                       <thead class="thead-dark">
@@ -139,15 +84,16 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                       
                                       
                                     </table> 
-                                    <% if (order_q.getStatus().equals("ข้อมูลความประสงค์ไม่ถูกต้อง")){ %>
+                                    <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง")){ %>
+                                    <form id="frm" name="frm" action="loadpageAddcommentBySupplise" method="post" >
                                     	 <div>
-		                                    <label for="exampleFormControlTextarea1">*หมายเหตุผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
+		                                    <label for="exampleFormControlTextarea1" style="color: red;">*หมายเหตุ : ผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
 					                    </div>
 	                                    <div>
 		                                    <label for="exampleFormControlTextarea1">คำเสนอแนะ</label>
 		                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
 					                    </div>
-	                                    
+	                                    </form>
                                      <%} %>
                                     
                                   <div> 

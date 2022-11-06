@@ -16,7 +16,12 @@ String staffname = (String) session.getAttribute("staffname");
 Calendar calendar = Calendar.getInstance();
 SimpleDateFormat caldateformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 String  nowDate = caldateformat.format(calendar.getTime());
-String result = "";
+
+ProductManager pmanager = new ProductManager();
+List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_id()); 
+double sum = 0.0;
+
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,11 +67,69 @@ String result = "";
      
         <!--head-text-->
        	
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">การแจ้งความประสงค์การจัดซื้อจัดจ้าง </h2>
-                 <div class="container product-table" style="height: 1000px;"> 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="table-wrap" style="height: 300px;">
+			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>"ยืนยันความประสงค์การจัดซื้อจัดจ้าง" </b></h2>
+			 
+			
+			
+                 <div class="container product-table" > 
+                    
+                               
+                               <% if(order_q.getRequest_type().equals("ไม่มีใบเสนอราคา")){ %>
+                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;">รายละเอียดข้อมูลการแจ้งความประสงค์การจัดซื้อจัดจ้าง</h2>
+                                <table class="table" id="form_table" style="text-align: center;">
+                                   
+                                      <thead class="thead-dark">
+                                        <tr>
+                                            <th>ลำดับที่</th>
+				                            <th>รายละเอียด</th>
+				                            <th>จำนวน</th> 
+				                            <th>หน่วย</th>
+				                            <th>ราคา/หน่วย</th> 
+				                            <th>จำนวนเงิน</th>
+                                        <th></th>
+                                        </tr>
+                                      </thead>
+                                       <% if (listProduct != null){%>
+                                        <%for (int i=0 ; i<listProduct.size(); i++) {%>
+                                     <!-- row input -->
+                                      <tbody>
+                                        <tr class="alert" role="alert">
+                                          <th  scope="row"><%= i+1 %></th>
+                                          <td><%=listProduct.get(i).getProduct().getProduct_detail() %></td>     
+                                          <td> <%=listProduct.get(i).getQty() %> </td>  
+                                          <td><%=listProduct.get(i).getProduct().getUnit() %></td>  
+                                         <td><%=listProduct.get(i).getProduct().getPrice() %></td>  
+                                          <td><%=listProduct.get(i).getPrice() %></td>  
+                                          
+                                        </tr>                
+                                      </tbody>
+                                      	<%} %>
+                                      <%} %>
+                                     
+                                       <thead class="thead-dark">
+                                        <tr>
+                                            <th></th>
+				                            <th></th>
+				                            <th></th> 
+				                            <th></th>
+				                            <th>ค่าใช้จ่ายทั้งหมด</th> 
+				                            
+				                          <% for (int j=0 ; j<listProduct.size(); j++ ){%>
+				                          <label hidden><%=sum = sum+listProduct.get(j).getPrice() %></label>
+				                          
+				                            <%} %>
+				                            <th >
+				                          <label><%=sum%> </label>
+				                           </th>
+                                        <th>บาท</th>
+                                        </tr>
+                                      </thead>
+                                    </table> 
+                                    <%} %>
+                             
+                                    
+                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;">ไฟล์ใบเสนอราคา  </h2>
+                               
                                     <table class="table" id="form_table" style="text-align: center;">                                  
                                       <thead class="thead-dark">
                                         <tr>
@@ -87,7 +150,7 @@ String result = "";
                                           <td><%=listFile.get(i).getFile_name() %></td>     
                                           <td> <%=listFile.get(i).getQuotation_no() %> </td>  
                                          <td><%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %></td>  
-                                         <td><%= listFile.get(i).getCompany_name() %></td>  
+                                        <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"><%= listFile.get(i).getCompany_name() %></a></td>  
                                      
                                         </tr>                
                                       </tbody>
@@ -99,9 +162,9 @@ String result = "";
                                     <br>
                                     
                                      
-                                    <div class="formcon">                                    
-                                 <h4 style="text-align: center;">  <b>แบบยืนยันความประสงค์ในการขอซื้อของจ้าง</b></h4>
-                                   <form class="" id="frm" name="frm" action="addConfirmform?quotation_no=<%= result  %>"  method="post">
+                                 <div class="formcon">                                    
+                                 <h4 style="text-align: center;">  <b>แบบฟอร์มยืนยันความประสงค์ในการขอซื้อของจ้าง</b></h4>
+                                   <form class="" id="frm" name="frm" action="addConfirmform"  method="post">
                 					<input type="hidden" name="OrderRequest_id" value="<%= order_q.getOrderRequest_id() %>">
                                   <h6 style="text-align: right;" class="h4font"> <b>วันที่ <%=caldateformat.format(calendar.getTime()) %></b> </h6>
                                     <table class="table">
@@ -254,15 +317,13 @@ String result = "";
 				     </div> 
                            </form>              	
 									</div>
-                                    </div>                                   
-                                </div>    
-                            </div>
+                             
                         </div>
-                   <br><br>
+                
 
         
                 <!-- Footer -->
-      <div style=" margin-top: 350px;" >   <jsp:include page="common/footer.jsp"/>       </div>
+      <div style=" margin-top: 250px;" >   <jsp:include page="common/footer.jsp"/>       </div>
       
     
 <script type="text/javascript">
@@ -357,7 +418,7 @@ function validate(){
 		 		var no = '<%=listFile.get(i).getQuotation_no() %>' ;
 		 		var dateno = '<%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %>' ;
 		 		document.getElementById("quotation_no").innerHTML = no ;   	 		 
-		 		document.getElementById("quotation_date").innerHTML =  dateno;   
+		 		document.getElementById("quotation_date").innerHTML	 =  dateno;   
 		 		
 		 
 		   }

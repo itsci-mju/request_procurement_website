@@ -13,13 +13,15 @@
  
   <link rel="stylesheet" type="text/css" href="css/footer.css">
 </head>
+<style>
 
+</style>
 <body>
 
-<div>
+<div >
   <!-- Footer -->
  
-  <footer class="footer-02">
+  <footer class="footer-02" id="footer">
     <div class="container">
        
         <div class="row">
@@ -69,11 +71,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
  
 </footer>
 
-
-
         </div>
-    
-    
-   
+
 </body>
 </html>

@@ -150,7 +150,17 @@ double sum = 0.0;
                                           <td><input type="file" class="form-control" id="c_file_quotation" name="c_file_quotation" style="width: 250px"></td>                                         
                                         </tr>         
                                       </tbody>
-                                    </table>   
+                                    </table>  
+                                        <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")){ %>
+                                    	 <div>
+		                                    <label for="exampleFormControlTextarea1" >*หมายเหตุ : ผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
+					                    </div>
+	                                    <div>
+		                                    <label for="exampleFormControlTextarea1">คำเสนอแนะจากผู้แจ้งความประสงค์</label>
+		                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
+					                    </div>
+	                                    
+                                     <%} %> 
                                 </div>  
                             </div>
                         </div>

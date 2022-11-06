@@ -11,8 +11,13 @@
 	double totalsEd = 0.0;
 	List<Product> listselect = pmanager.getAllListProduct(); 
 	int number = 0 ;
-	
+	String majorname = (String) session.getAttribute("majorName");   
 	DecimalFormat df = new DecimalFormat("###,###,###.00");
+	
+	FileManager fmanager = new FileManager();
+	List<File_Quotation> listFile = (List<File_Quotation>) fmanager.getAllQuotation(order_q.getOrderRequest_id()); 
+
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
 	//List<Product> listTypeProduct = pmanager.getTypeProduct();
 	//System.out.println(listProduct.toString());
@@ -60,10 +65,7 @@ font-family: 'Kanit', sans-serif;
 }
 
 .product-table{
- max-height:400px ;
- overflow:scroll;
- overflow-x:hidden;
- padding-top:0;
+
 }
 
 input {
@@ -85,11 +87,13 @@ input {
 
 </section>
     <!-- ################################################################################################ -->
+      <% if(!order_q.getRequest_type().equals("มีใบเสนอราคา") &&  !order_q.getStatus().equals("รอยืนยันความประสงค์")   ){ %>
     <div class="content" style="margin-top: -160px;">
-        <div class="container">
+        <div class="container">	
           <div class="row align-items-stretch no-gutters contact-wrap">
             <div class="col-md-12">
               <div class="form h-100">
+               
                 <h3>แก้ไขรายละเอียดการแจ้งความประสงค์</h3>
                  <form name="form" action=""	method="">
                   <div class="row">
@@ -121,13 +125,14 @@ input {
                    
                   </div>
                 </form>
-                
+              
               </div>
             </div>
           </div>
         </div>
     
       </div>
+      
             <% if (l != null){ %>
             <!-- Form Table -->
             <form class="" id="frm" name="frm" action="EditOrderRequestProduct?username=<%= l.getUsername()  %>&OrderRequest_id=<%= order_q.getOrderRequest_id() %>" method="Post">
@@ -184,9 +189,9 @@ input {
             
         
             <input type="hidden" id="chList"/>
-            <br><br> 
-            
-            <!-- Sent button -->
+             
+              <%}%>
+         
            <div>  
             </div>
 
@@ -194,13 +199,152 @@ input {
                 <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" 
                 onclick="getGridData()">บันทึกการแก้ไข</button>             
              </div>
+                <div>
+				<a class="" href="loadpagelistorder"  style=" margin-left: 37%;"><button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button></a>
+			</div>
              <input type="text" name="number" id="number" value='<%= listProduct.size() %>'  hidden>
          </form>   
          <%} %>   
-         
-            <div>
-                <a class="" href="loadpagelistorder"  style=" margin-left: 37%;"><button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button></a>
-              </div>
+           <!-- ------------------------------------------------------------------------------------------------------- -->
+            <!-- ------------------------------------------------------------------------------------------------------- -->
+             <!-- ------------------------------------------------------------------------------------------------------- -->
+           <% if(order_q.getRequest_type().equals("ไม่มีใบเสนอราคา") &&  order_q.getStatus().equals("รอยืนยันความประสงค์") || order_q.getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง")  ){ %>
+         <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>แก้ไขแจ้งความประสงค์การจัดซื้อจัดจ้าง <span  style="color:#FF884B;">(ไม่มีใบเสนอราคา)</span></b></h2>
+         <br>
+			 <% if (l != null){ %>             
+            <!-- Form Table -->
+                    <div class="container" style="margin-top: -50px;">     
+                        <div class="row"> 
+                            <div class="col-md-12">
+                                <div class="table-wrap">
+                                 <form class="" id="frm2" name="frm2" action="EditOrderRequest2?username=<%= l.getUsername()  %>&OrderRequest_id=<%= order_q.getOrderRequest_id() %>"  method="post" enctype="multipart/form-data">
+                                  <table class="table" id="form_table" style="text-align: center;">                                 
+                                      <thead class="thead-dark">
+                                        <tr>
+                                            <th>ลำดับที่</th>
+				                            <th>รายละเอียด</th>
+				                            <th>จำนวน</th> 
+				                            <th>หน่วย</th>
+				                            <th>ราคา/หน่วย</th> 
+				                            <th>จำนวนเงิน</th>
+                                        <th></th>
+                                        </tr>
+                                      </thead>
+                                       <% if (listProduct != null){%>
+                                        <%for (int i=0 ; i<listProduct.size(); i++) {%>
+                                     <!-- row input -->
+                                      <tbody>
+                                        <tr class="alert" role="alert">
+                                          <th  scope="row"><%= i+1 %></th>
+                                          <td><%=listProduct.get(i).getProduct().getProduct_detail() %></td>     
+                                          <td> <%=listProduct.get(i).getQty() %> </td>  
+                                          <td><%=listProduct.get(i).getProduct().getUnit() %></td>  
+                                         <td><%=listProduct.get(i).getProduct().getPrice() %></td>  
+                                          <td><%=listProduct.get(i).getPrice() %></td>  
+                                          
+                                        </tr>                
+                                      </tbody>
+                                      	<%} %>
+                                      <%} %>
+                                     
+                                       <thead class="thead-dark">
+                                        <tr>
+                                            <th></th>
+				                            <th></th>
+				                            <th></th> 
+				                            <th></th>
+				                            <th>ค่าใช้จ่ายทั้งหมด</th> 
+				                            
+				                          <% for (int j=0 ; j<listProduct.size(); j++ ){%>
+				                          <label hidden><%=sum = sum+listProduct.get(j).getPrice() %></label>
+				                          
+				                            <%} %>
+				                            <th >
+				                          <label><%=sum%> </label>
+				                           </th>
+                                        <th>บาท</th>
+                                        </tr>
+                                      </thead>
+                                    </table>   
+                                
+                                <% if(majorname.equals("เจ้าหน้าที่")){ %>
+                                      <table class="table" id="form_table" style="text-align: center;">
+                                      <thead class="thead-dark">
+                                        <tr>
+                                          <th style="width: 60px">ลำดับที่</th>
+                                          <th>ชื่อบริษัท</th>
+                                          <th style="width: ">เลขที่</th>
+                                          <th style="width: ">วันที่ใบเสนอราคา</th>
+                                          <th style="width: ">ใบเสนอราคา</th>
+                                        </tr>
+                                      </thead>
+                                      
+                                      <!-- row1 input -->
+                                      <tbody >
+                                        <tr class="alert" role="alert">
+                                          <th  scope="row" style="width: 120px; ">001</th>
+                                          <td><input type="text" class="form-control" id="a-row1" name ="a_name_company" placeholder="ชื่อบริษัท ที่ 1" value="<%= listFile.get(0).getFile_name() %>"></td> 
+                                          <td><input type="text" class="form-control" id="a-row2" name="a_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 1" value="<%= listFile.get(0).getQuotation_no() %>"></td>
+                                          <td><input type="date" class="form-control" id="a-row3" name="a_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(0).getQuotation_date().getTime()) %>"></td>    
+                                          <td><input type="file" class="form-control" id="a-row4" name="a_file_quotation" style="width: 250px" value="<%= listFile.get(0).getCompany_name() %>"><a href="./pdf/<%= listFile.get(0).getCompany_name() %>"><%= listFile.get(0).getCompany_name() %></a></td>                                                                                           
+                                        </tr>     
+
+                                       <!-- row2 input --> 
+                                        <tr class="alert" role="alert">
+                                          <th  scope="row" style="width: 120px">002</th>
+                                          <td><input type="text" class="form-control" id="b-row1" name ="b_name_company" placeholder="ชื่อบริษัท ที่ 2" value="<%= listFile.get(1).getFile_name() %>"></td> 
+                                          <td><input type="text" class="form-control" id="b-row2" name="b_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 2" value="<%= listFile.get(1).getQuotation_no() %>"></td>
+                                          <td><input type="date" class="form-control" id="b-row3" name="b_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(1).getQuotation_date().getTime()) %>"></td>                                            
+                                          <td><input type="file" class="form-control" id="b-row4" name="b_file_quotation" style="width: 250px" value="<%= listFile.get(1).getCompany_name() %>"><a href="./pdf/<%= listFile.get(1).getCompany_name() %>"><%= listFile.get(1).getCompany_name() %></a></td>                                                                                 
+                                        </tr>  
+                                        
+                                        <!-- row3 input --> 
+                                          <tr class="alert" role="alert">
+                                          <th  scope="row" style="width: 120px">003</th>
+                                          <td><input type="text" class="form-control" id="c-row1" name ="c_name_company" placeholder="ชื่อบริษัท ที่ 3" value="<%= listFile.get(2).getFile_name() %>"></td> 
+                                          <td><input type="text" class="form-control" id="c-row2" name="c_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 3" value="<%= listFile.get(2).getQuotation_no() %>"></td>
+                                          <td><input type="date" class="form-control" id="c-row3" name="c_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(2).getQuotation_date().getTime()) %>"></td>    
+                                          <td><input type="file" class="form-control" id="c-row4" name="c_file_quotation" style="width: 250px" value="<%= listFile.get(2).getCompany_name() %>"><a href="./pdf/<%= listFile.get(2).getCompany_name() %>"><%= listFile.get(2).getCompany_name() %></a></td>                                                                         
+                                        </tr>         
+                                      </tbody>
+                                    </table> 
+                             	 <div>
+                                     <input type="hidden" name="OrderRequest_id" id="OrderRequest_id" value="<%= order_q.getOrderRequest_id() %>">
+                
+	                                    <label for="exampleFormControlTextarea1">คำเสนอแนะจากผู้แจ้งความประสงค์</label>
+	                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
+				                    </div>
+                                      <div>
+				                    </div>  
+				                   
+				                      <div>
+				                    <button type="submit"  style=" margin-left: 37%; margin-top: 25px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm2);"> บันทึกการแก้ไขใบเสนอราคา  </button>             
+				                    </div> 
+				                    <%} %>
+				                     <div>
+					               <a class="" href="loadpagelistorder"  style=" margin-left: 37%;"><button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button></a>
+					              </div>				                  
+                      </form>  
+                      
+                      
+                  
+                                </div>  
+                            
+                            
+                            </div>	
+                        </div>
+                    </div>                      
+           
+                    <!-- Button link-->
+                  
+                    <%} %>  
+        <%} %>
+        
+            
+    
+            					
+               
+           
    
               <br><br><br><br><br>
     
@@ -211,6 +355,18 @@ input {
 		  <jsp:include page="common/footer.jsp"/>
   		</div>
 
+<script>
+const checked_Quotation = document.getElementsByName("quotation_check");
+window.addEventListener('click', function(event) {
+    const comment = document.getElementsByName("comment");
+    if(checked_Quotation[1].checked){
+    	comment[0].disabled=false;
+    }else{
+    	comment[0].disabled=true;
+    }
+}, true);
+
+</script>
    
  	<script type="text/javascript">
     

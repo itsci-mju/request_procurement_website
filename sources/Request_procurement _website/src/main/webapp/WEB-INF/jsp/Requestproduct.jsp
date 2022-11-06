@@ -56,12 +56,7 @@
 font-family: 'Kanit', sans-serif;
 }
 
-.product-table{
- max-height:400px ;
- 
- overflow-x:hidden;
- padding-top:0;
-}
+
 
 input {
 	outline: none;
@@ -241,20 +236,9 @@ input {
                   $("#unit").val(null); 
               
                 
-                  
-                  
-                  
-                 
+               
                 }
-                
-                 
-              
-                
-                
-                
-                
-                
-              
+                       
                  
             })
             

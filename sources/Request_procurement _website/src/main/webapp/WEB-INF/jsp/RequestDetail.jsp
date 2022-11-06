@@ -12,6 +12,16 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
 double sum = 0.0;
 
 
+FileManager fmanager = new FileManager();
+
+List<File_Quotation> listFile = (List<File_Quotation>) fmanager.getAllQuotation(order_q.getOrderRequest_id()); 
+String majorname = (String) session.getAttribute("majorName");   
+System.out.println(listFile.toString());
+
+
+
+SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,12 +49,9 @@ double sum = 0.0;
        <jsp:include page="common/Navbar.jsp"/>
      
         <!--head-text-->
-       	
+       	 
 			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง <span  style="color:#FF884B;">(ไม่มีใบเสนอราคา)</span></b></h2>
-                 <div class="container product-table" style="height: 500px;"> 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="table-wrap" style="height: 300px;">
+                 <div class="container product-table" >                      
                                     <table class="table" id="form_table" style="text-align: center;">
                                    
                                       <thead class="thead-dark">
@@ -95,16 +102,71 @@ double sum = 0.0;
                                       </thead>
                                     </table>   
                                     
-                                </div>    
-                            </div>
-                        </div>
+                                    
+                                    <% if(order_q.getStatus().equals("รอยืนยันความประสงค์") ){  %>
+                                    
+                                    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;">ใบเสนอราคา</h2>		
+                                     <table class="table" id="form_table" style="text-align: center;">                                  
+                                      <thead class="thead-dark">
+                                        <tr>
+                                            <th>ลำดับที่</th>
+				                            <th>ชื่อบริษัท</th>
+				                            <th>เลขที่</th> 
+				                            <th>วันที่ใบเสนอราคา</th>
+				                            <th>ใบเสนอราคา</th>             
+                                        <th></th>
+                                        </tr>
+                                      </thead>
+                                       <% if (listFile != null){%>
+                                        <%for (int i=0 ; i<listFile.size(); i++) {%>
+                                     <!-- row input -->
+                                      <tbody>
+                                        <tr class="alert" role="alert">
+                                          <th  scope="row"><%= i+1 %></th>
+                                          <td><%=listFile.get(i).getFile_name() %></td>     
+                                          <td> <%=listFile.get(i).getQuotation_no() %> </td>  
+                                         <td><%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %></td>  
+                                         <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"><%= listFile.get(i).getCompany_name() %></a></td>  
+                                     
+                                        </tr>                
+                                      </tbody>
+                                      	<%} %>
+                                      <%} %>
+                                      
+                                      
+                                    </table> 
+                                    <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง") || order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")){ %>
+                                    	 <div>
+		                                    <label for="exampleFormControlTextarea1" style="color: red;">*หมายเหตุ : ผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
+					                    </div>
+	                                    <div>
+		                                    <label for="exampleFormControlTextarea1">คำเสนอแนะ</label>
+		                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
+					                    </div>
+	                                    
+                                     <%} %>
+                                    
+                                     <%} %>
+                                     <%if (majorname.equals("เจ้าหน้าที่") && !order_q.getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ")) {%>
+                                     <div>
+                                     <input type="hidden" name="OrderRequest_id" id="OrderRequest_id" value="<%= order_q.getOrderRequest_id() %>">
+                
+	                                    <label for="exampleFormControlTextarea1">คำเสนอแนะจากผู้แจ้งความประสงค์</label>
+	                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
+				                    </div>
+                            <%} %>
+                            
+                            
+                            
+                            
+                      
 					</div>
                
           			<!-- Button link-->
                     <a class="" href="loadpagelistorder"  style=" margin-left: 37%;">
                      <button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button>         
               		</a>
-
+		
          <br><br><br>
                 <!-- Footer -->
       <div>    <jsp:include page="common/footer.jsp"/>       </div>
