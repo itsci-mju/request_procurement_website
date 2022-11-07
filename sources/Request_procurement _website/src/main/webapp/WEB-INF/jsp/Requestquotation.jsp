@@ -247,7 +247,7 @@ function checkquotation(frm) {
 	}
 
 	
-	
+	 return confirm('ต้องการแจ้งความประสงค์แบบมีใบเสนอราคาใช่หรือไม่?');
 	
 	
 	

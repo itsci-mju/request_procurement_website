@@ -162,10 +162,10 @@ input {
                                           <input type="text" name="p<%=i+1%>" value="<%=listProduct.get(i).getProduct().getProduct_detail() %>" readonly></td>     
                                           <td><input type="text" name="t<%=i+1%>" value="<%=listProduct.get(i).getQty() %>" readonly></td>  
                                           <td><input type="text" name="u<%=i+1%>" value="<%=listProduct.get(i).getProduct().getUnit() %>" readonly></td>  
-                                          <td><input type="text"  name="pu<%=i+1%>" value="<%=listProduct.get(i).getProduct().getPrice() %>" readonly></td>  
+                                          <td><input type="text"  name="pu<%=i+1%>" value="<%=df.format(listProduct.get(i).getProduct().getPrice()) %>" readonly></td>  
                                           <td><input type="text" class="subtotal" name="tt<%=i+1%>"  value="<%=df.format(listProduct.get(i).getPrice()) %>" readonly></td>  
                                       
-                                        <label hidden><%=sum += listProduct.get(i).getPrice()  %></label>
+                                        <label hidden><%=df.format(sum += listProduct.get(i).getPrice())  %></label>
                                         </tr>                
                                       </tbody>
                                       	<%} %>
@@ -239,8 +239,8 @@ input {
                                           <td><%=listProduct.get(i).getProduct().getProduct_detail() %></td>     
                                           <td> <%=listProduct.get(i).getQty() %> </td>  
                                           <td><%=listProduct.get(i).getProduct().getUnit() %></td>  
-                                         <td><%=listProduct.get(i).getProduct().getPrice() %></td>  
-                                          <td><%=listProduct.get(i).getPrice() %></td>  
+                                         <td><%=df.format(listProduct.get(i).getProduct().getPrice()) %></td>  
+                                          <td><%=df.format(listProduct.get(i).getPrice()) %></td>  
                                           
                                         </tr>                
                                       </tbody>
@@ -366,6 +366,8 @@ window.addEventListener('click', function(event) {
     }
 }, true);
 
+
+
 </script>
    
  	<script type="text/javascript">
@@ -406,7 +408,7 @@ window.addEventListener('click', function(event) {
                         '<td> <input type="text" name="t'+number+'" value="'+totalproduct+'" readonly> </td>'+
                         '<td> <input type="text" name="u'+number+'" value="'+product[1]+'" readonly> </td>'+
                         '<td> <input type="text" name="pu'+number+'" value="'+product[2]+'" readonly> </td>'+
-                        '<td> <input type="text" class="subtotal" name="tt'+number+'" value="'+pricetotal.toFixed(2) +'" readonly"> </td>'+
+                        '<td> <input type="text" class="subtotal" name="tt'+number+'" value="'+pricetotal+'" readonly"> </td>'+
                         
                     '</tr>'
                 	);
@@ -414,7 +416,8 @@ window.addEventListener('click', function(event) {
               
  	  				
                 var totals= parseFloat(document.getElementById("totals").textContent);
-                document.getElementById("totals").innerHTML= (totals+pricetotal).toFixed(2) ;
+                var nf = Intl.NumberFormat();
+                document.getElementById("totals").innerHTML= (nf.format(totals+pricetotal));
                    
                  document.getElementById("product").options[2].disabled = true;
                   $('.form-div row col-md-3').parent('div').remove();
@@ -509,6 +512,7 @@ function checkproduct(form) {
 			return false;
 		}
 	
+	 return confirm('ต้องการแจ้งความประสงค์แบบไม่มีใบเสนอราคาใช่หรือไม่?');
 } 
 </script>  
 	

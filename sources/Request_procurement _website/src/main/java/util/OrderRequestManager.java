@@ -396,13 +396,20 @@ public class OrderRequestManager {
 			ConnectionDB condb = new ConnectionDB();
 			Connection con = condb.getConnection();
 			Calendar c = Calendar.getInstance();
+			Calendar c2 = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+			
+			c2.set(c2.DAY_OF_MONTH,cf.getQuotation_date().getTime().getDate());
+			c2.set(c2.MONTH,cf.getQuotation_date().getTime().getMonth()-1);
+			c2.set(c2.YEAR,cf.getQuotation_date().getTime().getYear()+1900);
+			
 
 			try {
 				Statement stmt = con.createStatement();
-				String sql = "insert into ConfirmForm (form_id,board_name1,board_name2,chairman_Board_name,confirm_date,money_type,necessity_type,orderRequest_id)  values"
+				String sql = "insert into ConfirmForm (form_id,board_name1,board_name2,chairman_Board_name,confirm_date,money_type,necessity_type,orderRequest_id,company_name,quotation_date,quotation_no)  values"
 						+ "(" + cf.getForm_id() + ", '" + cf.getBoard_name1() + "', '" + cf.getBoard_name2() + "', '" + cf.getChairman_Board_name()+ "' , '" + sdf.format(c.getTime())
-						+ "','" + cf.getMoney_type() + "','" + cf.getNecessity_type() + "', " + cf.getOrderRequest().getOrderRequest_id() + ")";
+						+ "','" + cf.getMoney_type() + "','" + cf.getNecessity_type() + "','" + cf.getOrderRequest().getOrderRequest_id() +" ',' " + cf.getCompany_name() + " ','  " +  sdf2.format(c2.getTime()) + " ','  " + cf.getQuotation_no() + "'   )";
 				int result = stmt.executeUpdate(sql);
 				con.close();
 				return result;

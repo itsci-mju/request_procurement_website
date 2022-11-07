@@ -154,7 +154,7 @@ function checkquotation(frm) {
 	}
 	
 	
-	
+	 return confirm('ต้องการแก้ไขแจ้งความประสงค์แบบมีใบเสนอราคาใช่หรือไม่?');
 	
 } 
 </script>       

@@ -393,7 +393,7 @@ int a = 0;
 														<%}%>
 													
 														
-															<% if(listorderRequest.get(i).getRequest_type().equals("มีใบเสนอราคา")  && major.equals("0") && listorderRequest.get(i).getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") || listorderRequest.get(i).getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง") ){ %>
+															<% if(listorderRequest.get(i).getRequest_type().equals("ไม่มีใบเสนอราคา")  && major.equals("0") && listorderRequest.get(i).getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") || listorderRequest.get(i).getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง") ){ %>
 															<a href="loadpageAddQuotation?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>"> 
 		                                          		<button type="button" class="button-18" role="button" >เพิ่มใบเสนอราคา
 														&nbsp; 	<i class="gg-thermometer"></i>									
@@ -401,13 +401,6 @@ int a = 0;
 															
 														<%}%>
 														
-															<% if(listorderRequest.get(i).getRequest_type().equals("มีใบเสนอราคา")  && !major.equals("0") && listorderRequest.get(i).getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") || listorderRequest.get(i).getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง")   ){ %>
-															<a href="loadpageAddQuotation?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>"> 
-		                                          		<button type="button" class="button-18" role="button" >เพิ่มใบเสนอราคา
-														&nbsp; 	<i class="gg-thermometer"></i>									
-														</button></a> &nbsp;
-															
-														<%}%>
 														
 														
 														

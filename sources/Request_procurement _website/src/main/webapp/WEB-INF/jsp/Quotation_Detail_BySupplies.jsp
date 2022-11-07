@@ -180,7 +180,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                     <label for="exampleFormControlTextarea1">คำเสนอแนะ</label>
                                     <textarea class="form-control" id="comment" name="comment" disabled="true"></textarea>                                   
                                       <div>
-				                    <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm2);"> ส่งคำเสนอแนะถึงเจ้าหน้าที่  </button>             
+				                    <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return confirm('ต้องการส่งคำเสนอแนะใช่หรือไม่?');"> ส่งคำเสนอแนะถึงเจ้าหน้าที่  </button>             
 				                    </div>
                                     
                               
@@ -215,6 +215,8 @@ window.addEventListener('click', function(event) {
     	comment[0].disabled=true;
     }
 }, true);
+
+
 
 </script>
 

@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,8 +25,10 @@ import bean.OrderRequest;
 import util.ConfirmManager;
 import util.FileManager;
 import util.OrderRequestManager;
+import java.util.Calendar;
+import java.util.Date;
 
-
+ 
 
 @Controller
 public class ConfirmController {
@@ -74,11 +77,20 @@ public class ConfirmController {
 				String company_name = request.getParameter("company_name");
 				String quotation_no = request.getParameter("quotation_no");
 				String quotation_date =request.getParameter("quotation_date");
+
+				
 				
 				Calendar cal_date = Calendar.getInstance();
-				String pattern = "yyyy-MM-dd";
-				SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-				cal_date.setTime(sdf.parse(quotation_date));
+				String [] arrofStr = quotation_date.split("/");
+				int day = Integer.parseInt(arrofStr[0]);
+				int month = Integer.parseInt(arrofStr[1]);
+				int year = Integer.parseInt(arrofStr[2]);
+			
+				
+				cal_date.set(cal_date.DAY_OF_MONTH,day);
+				cal_date.set(cal_date.MONTH,month);
+				cal_date.set(cal_date.YEAR,year);
+				
 				
 				
 				String money_type = request.getParameter("money_type");

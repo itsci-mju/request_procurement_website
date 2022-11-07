@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="bean.*,util.*,java.util.*"%>
+<%@ page import="bean.*,util.*,java.util.*,java.text.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%Login l = (Login) session.getAttribute("login"); 
@@ -10,6 +10,12 @@ ProductManager pmanager = new ProductManager();
 OrderRequest order_q = (OrderRequest) session.getAttribute("OrderRequest");
 List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_id()); 
 double sum = 0.0;
+
+FileManager fmanager = new FileManager();
+
+List<File_Quotation> listFile = (List<File_Quotation>) fmanager.getAllQuotation(order_q.getOrderRequest_id()); 
+
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 
 <!DOCTYPE html>
@@ -109,6 +115,7 @@ double sum = 0.0;
                                         </tr>
                                       </thead>
                                     </table> 
+                                      <% if (!order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")){ %>
                                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;;"><b>เพิ่มใบเสนอราคา </b></h2>
                                     <table class="table" id="form_table" style="text-align: center;">
                                       <thead class="thead-dark">
@@ -151,6 +158,50 @@ double sum = 0.0;
                                         </tr>         
                                       </tbody>
                                     </table>  
+                                       <%} %> 
+                                          <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")){ %>
+                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;;"><b>เพิ่มใบเสนอราคา </b></h2>
+                                  <table class="table" id="form_table" style="text-align: center;">
+                                      <thead class="thead-dark">
+                                        <tr>
+                                          <th style="width: 60px">ลำดับที่</th>
+                                          <th>ชื่อบริษัท</th>
+                                          <th style="width: ">เลขที่</th>
+                                          <th style="width: ">วันที่ใบเสนอราคา</th>
+                                          <th style="width: ">ใบเสนอราคา</th>
+                                        </tr>
+                                      </thead>
+                                      
+                                      <!-- row1 input -->
+                                      <tbody >
+                                        <tr class="alert" role="alert">
+                                          <th  scope="row" style="width: 120px; ">001</th>
+                                          <td><input type="text" class="form-control" id="a-row1" name ="a_name_company" placeholder="ชื่อบริษัท ที่ 1" value="<%= listFile.get(0).getFile_name() %>"></td> 
+                                          <td><input type="text" class="form-control" id="a-row2" name="a_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 1" value="<%= listFile.get(0).getQuotation_no() %>"></td>
+                                          <td><input type="date" class="form-control" id="a-row3" name="a_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(0).getQuotation_date().getTime()) %>"></td>    
+                                          <td><input type="file" class="form-control" id="a-row4" name="a_file_quotation" style="width: 250px" value="<%= listFile.get(0).getCompany_name() %>"><a href="./pdf/<%= listFile.get(0).getCompany_name() %>"><%= listFile.get(0).getCompany_name() %></a></td>                                                                                           
+                                        </tr>     
+
+                                       <!-- row2 input --> 
+                                        <tr class="alert" role="alert">
+                                          <th  scope="row" style="width: 120px">002</th>
+                                          <td><input type="text" class="form-control" id="b-row1" name ="b_name_company" placeholder="ชื่อบริษัท ที่ 2" value="<%= listFile.get(1).getFile_name() %>"></td> 
+                                          <td><input type="text" class="form-control" id="b-row2" name="b_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 2" value="<%= listFile.get(1).getQuotation_no() %>"></td>
+                                          <td><input type="date" class="form-control" id="b-row3" name="b_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(1).getQuotation_date().getTime()) %>"></td>                                            
+                                          <td><input type="file" class="form-control" id="b-row4" name="b_file_quotation" style="width: 250px" value="<%= listFile.get(1).getCompany_name() %>"><a href="./pdf/<%= listFile.get(1).getCompany_name() %>"><%= listFile.get(1).getCompany_name() %></a></td>                                                                                 
+                                        </tr>  
+                                        
+                                        <!-- row3 input --> 
+                                          <tr class="alert" role="alert">
+                                          <th  scope="row" style="width: 120px">003</th>
+                                          <td><input type="text" class="form-control" id="c-row1" name ="c_name_company" placeholder="ชื่อบริษัท ที่ 3" value="<%= listFile.get(2).getFile_name() %>"></td> 
+                                          <td><input type="text" class="form-control" id="c-row2" name="c_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 3" value="<%= listFile.get(2).getQuotation_no() %>"></td>
+                                          <td><input type="date" class="form-control" id="c-row3" name="c_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(2).getQuotation_date().getTime()) %>"></td>    
+                                          <td><input type="file" class="form-control" id="c-row4" name="c_file_quotation" style="width: 250px" value="<%= listFile.get(2).getCompany_name() %>"><a href="./pdf/<%= listFile.get(2).getCompany_name() %>"><%= listFile.get(2).getCompany_name() %></a></td>                                                                         
+                                        </tr>         
+                                      </tbody>
+                                    </table> 
+                                       <%} %> 
                                         <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")){ %>
                                     	 <div>
 		                                    <label for="exampleFormControlTextarea1" >*หมายเหตุ : ผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
@@ -312,6 +363,8 @@ function checkquotation(frm) {
 		frm.c_file_quotation.focus();
 		return false;
 	}
+	
+	  return confirm('ต้องการเพิ่มใบเสนอราคาใช่หรือไม่?');
 
 } 
 

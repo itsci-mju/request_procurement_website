@@ -77,6 +77,8 @@ input {
 
 </section>
     <!-- ################################################################################################ -->
+    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>แจ้งความประสงค์การจัดซื้อจัดจ้าง <span  style="color:#FF884B;">(ไม่มีใบเสนอราคา)</span></b></h2>
+        
     <div class="content" style="margin-top: -160px;">
         <div class="container">
           <div class="row align-items-stretch no-gutters contact-wrap">
@@ -86,6 +88,7 @@ input {
                  <form name="form" action=""	method="">
                   <div class="row">
                     <div class="col-md-6 form-group mb-3">
+                    	
                       <label for="budget" class="col-form-label">รายละเอียด *</label>
                     
                         <select  style="height: 45px ;width:450px;" class="select-state " id="product"  name="product"   placeholder="ค้นหาตรงนี้..." >
@@ -162,7 +165,7 @@ input {
 
              <div>
                 <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" 
-                onclick="getGridData()">ส่งคำขอ</button>             
+                onclick="return confirm('ต้องการแจ้งความประสงค์แบบไมมีใบเสนอราคาใช่หรือไม่?');">ส่งคำขอ</button>             
              </div>
              <input type="text" name="number" value="0" hidden>
          </form>   
@@ -182,6 +185,34 @@ input {
   		</div>
 
    
+       <script type="text/javascript">
+
+function checkproduct(form) {
+	
+	//เช็คกรอกรายการ
+	if(form.product.value == "" ){
+		alert("กรุณาเลือกรายการที่ต้องการ");
+		return false;
+	}
+	
+	
+	$('#product').on('change', function() {
+		  //console.log($(this).val())
+		  if ($(this).val() == '') {
+		    alert('Select one of the options')
+		  }
+		})
+	//เช็คจำนวน
+	if(form.totalproduct.value == "") {
+			alert("กรุณากรอกจำนวน");
+			form.totalproduct.focus();
+			return false;
+		}
+
+
+} 
+</script>  
+   
  	<script type="text/javascript">
     
          new TomSelect(".select-state",{
@@ -197,7 +228,7 @@ input {
    <script type="text/javascript">
    var form = $("#form");
    var count = 0;
-   
+
   
         $(document).ready(function(){
             // Add new row
@@ -227,8 +258,8 @@ input {
               
                 var totals= parseFloat(document.getElementById("totals").textContent);
                 
-                
-                document.getElementById("totals").innerHTML= (totals+pricetotal);
+                var nf = Intl.NumberFormat();
+                document.getElementById("totals").innerHTML= (nf.format(totals+pricetotal));
                    
                  document.getElementById("product").options[2].disabled = true;
                   $('.form-div row col-md-3').parent('div').remove();
@@ -298,38 +329,14 @@ input {
 
 		
 	}
-        
- 
+     	
+      	 
+      	
+   
+   	
     </script>   
     
-    <script type="text/javascript">
 
-function checkproduct(form) {
-	
-	//เช็คกรอกรายการ
-	if(form.product.value == "" ){
-		alert("กรุณาเลือกรายการที่ต้องการ");
-		return false;
-	}
-	
-	
-	$('#product').on('change', function() {
-		  //console.log($(this).val())
-		  if ($(this).val() == '') {
-		    alert('Select one of the options')
-		  }
-		})
-	//เช็คจำนวน
-	if(form.totalproduct.value == "") {
-			alert("กรุณากรอกจำนวน");
-			form.totalproduct.focus();
-			return false;
-		}
-	
-	
-
-} 
-</script>  
 
 <script type="text/javascript">
 

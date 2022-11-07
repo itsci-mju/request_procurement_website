@@ -20,7 +20,7 @@ String  nowDate = caldateformat.format(calendar.getTime());
 ProductManager pmanager = new ProductManager();
 List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_id()); 
 double sum = 0.0;
-
+String t ="";
 
 %>
 <!DOCTYPE html>
@@ -175,16 +175,19 @@ double sum = 0.0;
 								      <select style="width: 300px; color: black;"  name="company_name" id="company_name" onchange='validate()'>
 									        <% if (listFile != null){%>
                                       	 <option disabled selected>กรุณาเลือกใบเสนอราคาที่ต้องการ</option>
-                                          <%for (int i=0 ; i<listFile.size(); i++) {%>					 
+                                          <%for (int i=0 ; i<listFile.size(); i++) {%>		
+                                      
 										  <option value="<%=listFile.get(i).getFile_name() %>"><%=listFile.get(i).getFile_name() %></option>
 										<%} %>
                                     <%} %>
 										</select>								
 										</th>									
 									      <th scope="col" >เลขที่</th>
-									      <th scope="col"><label  id="quotation_no" name="quotation_no"  ></label></th>
+									       <th scope="col"> <input style="width:150px ;color:black" type="text" id="quotation_no"name="quotation_no"></label></th>
+									      <!--  //<th scope="col"><label  id="quotation_no" name="quotation_no"  ></label></th>-->
 									      <th scope="col">วันที่ใบเสนอราคา</th>
-									      <th scope="col"><label id="quotation_date" name="quotation_date"></label></th>								      
+									      <th scope="col"> <input style="width:150px ;color:black" type="text" id="quotation_date"name="quotation_date"></label></th>
+									     <!--  <th scope="col"><label id="quotation_date" name="quotation_date"></label></th> -->								      
 									    </tr>	
 									    </thead>
 									     </table>	
@@ -305,9 +308,9 @@ double sum = 0.0;
                                   <label class="form-check-label" for="flexCheckChecked">ผู้เสนอ / ผู้ต้องการใช้พัสดุ</label>
 									</div>
 							 <br><br>			  
-								 <!-- Button link-->
+					<!-- Button link-->
                     <div>
-                    <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkconfirm(frm);"> ยืนยืนความประสงค์  </button>             
+                    <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkconfirm(frm); "> ยืนยืนความประสงค์  </button>             
                     </div>
                 
                       <div>
@@ -330,6 +333,7 @@ double sum = 0.0;
 function checkconfirm(frm) {
 	
 	var Board_name = /^[ก-์A-Za-z]{2,50}$/;
+	var alertconfirm ;
 	
 	//Money Type
     var checked_moneyType = document.getElementsByName("money_type");
@@ -401,7 +405,9 @@ function checkconfirm(frm) {
 		return false;
 	}
 	
-	
+
+	  return confirm('ยืนยันแล้ว ไม่สามารถกลับมาแก้ไขได้อีก คุณต้องการยืนยันหรือไม่?');
+
 
 	
 }  
@@ -417,11 +423,11 @@ function validate(){
 		 	if (selectedValue == '<%= listFile.get(i).getFile_name() %>'){
 		 		var no = '<%=listFile.get(i).getQuotation_no() %>' ;
 		 		var dateno = '<%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %>' ;
-		 		document.getElementById("quotation_no").innerHTML = no ;   	 		 
-		 		document.getElementById("quotation_date").innerHTML	 =  dateno;   
-		 		
-		 
-		   }
+		 		document.getElementById('quotation_no').value = no;
+		 		document.getElementById('quotation_date').value = dateno;
+
+		 	
+		 		}
 		 <%} %>
 	 
 	}
