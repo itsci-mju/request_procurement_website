@@ -404,7 +404,10 @@ public class OrderRequestController {
 					File_Quotation fq3 = new File_Quotation(f.get(2).getFile_id(),cfilequotation,cnamecompany,cnumberquotation,cal_cdatequotation,request_type);
 					fq3.setOrderRequest(or);
 					fm.updateFileQuotaion(fq3);
-					orm.updateStatus("กำลังรอการดำเนินการจากหน่วยพัสดุ", orderRequest_id);
+				
+					orm.updateStatus("ยืนยันความประสงค์", orderRequest_id);
+					
+					
 					
 					if (!file1.isEmpty()) {
 					

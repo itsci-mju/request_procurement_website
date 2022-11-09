@@ -394,8 +394,8 @@ int a = 0;
 															
 														<%}%>
 														
-															<% if(listorderRequest.get(i).getStatus().equals("รอยืนยันความประสงค์") 
-																	&& listorderRequest.get(i).getRequest_type().equals("ไม่มีใบเสนอราคา") || listorderRequest.get(i).getStatus().equals("ยืนยันความประสงค์") 
+															<% if((listorderRequest.get(i).getStatus().equals("รอยืนยันความประสงค์")  || listorderRequest.get(i).getStatus().equals("ยืนยันความประสงค์")) 
+																	&& listorderRequest.get(i).getRequest_type().equals("ไม่มีใบเสนอราคา")
 																	&& !major.equals("0")  ){ %>
 															<a href="loadpageQuotationDetailByLecturer?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type()%>"> 
 		                                          		<button type="button" class="button-18" role="button" >ตรวจสอบ

@@ -470,24 +470,24 @@ function checkquotation(frm2) {
 	
 	var companyname = /^[A-Za-z0-9ก-์\s]{2,150}$/; 
 	var quotationNo = /^[A-Za-z0-9\-]{4,20}$/; 
-	var FILE = /^([A-Za-z0-9ก-์\s_\\.\-\(\):])+(.pdf)$/;
+	var FILE = /^.+\.(([pP][dD][fF]))$/;
 
 	//company  1 
-	if(frm1.a_name_company.value == "") {
+	if(frm.a_name_company.value == "") {
 		alert("กรุณากรอกชื่อบริษัท ที่ 1 ");
-		frm1.a_name_company.focus();
+		frm.a_name_company.focus();
 		return false;
 	}
 	
 	//No Quotatuion
-	if(frm1.a_number_quotation.value == "") {
+	if(frm.a_number_quotation.value == "") {
 		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 1 ");
-		frm1.a_number_quotation.focus();
+		frm.a_number_quotation.focus();
 		return false;
 	}
-	if(!frm1.a_number_quotation.value.match(quotationNo)){
+	if(!frm.a_number_quotation.value.match(quotationNo)){
 		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
-		frm1.a_number_quotation.focus();
+		frm.a_number_quotation.focus();
 		return false;
 	}
 
@@ -506,18 +506,24 @@ function checkquotation(frm2) {
      }
     
 	//File
-	if(frm1.a_file_quotation.value == "") {
+	if(frm.a_file_quotation.value == "") {
 		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 1");
-		frm1.a_file_quotation.focus();
+		frm.a_file_quotation.focus();
 		return false;
 	}
-
+	
+	 if(!frm.a_file_quotation.value.match(FILE)){
+	        alert("กรุณาเพิ่มใบเสนอราคา ที่1 เเป็น .pdf เท่านั้น");
+	        frm.a_file_quotation.value = "";
+	        return false;
+	    }
+	
 	
 	
 	//company  2 
-	if(frm2.b_name_company.value == "") {
+	if(frm.b_name_company.value == "") {
 		alert("กรุณากรอกชื่อบริษัท ที่ 2 ");
-		frm2.b_name_company.focus();
+		frm.b_name_company.focus();
 		return false;
 	}
 	
@@ -526,9 +532,9 @@ function checkquotation(frm2) {
 		frm.b_number_quotation.focus();
 		return false;
 	}
-	if(!frm2.b_number_quotation.value.match(quotationNo)){
+	if(!frm.b_number_quotation.value.match(quotationNo)){
 		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
-		frm2.b_number_quotation.focus();
+		frm.b_number_quotation.focus();
 		return false;
 	}
 	
@@ -549,28 +555,34 @@ function checkquotation(frm2) {
 	
 	
 	//File
-	if(frm3.b_file_quotation.value == "") {
+	if(frm.b_file_quotation.value == "") {
 		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 2 ");
-		frm3.b_file_quotation.focus();
+		frm.b_file_quotation.focus();
 		return false;
 	}
 
+	 if(!frm.b_file_quotation.value.match(FILE)){
+	        alert("กรุณาเพิ่มใบเสนอราคา ที่2 เเป็น .pdf เท่านั้น");
+	        frm.b_file_quotation.value = "";
+	        return false;
+	    }
+	
 	
 	
 	//company  3 
-	if(frm3.c_name_company.value == "") {
+	if(frm.c_name_company.value == "") {
 		alert("กรุณากรอกชื่อบริษัท ที่ 3");
-		frm3.c_name_company.focus();
+		frm.c_name_company.focus();
 		return false;
 	}
-	if(frm3.c_number_quotation.value == "") {
+	if(frm.c_number_quotation.value == "") {
 		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 3 ");
-		frm3.c_number_quotation.focus();
+		frm.c_number_quotation.focus();
 		return false;
 	}
-	if(!frm3.c_number_quotation.value.match(quotationNo)){
+	if(!frm.c_number_quotation.value.match(quotationNo)){
 		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
-		frm3.c_number_quotation.focus();
+		frm.c_number_quotation.focus();
 		return false;
 	}
 	
@@ -590,11 +602,17 @@ function checkquotation(frm2) {
      }
 	
 	//File
-	if(frm3.c_file_quotation.value == "") {
+	if(frm.c_file_quotation.value == "") {
 		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 3 ");
-		frm3.c_file_quotation.focus();
+		frm.c_file_quotation.focus();
 		return false;
 	}
+
+	 if(!frm.c_file_quotation.value.match(FILE)){
+	        alert("กรุณาเพิ่มใบเสนอราคา ที่3 เเป็น .pdf เท่านั้น");
+	        frm.c_file_quotation.value = "";
+	        return false;
+	    }
 	
 	  return confirm('ต้องการเพิ่มใบเสนอราคาใช่หรือไม่?');
 

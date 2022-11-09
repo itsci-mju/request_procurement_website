@@ -211,12 +211,24 @@ System.out.println(listFile.toString());
 									 	<h4><b>เหตุผลความจำเป็น : </b> </h4> 
 									 	</div>									  
 										<div class="form-check">
-											  <input class="" type="radio" value="1" name="necessity_type" id="necessity_type1" <% if(cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา")){ %> checked <% } %>>
+										
+											  <input class="" type="radio" value="1" name="necessity_type" id="necessity_type1" <% if(cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา") && !cf_form.getNecessity_type().contains("วท.498") ){ %> checked <% } %>>
 											  <label class="form-check-label" for="flexCheckChecked">
 											  เพื่อใช้สำหรับการเรียนการสอน รายวิชา :</label>
-											   <input style="width:150px" type="text" class="inputRadio" name="necessity_type1_text" disabled="true"  readonly<% if(cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา")){ %> value="<%= cf_form.getNecessity_type() %>" <% } %>>
+											   <input style="width:150px" type="text" class="inputRadio" name="necessity_type1_text" disabled="true"  readonly<% if(cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา") && !cf_form.getNecessity_type().contains("วท.498") ){ %> value="<%= cf_form.getNecessity_type().replace("เพื่อใช้สำหรับการเรียนการสอน รายวิชา ", "") %>" <% } %>>
 										</div>
-											
+										
+										<%String[] text = cf_form.getNecessity_type().replace("เพื่อใช้สำหรับการเรียนการสอน รายวิชา วท.498 หัวข้อ ", "").split("ชื่อ-นามสกุล นักศึกษา") ;
+										String type2_text1 = "";
+										String type2_text2 = "";
+										  if(text.length>1){
+											type2_text1 = text[0];
+											type2_text2 = text[1];
+										}else { 
+											type2_text1 = "";
+											type2_text2 = "";
+										} 
+										%>
 										<div class="form-check" style="margin-top:5px">
 											  <input class="" type="radio" value="2" name="necessity_type" id="necessity_type2"  <% if(cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา วท.498")){ %> checked <% } %>>
 											  <label class="form-check-label" for="flexCheckChecked">
@@ -224,10 +236,10 @@ System.out.println(listFile.toString());
 											  </label>
 											  
 											  <label  class="form-check-label" for="flexCheckChecked">&nbsp;&nbsp; หัวข้อ : </label>
-											  <input style="width:150px" type="text" class="inputRadio" name="necessity_type2_text1" disabled="true" readonly<% if(cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา วท.498")){ %> value="<%= cf_form.getNecessity_type() %>" <% } %>>&nbsp; 
+											  <input style="width:150px" type="text" class="inputRadio" name="necessity_type2_text1" disabled="true" readonly<% if(cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา วท.498")){ %> value="<%= type2_text1 %>" <% } %>>&nbsp; 
 											  
 											  <label class="form-check-label" for="flexCheckChecked">&nbsp;&nbsp; ชื่อ-นามสกุล นักศึกษา :</label>&nbsp;
-											<input style="width:150px" type="text" class="inputRadio" name="necessity_type2_text2" disabled="true" readonly<% if(cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา วท.498")){ %> value="<%= cf_form.getNecessity_type() %>" <% } %>>
+											<input style="width:150px" type="text" class="inputRadio" name="necessity_type2_text2" disabled="true" readonly<% if(cf_form.getNecessity_type().contains("เพื่อใช้สำหรับการเรียนการสอน รายวิชา วท.498")){ %> value="<%= type2_text2 %>" <% } %>>
 											  
 											  
 										</div>
@@ -259,34 +271,34 @@ System.out.println(listFile.toString());
 									<tr>
 									<td></td>
 									  <td> <div class="form-check">
-											  <label class="form-check-label" for="flexCheckChecked">1.ประธานกรรมการ:&nbsp;&nbsp;
+											  <label class="form-check-label" for="flexCheckChecked">ประธานกรรมการ:&nbsp;&nbsp;
 											  </label>
 											</div>
 										</td>	
 										
 										<td>
-										 <input style="width:250px" type="text" class="inputRadio" name="chairman_Board_name"  value="<%=cf_form.getChairman_Board_name() %>" readonly>
+										 <input style="width:250px" type="text" class="inputRadio" name="chairman_Board_name"  value="<%=cf_form.getChairman_Board_name() %>" readonly disabled="true">
 											 
 										</td>
 										
 										  <td> <div class="form-check">
-											  <label class="form-check-label" for="flexCheckChecked">2.กรรมการ:&nbsp;&nbsp;
+											  <label class="form-check-label" for="flexCheckChecked">กรรมการ:&nbsp;&nbsp;
 											  </label>
 											</div>
 										</td>	
 																				
 										<td>
-										 <input style="width:250px" type="text" class="inputRadio" name="board_name1"  value="<%=cf_form.getBoard_name1() %>" readonly>											 
+										 <input style="width:250px" type="text" class="inputRadio" name="board_name1"  value="<%=cf_form.getBoard_name1() %>" readonly disabled="true">											 
 										</td>
 										
 											  <td> <div class="form-check">
-											  <label class="form-check-label" for="flexCheckChecked">3.กรรมการ:&nbsp;&nbsp;
+											  <label class="form-check-label" for="flexCheckChecked">กรรมการ:&nbsp;&nbsp;
 											  </label>
 											</div>
 										</td>	
 										
 										<td>
-										 <input style="width:250px" type="text" class="inputRadio" name="board_name2" value="<%=cf_form.getBoard_name2() %>" readonly>
+										 <input style="width:250px" type="text" class="inputRadio" name="board_name2" value="<%=cf_form.getBoard_name2() %>" readonly disabled="true">
 											 
 										</td>
 									
@@ -295,7 +307,7 @@ System.out.println(listFile.toString());
                                     </table>
                                     <br><br>
                                    <div > 
-                                   <input style="width:250px ; margin-left: 428px; text-align:center;" type="text" class="inputRadio"  value="<%=staffname%>" readonly>
+                                   <input style="width:250px ; margin-left: 428px; text-align:center;" type="text" class="inputRadio"  value="<%=staffname%>" readonly disabled="true">
 								  </div>
                                  <div style="text-align:center"> 
                                   <label class="form-check-label" for="flexCheckChecked">ผู้เสนอ / ผู้ต้องการใช้พัสดุ</label>
@@ -321,7 +333,7 @@ System.out.println(listFile.toString());
           			
         
                 <!-- Footer -->
-      <div style=" margin-top: 350px;" >   <jsp:include page="common/footer.jsp"/>       </div>
+      <div style=" margin-top: 550px;" >   <jsp:include page="common/footer.jsp"/>       </div>
       
 
 	<!-- script link -->

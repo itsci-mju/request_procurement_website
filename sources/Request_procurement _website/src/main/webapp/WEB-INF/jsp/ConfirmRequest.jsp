@@ -267,7 +267,7 @@ String t ="";
 									<tr>
 									<td></td>
 									  <td> <div class="form-check">
-											  <label class="form-check-label" for="flexCheckChecked">1.ประธานกรรมการ:&nbsp;&nbsp;</label>
+											  <label class="form-check-label" for="flexCheckChecked">ประธานกรรมการ:&nbsp;&nbsp;</label>
 											  
 											</div>
 										</td>	
@@ -277,7 +277,7 @@ String t ="";
 										</td>
 										
 										  <td> <div class="form-check">
-											  <label class="form-check-label" for="flexCheckChecked">2.กรรมการ:&nbsp;&nbsp;
+											  <label class="form-check-label" for="flexCheckChecked">กรรมการ:&nbsp;&nbsp;
 											  </label>
 											</div>
 										</td>	
@@ -287,7 +287,7 @@ String t ="";
 										</td>
 										
 											  <td> <div class="form-check">
-											  <label class="form-check-label" for="flexCheckChecked">3.กรรมการ:&nbsp;&nbsp;
+											  <label class="form-check-label" for="flexCheckChecked">กรรมการ:&nbsp;&nbsp;
 											  </label>
 											</div>
 										</td>	
@@ -331,6 +331,19 @@ String t ="";
     
 <script type="text/javascript">
 function checkconfirm(frm) {
+	
+	//select quotation
+	if(frm.company_name.value == "กรุณาเลือกใบเสนอราคาที่ต้องการ" ){
+		alert("กรุณาเลือกใบเสนอราคาที่ต้องการ");
+		return false;
+	}
+	
+	$('#company_name').on('change', function() {
+		  //console.log($(this).val())
+		  if ($(this).val() == '') {
+		    alert('Select one of the options')
+		  }
+		})
 	
 	var Board_name = /^[ก-์A-Za-z ]{2,50}$/;
 	var alertconfirm ;

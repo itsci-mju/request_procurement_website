@@ -120,7 +120,7 @@ function checkquotation(frm) {
 	
 	var companyname = /^[A-Za-z0-9ก-์\s]{2,150}$/; 
 	var quotationNo = /^[A-Za-z0-9\-]{4,20}$/; 
-	var FILE = /^([A-Za-z0-9ก-์\s_\\.\-\(\):])+(.pdf)$/;
+	var FILE = /^.+\.(([pP][dD][fF]))$/;
 
 	//company  1 
 	if(frm.a_name_company.value == "") {
@@ -161,7 +161,13 @@ function checkquotation(frm) {
 		frm.a_file_quotation.focus();
 		return false;
 	}
-
+	
+	 if(!frm.a_file_quotation.value.match(FILE)){
+	        alert("กรุณาเพิ่มใบเสนอราคา ที่1 เเป็น .pdf เท่านั้น");
+	        frm.a_file_quotation.value = "";
+	        return false;
+	    }
+	
 	
 	
 	//company  2 
@@ -205,6 +211,12 @@ function checkquotation(frm) {
 		return false;
 	}
 
+	 if(!frm.b_file_quotation.value.match(FILE)){
+	        alert("กรุณาเพิ่มใบเสนอราคา ที่2 เเป็น .pdf เท่านั้น");
+	        frm.b_file_quotation.value = "";
+	        return false;
+	    }
+	
 	
 	
 	//company  3 
@@ -246,6 +258,12 @@ function checkquotation(frm) {
 		return false;
 	}
 
+	 if(!frm.c_file_quotation.value.match(FILE)){
+	        alert("กรุณาเพิ่มใบเสนอราคา ที่3 เเป็น .pdf เท่านั้น");
+	        frm.c_file_quotation.value = "";
+	        return false;
+	    }
+	
 	
 	 return confirm('ต้องการแจ้งความประสงค์แบบมีใบเสนอราคาใช่หรือไม่?');
 	

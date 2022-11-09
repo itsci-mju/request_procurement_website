@@ -51,7 +51,8 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         <!--head-text-->
        	 
 			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง <span  style="color:#FF884B;">(ไม่มีใบเสนอราคา)</span></b></h2>
-                 <div class="container product-table" >                      
+                 <div class="container product-table" >       
+                 		 	               
                                     <table class="table" id="form_table" style="text-align: center;">
                                    
                                       <thead class="thead-dark">
@@ -103,10 +104,25 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                     </table>   
                                     
                                     
-                                    <% if(order_q.getStatus().equals("รอยืนยันความประสงค์") ){  %>
+                                
+                                    <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง") || order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")){ %>
+                                    	 <div>
+		                                    <label for="exampleFormControlTextarea1" style="color: red;">*หมายเหตุ : ผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
+					                    </div>
+	                                    <div>
+		                                    <label for="exampleFormControlTextarea1">คำเสนอแนะ</label>
+		                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
+					                    </div>
+	                                    
+                                     <%} %>
                                     
-                                    <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;">ใบเสนอราคา</h2>		
-                                     <table class="table" id="form_table" style="text-align: center;">                                  
+                                  
+                                     
+                                      <% if (listFile.size() != 0){%>
+                                       <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;">- ใบเสนอราคา -</h2>		
+                                   
+                                      <table class="table" id="form_table" style="text-align: center;">
+                                  
                                       <thead class="thead-dark">
                                         <tr>
                                             <th>ลำดับที่</th>
@@ -117,7 +133,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                         <th></th>
                                         </tr>
                                       </thead>
-                                       <% if (listFile != null){%>
+                                     
                                         <%for (int i=0 ; i<listFile.size(); i++) {%>
                                      <!-- row input -->
                                       <tbody>
@@ -130,23 +146,13 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                      
                                         </tr>                
                                       </tbody>
-                                      	<%} %>
+                                      
+                                     
                                       <%} %>
                                       
-                                      
                                     </table> 
-                                    <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง") || order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")){ %>
-                                    	 <div>
-		                                    <label for="exampleFormControlTextarea1" style="color: red;">*หมายเหตุ : ผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
-					                    </div>
-	                                    <div>
-		                                    <label for="exampleFormControlTextarea1">คำเสนอแนะ</label>
-		                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
-					                    </div>
-	                                    
                                      <%} %>
-                                    
-                                     <%} %>
+                                      
                                      <%if (majorname.equals("เจ้าหน้าที่") && !order_q.getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ")) {%>
                                      <div>
                                      <input type="hidden" name="OrderRequest_id" id="OrderRequest_id" value="<%= order_q.getOrderRequest_id() %>">

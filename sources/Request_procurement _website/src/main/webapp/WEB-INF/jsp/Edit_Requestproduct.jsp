@@ -13,7 +13,7 @@
 	int number = 0 ;
 	String majorname = (String) session.getAttribute("majorName");   
 	DecimalFormat df = new DecimalFormat("###,###,###.00");
-	
+	String major = (String) session.getAttribute("major");     
 	FileManager fmanager = new FileManager();
 	List<File_Quotation> listFile = (List<File_Quotation>) fmanager.getAllQuotation(order_q.getOrderRequest_id()); 
 
@@ -219,7 +219,7 @@ input {
                         <div class="row"> 
                             <div class="col-md-12">
                                 <div class="table-wrap">
-                                 <form class="" id="frm2" name="frm2" action="EditOrderRequest2?username=<%= l.getUsername()  %>&OrderRequest_id=<%= order_q.getOrderRequest_id() %>"  method="post" enctype="multipart/form-data">
+                                 <form class="" id="frm2" name="frm2" action="EditOrderRequest2?username=<%= l.getUsername()  %>&OrderRequest_id=<%= order_q.getOrderRequest_id() %>&major=<%= major %>"  method="post" enctype="multipart/form-data">
                                   <table class="table" id="form_table" style="text-align: center;">                                 
                                       <thead class="thead-dark">
                                         <tr>
@@ -313,10 +313,11 @@ input {
                              	 <div>
                                      <input type="hidden" name="OrderRequest_id" id="OrderRequest_id" value="<%= order_q.getOrderRequest_id() %>">
                 						<label for="exampleFormControlTextarea1" style="color: red;">*หมายเหตุ : ผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
-	                                    <label for="exampleFormControlTextarea1">คำเสนอแนะจากผู้แจ้งความประสงค์</label>
-	                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
+	                                  
 				                    </div>
                                       <div>
+                                        <label for="exampleFormControlTextarea1">คำเสนอแนะจากผู้แจ้งความประสงค์</label>
+	                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
 				                    </div>  
 				                   
 				                      <div>
