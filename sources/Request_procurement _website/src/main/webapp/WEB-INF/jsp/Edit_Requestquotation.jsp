@@ -102,7 +102,9 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                      
                                 </div>  
                                 <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง")){ %>
+                                  <label for="exampleFormControlTextarea1" style="color: red;">*หมายเหตุ : ผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
                                     <div>
+                                   
 	                                    <label for="exampleFormControlTextarea1">คำเสนอแนะ</label>
 	                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
 				                    </div>

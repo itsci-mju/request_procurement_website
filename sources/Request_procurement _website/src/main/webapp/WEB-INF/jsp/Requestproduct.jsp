@@ -223,55 +223,80 @@ function checkproduct(form) {
              }
          });
        
-         </script>
+</script>
   
    <script type="text/javascript">
    var form = $("#form");
    var count = 0;
+   var listselect = ["1"];
 
-  
         $(document).ready(function(){
             // Add new row
             $("#add-row").click(function(){
-            	count++;
-            	var number = document.getElementsByName("number").value;
-            	number = count;
+            	
             	var productdetail = $("#product").val();
             	let product=productdetail.split("_") ;
                 var totalproduct = $("#totalproduct").val();
                 var pricetotal = parseFloat(product[2])*parseFloat(totalproduct);
                 var unit = $("#unit").val();
-                if(productdetail != "" && totalproduct != ""){
-                	$(".table tbody tr").last().after(
-                    '<tr class="fadetext" id="select-row" >'+
-                        '<td><input type="checkbox" style="margin-top: 8px;"></td>'+
-                       // '<td id="no" >'+number+'</td>'+
-                      '<td> <input type="hidden" name="id'+number+'" value="'+product[3]+'" readonly  > '+
-                        ' <input type="text" name="p'+number+'" value="'+product[0]+'" readonly  > </td>'+
-                        '<td> <input type="text" name="t'+number+'" value="'+totalproduct+'" readonly> </td>'+
-                        '<td> <input type="text" name="u'+number+'" value="'+product[1]+'" readonly> </td>'+
-                        '<td> <input type="text" name="pu'+number+'" value="'+product[2]+'" readonly> </td>'+
-                        '<td> <input type="text" class="subtotal" name="tt'+number+'" value="'+pricetotal+'" readonly"> </td>'+
-                    '</tr>'
-                	);
-                	  frm.number.value=count; // to input:hidden
-              
-                var totals= parseFloat(document.getElementById("totals").textContent);
-                
                 var nf = Intl.NumberFormat();
-                document.getElementById("totals").innerHTML= (nf.format(totals+pricetotal));
-                   
-                 document.getElementById("product").options[2].disabled = true;
-                  $('.form-div row col-md-3').parent('div').remove();
-                  $("#totalproduct").val(null);
-                  $("#unit").val(null); 
-              
                 
-               
+                var select = product[0]; //Code bas sood tueng
+                console.log(select);
+                console.info(listselect);
+               var flag = true;
+                for(i=0; i<listselect.length; i++){
+                	console.log(select+listselect[i]);
+                	if(listselect[i] == select){
+                		console.log(listselect.length);
+                		flag = false;
+                		alert("รายการห้ามซ้ำกัน");
+                		
+                		return false;
+                	}
+                
                 }
-                       
+                if(flag === true){
+    				 listselect.push(select);         
+                			count++;
+                        	var number = document.getElementsByName("number").value;
+                        	number = count;
+                		    if(productdetail != "" && totalproduct != ""){
+                            	$(".table tbody tr").last().after(
+                                '<tr class="fadetext" id="select-row" >'+
+                                    '<td><input type="checkbox" style="margin-top: 8px;"></td>'+
+                                   // '<td id="no" >'+number+'</td>'+
+                                  '<td> <input type="hidden" name="id'+number+'" value="'+product[3]+'" readonly  > '+
+                                    ' <input type="text" name="p'+number+'" value="'+product[0]+'" readonly  > </td>'+
+                                    '<td> <input type="text" name="t'+number+'" value="'+totalproduct+'" readonly> </td>'+
+                                    '<td> <input type="text" name="u'+number+'" value="'+product[1]+'" readonly> </td>'+
+                                    '<td> <input type="text" name="pu'+number+'" value="'+nf.format(product[2])+'" readonly> </td>'+
+                                    '<td> <input type="text" class="subtotal" name="tt'+number+'" value="'+nf.format(pricetotal)+'" readonly"> </td>'+
+                                '</tr>'
+                            	);
+                            	  frm.number.value=count; // to input:hidden
+                          
+                            var totals= document.getElementById("totals").textContent;
+                            var sum = parseFloat(totals.replaceAll(",","").valueOf())+pricetotal;
+                            
+                            document.getElementById("totals").innerHTML= (nf.format(parseFloat(sum)));
+                               
+                          
+                           
+                             document.getElementById("product").options[2].disabled = true;
+                              $('.form-div row col-md-3').parent('div').remove();
+                              $("#totalproduct").val(null);
+                              $("#unit").val(null); 
                  
+                            }
+                	
+                }
+                
+            
+                                     
             })
+            
+        	
             
 
             // Select all checkbox
@@ -290,20 +315,29 @@ function checkproduct(form) {
             
             // Remove selected rows
             $("#remove-row").click(function(){
+           
+            	var number = document.getElementsByName("number").value;
+            	var nf = Intl.NumberFormat();
                 $(".table tbody tr").each(function(){
                     var isChecked = $(this).find('input[type="checkbox"]').is(":checked");
                     var tableSize = $(".table tbody tr").length;
                     if(tableSize == 1){
                         alert('ไม่มีรายการที่ต้องการลบ.');
                     }else if(isChecked){
-                    	
-                        $(this).remove();
                     
-                    
-                        var totals= parseFloat(document.getElementById("totals").textContent);
+                     
                       
                         var p = $(this).find("input[class='subtotal']").val();
-                        document.getElementById("totals").innerHTML= ( totals-parseFloat(p) ) ;
+                        
+                        
+                        var totals= document.getElementById("totals").textContent;
+                        var sum = parseFloat(totals.replaceAll(",","").valueOf())-parseFloat(p.replaceAll(",","").valueOf());
+                        
+                        document.getElementById("totals").innerHTML= (nf.format(parseFloat(sum)));
+   
+                  
+                        
+                        $(this).remove();
                     }
                 });
             }); 
@@ -329,7 +363,8 @@ function checkproduct(form) {
 
 		
 	}
-     	
+     
+        
       	 
       	
    
@@ -337,10 +372,6 @@ function checkproduct(form) {
     </script>   
     
 
-
-<script type="text/javascript">
-
-</script>
 
 <!-- JAVASCRIPTS -->
 <script src="layout/scripts/jquery.min.js"></script>

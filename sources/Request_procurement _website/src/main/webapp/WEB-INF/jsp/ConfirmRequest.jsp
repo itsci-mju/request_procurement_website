@@ -75,7 +75,7 @@ String t ="";
                     
                                
                                <% if(order_q.getRequest_type().equals("ไม่มีใบเสนอราคา")){ %>
-                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;">รายละเอียดข้อมูลการแจ้งความประสงค์การจัดซื้อจัดจ้าง</h2>
+                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;">- รายละเอียดข้อมูลการแจ้งความประสงค์การจัดซื้อจัดจ้าง -</h2>
                                 <table class="table" id="form_table" style="text-align: center;">
                                    
                                       <thead class="thead-dark">
@@ -128,7 +128,7 @@ String t ="";
                                     <%} %>
                              
                                     
-                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;">ไฟล์ใบเสนอราคา  </h2>
+                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"> - ไฟล์ใบเสนอราคา -  </h2>
                                
                                     <table class="table" id="form_table" style="text-align: center;">                                  
                                       <thead class="thead-dark">
@@ -332,7 +332,7 @@ String t ="";
 <script type="text/javascript">
 function checkconfirm(frm) {
 	
-	var Board_name = /^[ก-์A-Za-z]{2,50}$/;
+	var Board_name = /^[ก-์A-Za-z ]{2,50}$/;
 	var alertconfirm ;
 	
 	//Money Type

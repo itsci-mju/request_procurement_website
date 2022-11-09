@@ -54,7 +54,7 @@ public class ConfirmManager {
 				caldate.setTime(sdf.parse(confirm_date));
 				
 				Calendar caldatefile = Calendar.getInstance();
-				String pattern2 = "yyyy-MM-dd HH:mm:ss";
+				String pattern2 = "yyyy-MM-dd";
 				SimpleDateFormat sdf2 = new SimpleDateFormat(pattern2);
 				caldatefile.setTime(sdf2.parse(quotation_date));
 				

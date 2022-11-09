@@ -131,8 +131,6 @@ public class MappingController {
 		public String loadtAddQuotationPage(HttpServletRequest  request, HttpSession session) throws java.text.ParseException {
 			String OrderRequest_id = request.getParameter("OrderRequest_id");
 			session.setAttribute("OrderRequest_id", OrderRequest_id);	
-			
-			
 			OrderRequestManager orm = new OrderRequestManager();
 				OrderRequest order_r = orm.OrderRequestByID(OrderRequest_id);
 				session.setAttribute("OrderRequest", order_r);	

@@ -50,11 +50,9 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
       <jsp:include page="common/Navbar.jsp"/>
      
         <!--head-text-->
-             
-      
-     
-			
+	
          <br>
+         	 <% if(order_q.getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") ) { %>
               <% if (l != null){ %>
             <!-- Form Table -->
              <form class="" id="frm" name="frm" action="addQuotationBysupplies?username=<%= l.getUsername() %>&&OrderRequest_id=<%=OrderRequest_id %> "  method="post" enctype="multipart/form-data">
@@ -115,8 +113,11 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                         </tr>
                                       </thead>
                                     </table> 
-                                      <% if (!order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")){ %>
-                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;;"><b>เพิ่มใบเสนอราคา </b></h2>
+                                    
+                                    <!-- ----------------------------------------------------------------------------------- -->
+                                    
+                                    <% if(order_q.getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") ) { %>
+                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"><b>- เพิ่มใบเสนอราคา - </b></h2>
                                     <table class="table" id="form_table" style="text-align: center;">
                                       <thead class="thead-dark">
                                         <tr>
@@ -159,8 +160,98 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                       </tbody>
                                     </table>  
                                        <%} %> 
-                                          <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")){ %>
-                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;;"><b>เพิ่มใบเสนอราคา </b></h2>
+                                        
+                                       <% if(order_q.getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ")) { %>
+                                    	 <div>
+		                                   <label for="exampleFormControlTextarea1" style="color: red;">*หมายเหตุ : ผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
+					                    </div>
+	                                    <div>
+		                                    <label for="exampleFormControlTextarea1">คำเสนอแนะจากผู้แจ้งความประสงค์</label>
+		                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
+					                    </div>
+	                                    
+                                     <%} %> 
+                                </div>  
+                            </div>
+                        </div>
+                    </div>   
+                 
+                    <!-- Button link-->
+                    <div>
+                    <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" 
+                    OnClick="return checkquotation(frm);"> เพิ่มใบเสนอราคา  </button>             
+                    </div>
+                   </form>
+                    <%} %>  
+                  <%} %> 
+                  
+                  
+                   <!------------------------------------------------------------------------->
+                  <% if(order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")|| order_q.getStatus().equals("ยืนยันความประสงค์") ) { %>
+              <% if (l != null){ %>
+            <!-- Form Table -->
+             <form class="" id="frm2" name="frm2" action="EditQuotaionBySupplies?username=<%= l.getUsername() %>&&OrderRequest_id=<%=OrderRequest_id %> "  method="post" enctype="multipart/form-data">
+                
+                    <div class="container" style="margin-top: -50px;">
+                     
+                        <div class="row"> 
+                            <div class="col-md-12">
+                                <div class="table-wrap">
+                                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง <span  style="color:#FF884B;">(ไม่มีใบเสนอราคา)</span></b></h2>
+         
+                                  <table class="table" id="form_table" style="text-align: center;">
+                                   
+                                      <thead class="thead-dark">
+                                        <tr>
+                                            <th>ลำดับที่</th>
+				                            <th>รายละเอียด</th>
+				                            <th>จำนวน</th> 
+				                            <th>หน่วย</th>
+				                            <th>ราคา/หน่วย</th> 
+				                            <th>จำนวนเงิน</th>
+                                        <th></th>
+                                        </tr>
+                                      </thead>
+                                       <% if (listProduct != null){%>
+                                        <%for (int i=0 ; i<listProduct.size(); i++) {%>
+                                     <!-- row input -->
+                                      <tbody>
+                                        <tr class="alert" role="alert">
+                                          <th  scope="row"><%= i+1 %></th>
+                                          <td><%=listProduct.get(i).getProduct().getProduct_detail() %></td>     
+                                          <td> <%=listProduct.get(i).getQty() %> </td>  
+                                          <td><%=listProduct.get(i).getProduct().getUnit() %></td>  
+                                         <td><%=listProduct.get(i).getProduct().getPrice() %></td>  
+                                          <td><%=listProduct.get(i).getPrice() %></td>  
+                                          
+                                        </tr>                
+                                      </tbody>
+                                      	<%} %>
+                                      <%} %>
+                                     
+                                       <thead class="thead-dark">
+                                        <tr>
+                                            <th></th>
+				                            <th></th>
+				                            <th></th> 
+				                            <th></th>
+				                            <th>ค่าใช้จ่ายทั้งหมด</th> 
+				                            
+				                          <% for (int j=0 ; j<listProduct.size(); j++ ){%>
+				                          <label hidden><%=sum = sum+listProduct.get(j).getPrice() %></label>
+				                          
+				                            <%} %>
+				                            <th >
+				                          <label><%=sum%> </label>
+				                           </th>
+                                        <th>บาท</th>
+                                        </tr>
+                                      </thead>
+                                    </table> 
+                                    
+                                 
+                                <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")|| order_q.getStatus().equals("ยืนยันความประสงค์") ){ %>
+                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"><b>- แก้ไขใบเสนอราคา -</b></h2>
                                   <table class="table" id="form_table" style="text-align: center;">
                                       <thead class="thead-dark">
                                         <tr>
@@ -202,9 +293,9 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                       </tbody>
                                     </table> 
                                        <%} %> 
-                                        <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")){ %>
+                                        <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")|| order_q.getStatus().equals("ยืนยันความประสงค์")){ %>
                                     	 <div>
-		                                    <label for="exampleFormControlTextarea1" >*หมายเหตุ : ผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
+		                                    <label for="exampleFormControlTextarea1" style="color: red;">*หมายเหตุ : ผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
 					                    </div>
 	                                    <div>
 		                                    <label for="exampleFormControlTextarea1">คำเสนอแนะจากผู้แจ้งความประสงค์</label>
@@ -219,10 +310,12 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                  
                     <!-- Button link-->
                     <div>
-                    <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm);"> เพิ่มใบเสนอราคา  </button>             
+                    <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm2);"> แก้ไขใบเสนอราคา  </button>             
                     </div>
                    </form>
                     <%} %>  
+                  <%} %> 
+                  
                     <div><a class="" href="loadpagelistorder">
                      <button   style=" margin-left: 37%; margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button>         
               		</a>	</div>
@@ -368,7 +461,146 @@ function checkquotation(frm) {
 
 } 
 
-</script>       
+</script>     
+
+
+        <script type="text/javascript">
+
+function checkquotation(frm2) {
+	
+	var companyname = /^[A-Za-z0-9ก-์\s]{2,150}$/; 
+	var quotationNo = /^[A-Za-z0-9\-]{4,20}$/; 
+	var FILE = /^([A-Za-z0-9ก-์\s_\\.\-\(\):])+(.pdf)$/;
+
+	//company  1 
+	if(frm1.a_name_company.value == "") {
+		alert("กรุณากรอกชื่อบริษัท ที่ 1 ");
+		frm1.a_name_company.focus();
+		return false;
+	}
+	
+	//No Quotatuion
+	if(frm1.a_number_quotation.value == "") {
+		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 1 ");
+		frm1.a_number_quotation.focus();
+		return false;
+	}
+	if(!frm1.a_number_quotation.value.match(quotationNo)){
+		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
+		frm1.a_number_quotation.focus();
+		return false;
+	}
+
+	//Date Quotatuion
+	var ToDate = new Date();
+    var UserDate = document.getElementById("a_date_quotation").value;
+	console.log(ToDate)
+    if(UserDate==""){
+        alert("กรุณากรอกวันที่ใบเสนอราคา ที่ 1 ");
+        return false;
+    }    
+    if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
+         alert("วันที่เริ่มเป็นวันปัจจุบันหรือวันหลังจากปัจจุบันต้นไป");
+         document.getElementById("a_date_quotation").value ="";	         
+          return false;
+     }
+    
+	//File
+	if(frm1.a_file_quotation.value == "") {
+		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 1");
+		frm1.a_file_quotation.focus();
+		return false;
+	}
+
+	
+	
+	//company  2 
+	if(frm2.b_name_company.value == "") {
+		alert("กรุณากรอกชื่อบริษัท ที่ 2 ");
+		frm2.b_name_company.focus();
+		return false;
+	}
+	
+	if(frm.b_number_quotation.value == "") {
+		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 2 ");
+		frm.b_number_quotation.focus();
+		return false;
+	}
+	if(!frm2.b_number_quotation.value.match(quotationNo)){
+		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
+		frm2.b_number_quotation.focus();
+		return false;
+	}
+	
+
+	//Date Quotatuion
+	var ToDate = new Date();
+    var UserDate = document.getElementById("b_date_quotation").value;
+	console.log(ToDate)
+    if(UserDate==""){
+        alert("กรุณากรอกวันที่ใบเสนอราคา ที่ 2 ");
+        return false;
+    }    
+    if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
+         alert("วันที่เริ่มเป็นวันปัจจุบันหรือวันหลังจากปัจจุบันต้นไป");
+         document.getElementById("b_date_quotation").value ="";	         
+          return false;
+     }
+	
+	
+	//File
+	if(frm3.b_file_quotation.value == "") {
+		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 2 ");
+		frm3.b_file_quotation.focus();
+		return false;
+	}
+
+	
+	
+	//company  3 
+	if(frm3.c_name_company.value == "") {
+		alert("กรุณากรอกชื่อบริษัท ที่ 3");
+		frm3.c_name_company.focus();
+		return false;
+	}
+	if(frm3.c_number_quotation.value == "") {
+		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 3 ");
+		frm3.c_number_quotation.focus();
+		return false;
+	}
+	if(!frm3.c_number_quotation.value.match(quotationNo)){
+		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
+		frm3.c_number_quotation.focus();
+		return false;
+	}
+	
+
+	//Date Quotatuion
+	var ToDate = new Date();
+    var UserDate = document.getElementById("c_date_quotation").value;
+	console.log(ToDate)
+    if(UserDate==""){
+        alert("กรุณากรอกวันที่ใบเสนอราคา ที่ 3");
+        return false;
+    }    
+    if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
+         alert("วันที่เริ่มเป็นวันปัจจุบันหรือวันหลังจากปัจจุบันต้นไป");
+         document.getElementById("c_date_quotation").value ="";	         
+          return false;
+     }
+	
+	//File
+	if(frm3.c_file_quotation.value == "") {
+		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 3 ");
+		frm3.c_file_quotation.focus();
+		return false;
+	}
+	
+	  return confirm('ต้องการเพิ่มใบเสนอราคาใช่หรือไม่?');
+
+} 
+
+</script>   
         
      <!-- script link -->     
   	 <script src="layout/scripts/jquery.min.js"></script>

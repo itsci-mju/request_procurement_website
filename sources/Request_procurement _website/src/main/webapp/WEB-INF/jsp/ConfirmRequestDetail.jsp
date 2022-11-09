@@ -17,6 +17,15 @@ Calendar calendar = Calendar.getInstance();
 SimpleDateFormat caldateformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 String  nowDate = caldateformat.format(calendar.getTime());
 
+
+
+ProductManager pmanager = new ProductManager();
+List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_id()); 
+double sum = 0.0;
+String majorname = (String) session.getAttribute("majorName");   
+System.out.println(listFile.toString());
+
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,11 +71,65 @@ String  nowDate = caldateformat.format(calendar.getTime());
      
         <!--head-text-->
        	
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">ยืนยันการแจ้งความประสงค์การจัดซื้อจัดจ้าง</h2>
+			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>" รายละเอียดข้อมูลการแจ้งความประสงค์การจัดซื้อจัดจ้าง " </b> </h2>
                  <div class="container product-table" style="height: 1000px;"> 
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="table-wrap" style="height: 300px;">
+                                
+                                <% if( order_q.getRequest_type().equals("ไม่มีใบเสนอราคา") ){ %>
+                                  <h4 style="text-align: center;">  <b>- รายละเอียดรายการที่แจ้งความประสงค์ -</b></h4>
+                                 <table class="table" id="form_table" style="text-align: center;">
+                                   
+                                      <thead class="thead-dark">
+                                        <tr>
+                                            <th>ลำดับที่</th>
+				                            <th>รายละเอียด</th>
+				                            <th>จำนวน</th> 
+				                            <th>หน่วย</th>
+				                            <th>ราคา/หน่วย</th> 
+				                            <th>จำนวนเงิน</th>
+                                        <th></th>
+                                        </tr>
+                                      </thead>
+                                       <% if (listProduct != null){%>
+                                        <%for (int i=0 ; i<listProduct.size(); i++) {%>
+                                     <!-- row input -->
+                                      <tbody>
+                                        <tr class="alert" role="alert">
+                                          <th  scope="row"><%= i+1 %></th>
+                                          <td><%=listProduct.get(i).getProduct().getProduct_detail() %></td>     
+                                          <td> <%=listProduct.get(i).getQty() %> </td>  
+                                          <td><%=listProduct.get(i).getProduct().getUnit() %></td>  
+                                         <td><%=listProduct.get(i).getProduct().getPrice() %></td>  
+                                          <td><%=listProduct.get(i).getPrice() %></td>  
+                                          
+                                        </tr>                
+                                      </tbody>
+                                      	<%} %>
+                                      <%} %>
+                                     
+                                       <thead class="thead-dark">
+                                        <tr>
+                                            <th></th>
+				                            <th></th>
+				                            <th></th> 
+				                            <th></th>
+				                            <th>ค่าใช้จ่ายทั้งหมด</th> 
+				                            
+				                          <% for (int j=0 ; j<listProduct.size(); j++ ){%>
+				                          <label hidden><%=sum = sum+listProduct.get(j).getPrice() %></label>
+				                          
+				                            <%} %>
+				                            <th >
+				                          <label><%=sum%> </label>
+				                           </th>
+                                        <th>บาท</th>
+                                        </tr>
+                                      </thead>
+                                    </table>   
+                                <%} %>
+                                  <h4 style="text-align: center;">  <b>- ใบเสนอราคา -</b></h4>
                                     <table class="table" id="form_table" style="text-align: center;">                                  
                                       <thead class="thead-dark">
                                         <tr>
@@ -87,7 +150,7 @@ String  nowDate = caldateformat.format(calendar.getTime());
                                           <td><%=listFile.get(i).getFile_name() %></td>     
                                           <td> <%=listFile.get(i).getQuotation_no() %> </td>  
                                          <td><%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %></td>  
-                                         <td><%= listFile.get(i).getCompany_name() %></td>  
+                                      <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"><%= listFile.get(i).getCompany_name() %></a></td>  
                                      
                                         </tr>                
                                       </tbody>
@@ -108,14 +171,14 @@ String  nowDate = caldateformat.format(calendar.getTime());
 									  <thead  class="thead-dark">
 									    <tr>
 									      <th scope="col" style="width: 160px;">ใบเสนอราคา บริษัท : </th>								    
-								      <th scope="col" style="width: 350px;">
-								   			 <th scope="col"><label id="no" ></label></th>						
-										</th>	
+								      		<th scope="col" style="width: 350px;"> <%= cf_form.getCompany_name() %> </th>
+								   			 <th scope="col"><label id="no" ></label>		</th>				
+											
 																
 									      <th scope="col" >เลขที่</th>
-									      <th scope="col"><label id="quotation_no" name="quotation_no"></label></th>
+									      <th scope="col"><label id="quotation_no" name="quotation_no" style="display: initial;"><%= cf_form.getQuotation_no() %></label></th>
 									      <th scope="col">วันที่ใบเสนอราคา</th>
-									      <th scope="col"><label id="quotation_date" name="quotation_date"></label></th>
+									      <th scope="col"><label id="quotation_date" name="quotation_date" style="display: initial;"><%= sdf.format( cf_form.getQuotation_date().getTime()) %></label></th>
  																		      
 									    </tr>	
 									    </thead>
