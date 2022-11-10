@@ -48,11 +48,9 @@
             <!-- Form Table -->
              <form class="" id="frm" name="frm" action="addOrderRequest2?username=<%= l.getUsername()  %>"  method="post" enctype="multipart/form-data">
                 
-                    <div class="container" style="margin-top: -50px;">
+                    <div class="container" >
                      
-                        <div class="row"> 
-                            <div class="col-md-12">
-                                <div class="table-wrap">
+                     
                                     <table class="table" id="form_table" style="text-align: center;">
                                       <thead class="thead-dark">
                                         <tr>
@@ -94,9 +92,7 @@
                                         </tr>         
                                       </tbody>
                                     </table>   
-                                </div>  
-                            </div>
-                        </div>
+                       
                     </div>   
              
                     <!-- Button link-->

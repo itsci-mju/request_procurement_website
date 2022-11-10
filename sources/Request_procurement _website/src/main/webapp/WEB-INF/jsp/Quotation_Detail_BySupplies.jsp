@@ -56,10 +56,8 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
                 <form id="frm" name="frm" action="loadpageAddcommentBySupplise" method="post" >
                 <input type="hidden" name="OrderRequest_id" id="OrderRequest_id" value="<%= order_q.getOrderRequest_id() %>">
                 
-                 <div class="container product-table" style="height: 500px;"> 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="table-wrap" style="height: 300px;">
+                 <div class="container product-table" "> 
+                        
                                     <table class="table" id="form_table" style="text-align: center;">
                                    
                                       <thead class="thead-dark">
@@ -123,10 +121,7 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
 			              		</a>
                                     </div>
                                    
-                                    	
-                                </div>   
-                            </div>
-                        </div>
+                       
                          
 					</div>	
 					</form> 
@@ -137,10 +132,8 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
                 <form id="frm2" name="frm2" action="loadAddcommentByLecturer" method="post" >
                 <input type="hidden" name="OrderRequest_id" id="OrderRequest_id" value="<%= order_q.getOrderRequest_id() %>">
                 
-                 <div class="container product-table" style="height: 500px;"> 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="table-wrap" style="height: 300px;">
+                 <div class="container product-table" "> 
+                        
                                 
                             
                                   <table class="table" id="form_table" style="text-align: center;">
@@ -258,17 +251,14 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
 			              		</a>
                                     </div>
                                    
-                                    	
-                                </div>   
-                            </div>
-                        </div>
+                      
                          
 					</div>	
 					</form> 
                <%} %>
       
                 <!-- Footer -->
-      <div style=" margin-top: 350px;" >    <jsp:include page="common/footer.jsp"/>       </div>
+      <div style=" margin-top: 50px;" >    <jsp:include page="common/footer.jsp"/>       </div>
 <script>
 
 

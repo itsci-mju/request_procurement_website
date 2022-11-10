@@ -49,10 +49,8 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         <!--head-text-->
        	
 			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง <span  style="color:#FF884B;">(มีใบเสนอราคา)</span></b></h2>
-                 <div class="container product-table" style="height: 500px;"> 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="table-wrap" style="height: 300px;">
+                 <div class="container product-table" "> 
+                        
                                         
                                     <table class="table" id="form_table" style="text-align: center;">
                                    
@@ -104,9 +102,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                     </div>
                                     
                                     	
-                                </div>    
-                            </div>
-                        </div>
+                        
 					</div>
              
          <br><br><br>

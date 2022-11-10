@@ -75,8 +75,13 @@ font-family: 'Kanit', sans-serif;
 input {
 	outline: none;
 	border: none;
+	
+}
+#center-pd{
+
 	text-align:center;
 }
+
 
 </style>
 
@@ -162,12 +167,12 @@ input {
                                           <td><input type="checkbox" style="margin-top: 8px;"></td>
                                           
                                           <td>
-                                          <input type="hidden" name="id<%=i+1%>" value=" <%=listProduct.get(i).getProduct().getProduct_id() %>" readonly  >
-                                          <input type="text" name="p<%=i+1%>" value="<%=listProduct.get(i).getProduct().getProduct_detail() %>" readonly></td>     
-                                          <td><input type="text" name="t<%=i+1%>" value="<%=listProduct.get(i).getQty() %>" readonly></td>  
-                                          <td><input type="text" name="u<%=i+1%>" value="<%=listProduct.get(i).getProduct().getUnit() %>" readonly></td>  
-                                          <td><input type="text"  name="pu<%=i+1%>" value="<%=df.format(listProduct.get(i).getProduct().getPrice()) %>" readonly></td>  
-                                          <td><input type="text" class="subtotal" name="tt<%=i+1%>"  value="<%=df.format(listProduct.get(i).getPrice()) %>" readonly></td>  
+                                          <input type="hidden"  name="id<%=i+1%>" value=" <%=listProduct.get(i).getProduct().getProduct_id() %>" readonly  >
+                                          <input type="text" id="center-pd" name="p<%=i+1%>" value="<%=listProduct.get(i).getProduct().getProduct_detail() %>" readonly></td>     
+                                          <td><input type="text" id="center-pd" name="t<%=i+1%>" value="<%=listProduct.get(i).getQty() %>" readonly></td>  
+                                          <td><input type="text" id="center-pd"  name="u<%=i+1%>" value="<%=listProduct.get(i).getProduct().getUnit() %>" readonly></td>  
+                                          <td><input type="text"  id="center-pd" name="pu<%=i+1%>" value="<%=df.format(listProduct.get(i).getProduct().getPrice()) %>" readonly></td>  
+                                          <td><input type="text" id="center-pd" class="subtotal" name="tt<%=i+1%>"  value="<%=df.format(listProduct.get(i).getPrice()) %>" readonly></td>  
                                       
                                         <label hidden><%=df.format(sum += listProduct.get(i).getPrice())  %></label>
                                         </tr>                
@@ -218,9 +223,7 @@ input {
 			 <% if (l != null){ %>             
             <!-- Form Table -->
                     <div class="container" style="margin-top: -50px;">     
-                        <div class="row"> 
-                            <div class="col-md-12">
-                                <div class="table-wrap">
+                       
                                  <form class="" id="frm2" name="frm2" action="EditOrderRequest2?username=<%= l.getUsername()  %>&OrderRequest_id=<%= order_q.getOrderRequest_id() %>&major=<%= major %>"  method="post" enctype="multipart/form-data">
                                   <table class="table" id="form_table" style="text-align: center;">                                 
                                       <thead class="thead-dark">
@@ -334,11 +337,7 @@ input {
                       
                       
                   
-                                </div>  
-                            
-                            
-                            </div>	
-                        </div>
+                       
                     </div>                      
            
                     <!-- Button link-->
@@ -658,11 +657,11 @@ function checkquotation(frm2) {
                                    '<td><input type="checkbox" style="margin-top: 8px;"></td>'+
                                   // '<td id="no" >'+number+'</td>'+
                                  '<td> <input type="hidden" name="id'+number+'" value="'+product[3]+'" readonly  > '+
-                                   ' <input type="text" name="p'+number+'" value="'+product[0]+'" readonly  > </td>'+
-                                   '<td> <input type="text" name="t'+number+'" value="'+totalproduct+'" readonly> </td>'+
-                                   '<td> <input type="text" name="u'+number+'" value="'+product[1]+'" readonly> </td>'+
-                                   '<td> <input type="text" name="pu'+number+'" value="'+nf.format(product[2])+'" readonly> </td>'+
-                                   '<td> <input type="text" class="subtotal" name="tt'+number+'" value="'+nf.format(pricetotal)+'" readonly"> </td>'+
+                                   ' <input type="text" id="center-pd" name="p'+number+'" value="'+product[0]+'" readonly  > </td>'+
+                                   '<td> <input type="text" id="center-pd" name="t'+number+'" value="'+totalproduct+'" readonly> </td>'+
+                                   '<td> <input type="text" id="center-pd" name="u'+number+'" value="'+product[1]+'" readonly> </td>'+
+                                   '<td> <input type="text" id="center-pd" name="pu'+number+'" value="'+nf.format(product[2])+'" readonly> </td>'+
+                                   '<td> <input type="text" id="center-pd" class="subtotal" name="tt'+number+'" value="'+nf.format(pricetotal)+'" readonly"> </td>'+
                                '</tr>'
                            	);
                            	  frm.number.value=count; // to input:hidden

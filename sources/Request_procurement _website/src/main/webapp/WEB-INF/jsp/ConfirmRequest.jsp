@@ -183,10 +183,10 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
 										</select>								
 										</th>									
 									      <th scope="col" >เลขที่</th>
-									       <th scope="col"> <input style="width:150px ;color:black" type="text" id="quotation_no"name="quotation_no"></label></th>
+									       <th scope="col"> <input style="width:150px ;color:black" type="text" id="quotation_no"name="quotation_no" readonly></label></th>
 									      <!--  //<th scope="col"><label  id="quotation_no" name="quotation_no"  ></label></th>-->
 									      <th scope="col">วันที่ใบเสนอราคา</th>
-									      <th scope="col"> <input style="width:150px ;color:black" type="text" id="quotation_date"name="quotation_date"></label></th>
+									      <th scope="col"> <input style="width:150px ;color:black" type="text" id="quotation_date"name="quotation_date" readonly></label></th>
 									     <!--  <th scope="col"><label id="quotation_date" name="quotation_date"></label></th> -->								      
 									    </tr>	
 									    </thead>
@@ -210,7 +210,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
 										<div class="form-check">
 											  <input class="" type="radio" value="" name="money_type" id="money_type3" value="Yes"> 
 											  <label class="form-check-label" for="flexCheckDefault"> อื่นๆ :</label>	
-											  <input style="width:150px" type="text" class="inputRadio" name="money_type_etc" > 																								   
+											  <input style="width:150px" type="text" class="inputRadio" name="money_type_etc" disabled="true"> 																								   
 														
 										</div> 
 									  	
@@ -222,7 +222,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
 											  <input class="" type="radio" value="1" name="necessity_type" id="necessity_type1" >
 											  <label class="form-check-label" for="flexCheckChecked">
 											  เพื่อใช้สำหรับการเรียนการสอน รายวิชา :</label>
-											   <input style="width:150px" type="text" class="inputRadio" name="necessity_type1_text">
+											   <input style="width:150px" type="text" class="inputRadio" name="necessity_type1_text" disabled="true">
 										</div>
 											
 										<div class="form-check" style="margin-top:5px">
@@ -232,10 +232,10 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
 											  </label>
 											  
 											  <label  class="form-check-label" for="flexCheckChecked">&nbsp;&nbsp; หัวข้อ : </label>
-											  <input style="width:150px" type="text" class="inputRadio" name="necessity_type2_text1" >&nbsp; 
+											  <input style="width:150px" type="text" class="inputRadio" name="necessity_type2_text1" disabled="true">&nbsp; 
 											  
 											  <label class="form-check-label" for="flexCheckChecked">&nbsp;&nbsp; ชื่อ-นามสกุล นักศึกษา :</label>&nbsp;
-											<input style="width:150px" type="text" class="inputRadio" name="necessity_type2_text2" >
+											<input style="width:150px" type="text" class="inputRadio" name="necessity_type2_text2" disabled="true">
 											  
 											  
 										</div>
@@ -253,7 +253,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
 										<div class="form-check" style="margin-top:5px">
 											  <input class="" type="radio" value="" name="necessity_type" id="necessity_type5" >
 											  <label class="form-check-label" for="flexCheckChecked">อื่นๆ :</label>
-											  <input style="width:150px" type="text" class="inputRadio" name="necessity_type_etc" >	 
+											  <input style="width:150px" type="text" class="inputRadio" name="necessity_type_etc" disabled="true">	 
 											</div>	  
                                     
                                     <br>
@@ -326,8 +326,48 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
 
         
                 <!-- Footer -->
-      <div style=" margin-top: 250px;" >   <jsp:include page="common/footer.jsp"/>       </div>
-      
+      <div style=" margin-top: 150px;" >   <jsp:include page="common/footer.jsp"/>       </div>
+ 
+<script>
+const checked_cf1 = document.getElementsByName("money_type");
+window.addEventListener('click', function(event) {
+    const money_type_etc = document.getElementsByName("money_type_etc");
+    if(checked_cf1[2].checked){
+    	money_type_etc[0].disabled=false;
+    }else{
+    	money_type_etc[0].disabled=true;
+    }
+}, true);
+
+
+const checked_cf2 = document.getElementsByName("necessity_type");
+window.addEventListener('click', function(event) {
+    const necessity_type1_text = document.getElementsByName("necessity_type1_text");
+    if(checked_cf2[0].checked){
+    	necessity_type1_text[0].disabled=false;
+    }else{
+    	necessity_type1_text[0].disabled=true;
+    }
+    const necessity_type2_text1 = document.getElementsByName("necessity_type2_text1");
+    if(checked_cf2[1].checked){
+    	necessity_type2_text1[0].disabled=false;
+    }else{
+    	necessity_type2_text1[0].disabled=true;
+    }
+    const necessity_type2_text2 = document.getElementsByName("necessity_type2_text2");
+    if(checked_cf2[1].checked){
+    	necessity_type2_text2[0].disabled=false;
+    }else{
+    	necessity_type2_text2[0].disabled=true;
+    }
+    const necessity_type_etc = document.getElementsByName("necessity_type_etc");
+    if(checked_cf2[4].checked){
+    	necessity_type_etc[0].disabled=false;
+    }else{
+    	necessity_type_etc[0].disabled=true;
+    }
+}, true);
+</script>     
     
 <script type="text/javascript">
 function checkconfirm(frm) {

@@ -64,6 +64,11 @@ input {
 	
 }
 
+#center-pd{
+
+	text-align:center;
+}
+
 </style>
 
 <body id="top ">
@@ -112,7 +117,7 @@ input {
                   </div>
                  
                 
-                  <div class="row">
+                  <div class="row" id="table-pd">
                    
                   </div>
                 </form>
@@ -312,11 +317,11 @@ function checkproduct(form) {
                                     '<td><input type="checkbox" style="margin-top: 8px;"></td>'+
                                    // '<td id="no" >'+number+'</td>'+
                                   '<td> <input type="hidden" name="id'+number+'" value="'+product[3]+'" readonly  > '+
-                                    ' <input type="text" name="p'+number+'" value="'+product[0]+'" readonly  > </td>'+
-                                    '<td> <input type="text" name="t'+number+'" value="'+totalproduct+'" readonly> </td>'+
-                                    '<td> <input type="text" name="u'+number+'" value="'+product[1]+'" readonly> </td>'+
-                                    '<td> <input type="text" name="pu'+number+'" value="'+nf.format(product[2])+'" readonly> </td>'+
-                                    '<td> <input type="text" class="subtotal" name="tt'+number+'" value="'+nf.format(pricetotal)+'" readonly"> </td>'+
+                                    ' <input type="text" id="center-pd" name="p'+number+'" value="'+product[0]+'" readonly  > </td>'+
+                                    '<td> <input type="text" id="center-pd" name="t'+number+'" value="'+totalproduct+'" readonly> </td>'+
+                                    '<td> <input type="text" id="center-pd" name="u'+number+'" value="'+product[1]+'" readonly> </td>'+
+                                    '<td> <input type="text" id="center-pd" name="pu'+number+'" value="'+nf.format(product[2])+'" readonly> </td>'+
+                                    '<td> <input type="text" id="center-pd" class="subtotal" name="tt'+number+'" value="'+nf.format(pricetotal)+'" readonly"> </td>'+
                                 '</tr>'
                             	);
                             	  frm.number.value=count; // to input:hidden

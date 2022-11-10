@@ -55,10 +55,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 
                     <div class="container" style="margin-top: -50px;">
                      
-                        <div class="row"> 
-                            <div class="col-md-12">
-                                <div class="table-wrap">
-                                
+                     
                              
                                 
                                     <table class="table" id="form_table" style="text-align: center;">
@@ -102,7 +99,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                       </tbody>
                                     </table>  
                                      
-                                </div>  
+                                 
                                 <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง")){ %>
                                   <label for="exampleFormControlTextarea1" style="color: red;">*หมายเหตุ : ผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
                                     <div>
@@ -111,11 +108,10 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
 				                    </div>
                                 <%} %>
-                            </div>	
-                        </div>
+                        
                     </div>   
                     
-                 <br><br><br>
+                
                     <!-- Button link-->
                     <div>
                     <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm);"> บันทึกการแก้ไข  </button>             
@@ -124,7 +120,8 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     <%} %>  
                     <div><a class="" href="loadpagelistorder">
                      <button   style=" margin-left: 37%; margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button>         
-              		</a>	</div>
+              		</a>	
+              		</div>
                 	
                 
                 <br><br><br>

@@ -106,16 +106,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                     
                                     
                                 
-                                    <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง") || order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")){ %>
-                                    	 <div>
-		                                    <label for="exampleFormControlTextarea1" style="color: red;">*หมายเหตุ : ผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
-					                    </div>
-	                                    <div>
-		                                    <label for="exampleFormControlTextarea1">คำเสนอแนะ</label>
-		                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
-					                    </div>
-	                                    
-                                     <%} %>
+                             
                                     
                                   
                                      
@@ -153,6 +144,16 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                       
                                     </table> 
                                      <%} %>
+                                       <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง") || order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")){ %>
+                                    	 <div>
+		                                    <label for="exampleFormControlTextarea1" style="color: red;">*หมายเหตุ : ผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
+					                    </div>
+	                                    <div>
+		                                    <label for="exampleFormControlTextarea1">คำเสนอแนะ</label>
+		                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
+					                    </div>
+	                                    
+                                     <%} %>
                                       
                                      <%if (majorname.equals("เจ้าหน้าที่") && !order_q.getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ")) {%>
                                      <div>
@@ -163,17 +164,17 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
 				                    </div>
                             <%} %>
                             
-                            
+                            <!-- Button link-->
+                    <a class="" href="loadpagelistorder"  style=" margin-left: 37%;">
+                     <button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button>         
+              		</a>
+		
                             
                             
                       
 					</div>
                
-          			<!-- Button link-->
-                    <a class="" href="loadpagelistorder"  style=" margin-left: 37%;">
-                     <button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button>         
-              		</a>
-		
+          			
          <br><br><br>
                 <!-- Footer -->
       <div>    <jsp:include page="common/footer.jsp"/>       </div>
