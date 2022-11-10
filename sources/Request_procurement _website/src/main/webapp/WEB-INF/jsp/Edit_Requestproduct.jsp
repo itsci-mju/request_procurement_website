@@ -390,34 +390,49 @@ window.addEventListener('click', function(event) {
     
     <script type="text/javascript">
 
-function checkproduct(form) {
-	
-	//เช็คกรอกรายการ
-	if(form.product.value == "" ){
-		alert("กรุณาเลือกรายการที่ต้องการ");
-		return false;
-	}
-	
-	
-	$('#product').on('change', function() {
-		  //console.log($(this).val())
-		  if ($(this).val() == '') {
-		    alert('Select one of the options')
-		  }
-		})
-	//เช็คจำนวน
-	if(form.totalproduct.value == "") {
-			alert("กรุณากรอกจำนวน");
-			form.totalproduct.focus();
-			return false;
-		}
-	
+    function checkproduct(form) {
+    	var nn1 = /^[0-9]{3}$/;
+    	//เช็คกรอกรายการ
+    	if(form.product.value == "" ){
+    		alert("กรุณาเลือกรายการพัสดุที่ต้องการ");
+    		 document.getElementById("product").value= ""; 
+             document.getElementById("totalproduct").value= 1;
+    		return false;
+    	}
+    	
+    	
+    	/* $('#product').on('change', function() {
+    		  //console.log($(this).val())
+    		  if ($(this).val() == '') {
+    		    alert('กรุณาเลือกรายการพัสดุที่ต้องการ')
+    		  }
+    		}) */
+    	//เช็คจำนวน
+    	if(form.totalproduct.value == "") {
+    			alert("กรุณากรอกจำนวนรายการพัสดุ");
+    			form.totalproduct.focus();
+    			return false;
+    		}
+    	
+    	if(form.totalproduct.value <= 0.0) {
+    		alert("กรอกจำนวนเป็นจำนวนเต็มเท่านั้น");	
+    		return false;
+    	}
+    	
+    /* 	if(form.totalproduct.macth(nn1)) {
+    		alert("กรอกจำนวนเป็นจำนวนเต็มเท่านั้น 1 - 999");	
+    		return false;
+    	} */
+    	
+    	 
+          document.getElementById("totalproduct").value= 1;
+        
 
-} 
+    } 
 </script>  
 	
 	
-	        <script type="text/javascript">
+<script type="text/javascript">
 
 function checkquotation(frm2) {
 	
@@ -614,17 +629,23 @@ function checkquotation(frm2) {
                 console.log(select);
                 console.info(listselect);
                 var flag = true;
-                for(i=0; i<listselect.length; i++){
-                	console.log(select+listselect[i]);
-                	if(listselect[i] == select){
-                		console.log(listselect.length);
-                		flag = false;
-                		alert("รายการห้ามซ้ำกัน");
-                		
-                		return false;
-                	}
                 
-                }
+                 if(totalproduct == '' || totalproduct == "" || totalproduct < 1 ){
+             	   return false;
+             	   } 
+                
+                 for(i=0; i<listselect.length; i++){
+                 	console.log(select+listselect[i]);
+                 	if(listselect[i] == select){
+                 		console.log(listselect.length);	  
+                 		flag = false;
+                 		 document.getElementById("product").value= productdetail; 
+                          document.getElementById("totalproduct").value= 1;
+                 		alert("รายการห้ามซ้ำกัน");             		
+                 		return false;
+                 	}
+                 
+                 }
                 
                 if(flag === true){
    				 listselect.push(select);         
@@ -661,6 +682,8 @@ function checkquotation(frm2) {
                            }
                	
                }
+                document.getElementById("product").value= productdetail; 
+                document.getElementById("totalproduct").value= 1;
                                      
             })
             

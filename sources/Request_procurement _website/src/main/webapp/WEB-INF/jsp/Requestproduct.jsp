@@ -61,7 +61,7 @@ font-family: 'Kanit', sans-serif;
 input {
 	outline: none;
 	border: none;
-	text-align:center;
+	
 }
 
 </style>
@@ -102,7 +102,7 @@ input {
                      <div class="row">
                     <div class="col-md-6 form-group mb-3" style="width:400px;">
                       <label for="" class="col-form-label"><b>จำนวน *</b></label>
-                      <input type="number" class="form-control" name="totalproduct" id="totalproduct" placeholder="กรุณากรอกจำนวน" min="1" max="999"  style="height: 35px ; font-size: 14px; font-weight: 600;" required>
+                      <input type="number" class="form-control" name="totalproduct" id="totalproduct" placeholder="กรุณากรอกจำนวน" min="1" max="999"   maxlength="3" style="height: 35px ; font-size: 14px; font-weight: 600;" required>
                     </div>
                   </div>
                    <div class="">
@@ -111,7 +111,7 @@ input {
                     </div>
                   </div>
                  
-                  
+                
                   <div class="row">
                    
                   </div>
@@ -189,28 +189,42 @@ input {
        <script type="text/javascript">
 
 function checkproduct(form) {
-	
+	var nn1 = /^[\d]{3}$/;
 	//เช็คกรอกรายการ
 	if(form.product.value == "" ){
-		alert("กรุณาเลือกรายการที่ต้องการ");
+		alert("กรุณาเลือกรายการพัสดุที่ต้องการ");
+		 document.getElementById("product").value= ""; 
+         document.getElementById("totalproduct").value= 1;
 		return false;
 	}
 	
 	
-	$('#product').on('change', function() {
+	/* $('#product').on('change', function() {
 		  //console.log($(this).val())
 		  if ($(this).val() == '') {
-		    alert('Select one of the options')
+		    alert('กรุณาเลือกรายการพัสดุที่ต้องการ')
 		  }
-		})
+		}) */
 	//เช็คจำนวน
 	if(form.totalproduct.value == "") {
-			alert("กรุณากรอกจำนวน");
+			alert("กรุณากรอกจำนวนรายการพัสดุ");
 			form.totalproduct.focus();
 			return false;
 		}
 	
-
+	if(form.totalproduct.value <= 0.0) {
+		alert("กรอกจำนวนเป็นจำนวนเต็มเท่านั้น");	
+		return false;
+	}
+	
+	if(form.totalproduct.macth(nn1)) {
+		alert("กรอกจำนวนเป็นจำนวนเต็มเท่านั้น 1 - 999");	
+		return false;
+	}
+	
+	  document.getElementById("product").value= ""; 
+      document.getElementById("totalproduct").value= 1;
+    
 
 } 
 </script>  
@@ -269,17 +283,24 @@ function checkproduct(form) {
                 console.log(select);
                 console.info(listselect);
                var flag = true;
+               
+               if(totalproduct == '' || totalproduct == "" || totalproduct < 1 ){
+            	   return false;
+            	   }
+               
                 for(i=0; i<listselect.length; i++){
                 	console.log(select+listselect[i]);
                 	if(listselect[i] == select){
-                		console.log(listselect.length);
+                		console.log(listselect.length);	  
                 		flag = false;
-                		alert("รายการห้ามซ้ำกัน");
-                		
+                		 document.getElementById("product").value= productdetail; 
+                         document.getElementById("totalproduct").value= 1;
+                		alert("รายการห้ามซ้ำกัน");             		
                 		return false;
                 	}
                 
                 }
+                
                 if(flag === true){
     				 listselect.push(select);         
                 			count++;
@@ -304,7 +325,9 @@ function checkproduct(form) {
                             var sum = parseFloat(totals.replaceAll(",","").valueOf())+pricetotal;
                             
                             document.getElementById("totals").innerHTML= (nf.format(parseFloat(sum)));
-                               
+                            
+                           
+                          
                           
                            
                              document.getElementById("product").options[2].disabled = true;
@@ -315,7 +338,8 @@ function checkproduct(form) {
                             }
                 	
                 }
-                
+                document.getElementById("product").value= productdetail; 
+                document.getElementById("totalproduct").value= 1;
             
                                      
             })

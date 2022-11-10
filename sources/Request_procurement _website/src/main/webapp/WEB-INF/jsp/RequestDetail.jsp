@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="bean.*,util.*,java.util.*"%>
+<%@ page import="bean.*,util.*,java.util.*,java.text.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%
@@ -21,6 +21,7 @@ System.out.println(listFile.toString());
 
 
 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+DecimalFormat df = new DecimalFormat("###,###,###.00");
 
 %>
 <!DOCTYPE html>
@@ -75,8 +76,8 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                           <td><%=listProduct.get(i).getProduct().getProduct_detail() %></td>     
                                           <td> <%=listProduct.get(i).getQty() %> </td>  
                                           <td><%=listProduct.get(i).getProduct().getUnit() %></td>  
-                                         <td><%=listProduct.get(i).getProduct().getPrice() %></td>  
-                                          <td><%=listProduct.get(i).getPrice() %></td>  
+                                         <td><%=df.format(listProduct.get(i).getProduct().getPrice()) %></td>  
+                                          <td><%=df.format(listProduct.get(i).getPrice()) %></td>  
                                           
                                         </tr>                
                                       </tbody>
@@ -96,7 +97,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 				                          
 				                            <%} %>
 				                            <th >
-				                          <label><%=sum%> </label>
+				                          <label><%=df.format(sum)%> </label>
 				                           </th>
                                         <th>บาท</th>
                                         </tr>

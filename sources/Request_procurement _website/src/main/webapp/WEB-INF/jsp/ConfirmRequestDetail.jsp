@@ -1,7 +1,7 @@
 <%@page import="org.hibernate.internal.build.AllowSysOut"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="bean.*,util.*,java.util.*"%>
+<%@ page import="bean.*,util.*,java.util.*,java.text.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%
@@ -24,7 +24,7 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
 double sum = 0.0;
 String majorname = (String) session.getAttribute("majorName");   
 System.out.println(listFile.toString());
-
+DecimalFormat df = new DecimalFormat("###,###,###.00");
 
 %>
 <!DOCTYPE html>
@@ -72,10 +72,8 @@ System.out.println(listFile.toString());
         <!--head-text-->
        	
 			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>" รายละเอียดข้อมูลการแจ้งความประสงค์การจัดซื้อจัดจ้าง " </b> </h2>
-                 <div class="container product-table" style="height: 1000px;"> 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="table-wrap" style="height: 300px;">
+                 <div class="container product-table" > 
+              
                                 
                                 <% if( order_q.getRequest_type().equals("ไม่มีใบเสนอราคา") ){ %>
                                   <h4 style="text-align: center;">  <b>- รายละเอียดรายการที่แจ้งความประสงค์ -</b></h4>
@@ -101,8 +99,8 @@ System.out.println(listFile.toString());
                                           <td><%=listProduct.get(i).getProduct().getProduct_detail() %></td>     
                                           <td> <%=listProduct.get(i).getQty() %> </td>  
                                           <td><%=listProduct.get(i).getProduct().getUnit() %></td>  
-                                         <td><%=listProduct.get(i).getProduct().getPrice() %></td>  
-                                          <td><%=listProduct.get(i).getPrice() %></td>  
+                                          <td><%=df.format(listProduct.get(i).getProduct().getPrice()) %></td>  
+                                          <td><%=df.format(listProduct.get(i).getPrice()) %></td>  
                                           
                                         </tr>                
                                       </tbody>
@@ -122,7 +120,7 @@ System.out.println(listFile.toString());
 				                          
 				                            <%} %>
 				                            <th >
-				                          <label><%=sum%> </label>
+				                          <label><%=df.format(sum)%> </label>
 				                           </th>
                                         <th>บาท</th>
                                         </tr>
@@ -323,9 +321,7 @@ System.out.println(listFile.toString());
 				     </div> 
                            </form>              	
 									</div>
-                                    </div>                                   
-                                </div>    
-                            </div>
+                                    
                         </div>
                    <br><br>
             
@@ -333,7 +329,7 @@ System.out.println(listFile.toString());
           			
         
                 <!-- Footer -->
-      <div style=" margin-top: 550px;" >   <jsp:include page="common/footer.jsp"/>       </div>
+      <div style=" margin-top: 50px;" >   <jsp:include page="common/footer.jsp"/>       </div>
       
 
 	<!-- script link -->

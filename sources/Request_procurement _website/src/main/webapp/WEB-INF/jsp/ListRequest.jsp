@@ -294,6 +294,7 @@ int a = 0;
 				</div>
          <% } %>
         
+        <% if (listorderRequest.size() > 0 || major.equals("0") ) {%>   
 			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>ประวัติการแจ้งความประสงค์การจัดซื้อจัดจ้าง</b></h2>
              <br>
             <!-- Form Table -->
@@ -443,6 +444,7 @@ int a = 0;
 					</div>
                    </form>
                 <br><br><br>
+                 <% } %>
                     <!-- Button link
                 
                     <a class="" href="loadindex"  style=" margin-left: 37%;">

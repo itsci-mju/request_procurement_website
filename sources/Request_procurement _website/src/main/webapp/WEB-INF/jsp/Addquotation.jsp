@@ -16,6 +16,7 @@ FileManager fmanager = new FileManager();
 List<File_Quotation> listFile = (List<File_Quotation>) fmanager.getAllQuotation(order_q.getOrderRequest_id()); 
 
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+DecimalFormat df = new DecimalFormat("###,###,###.00");
 %>
 
 <!DOCTYPE html>
@@ -87,8 +88,8 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                           <td><%=listProduct.get(i).getProduct().getProduct_detail() %></td>     
                                           <td> <%=listProduct.get(i).getQty() %> </td>  
                                           <td><%=listProduct.get(i).getProduct().getUnit() %></td>  
-                                         <td><%=listProduct.get(i).getProduct().getPrice() %></td>  
-                                          <td><%=listProduct.get(i).getPrice() %></td>  
+                                         <td><%=df.format(listProduct.get(i).getProduct().getPrice()) %></td>  
+                                          <td><%=df.format(listProduct.get(i).getPrice()) %></td>  
                                           
                                         </tr>                
                                       </tbody>
@@ -108,7 +109,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				                          
 				                            <%} %>
 				                            <th >
-				                          <label><%=sum%> </label>
+				                          <label><%=df.format(sum)%> </label>
 				                           </th>
                                         <th>บาท</th>
                                         </tr>

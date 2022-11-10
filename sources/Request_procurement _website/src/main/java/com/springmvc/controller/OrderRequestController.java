@@ -101,7 +101,7 @@ public class OrderRequestController {
 				for (int i=0 ;i<number; i++) {
 					if(request.getParameter("t"+(i+1))!=null) {
 					 qty.add(Integer.parseInt(request.getParameter("t"+(i+1))));
-					 total.add(Double.parseDouble(request.getParameter("tt"+(i+1)))) ;
+					 total.add(Double.parseDouble(request.getParameter("tt"+(i+1)).replace(",", ""))) ;
 					 product.add(request.getParameter("p"+(i+1)));
 					 pid.add(Integer.parseInt(request.getParameter("id"+(i+1)).trim())) ;
 					}
@@ -305,7 +305,7 @@ public class OrderRequestController {
 						qm.deleteProduct(orderRequest_id);
 						if(request.getParameter("t"+(i+1))!=null) {
 						 qty.add(Integer.parseInt(request.getParameter("t"+(i+1))));
-						 total.add(Double.parseDouble(request.getParameter("tt"+(i+1)))) ;
+						 total.add(Double.parseDouble(request.getParameter("tt"+(i+1)).replace(",", ""))) ;
 						 product.add(request.getParameter("p"+(i+1)));
 						 pid.add(Integer.parseInt(request.getParameter("id"+(i+1)).trim())) ;
 						}
