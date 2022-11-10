@@ -165,12 +165,13 @@ input {
 
              <div>
                 <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" 
-                onclick="return confirm('ต้องการแจ้งความประสงค์แบบไมมีใบเสนอราคาใช่หรือไม่?');">ส่งคำขอ</button>             
+                onclick="return checkpd(frm)">ส่งคำขอ</button>             
              </div>
              <input type="text" name="number" value="0" hidden>
          </form>   
          <%} %>   
          
+             
             <div>
                 <a class="" href="loadpagelistorder"  style=" margin-left: 37%;"><button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button></a>
               </div>
@@ -208,10 +209,33 @@ function checkproduct(form) {
 			form.totalproduct.focus();
 			return false;
 		}
+	
 
 
 } 
 </script>  
+   
+   <script type="text/javascript">
+   function checkpd(frm) {
+	   
+ 	var totals= document.getElementById("totals").textContent;
+	var totalvalue = parseFloat(totals.replaceAll(",","").valueOf());
+	
+	if(totalvalue == 0) {
+		alert("ต้องมีรายการสินค้าอย่างน้อย 1 รายการ");
+		return false;
+	}else  {
+		if(confirm("ต้องการแจ้งความประสงค์แบบไม่มีใบเสนอราคาใช่หรือไม่?") == true ){
+			alert("บันทึกสำเร็จ");
+			}else{
+				return false ;
+			}
+		
+		
+		}  
+	
+   }
+   </script>   
    
  	<script type="text/javascript">
     
@@ -296,8 +320,6 @@ function checkproduct(form) {
                                      
             })
             
-        	
-            
 
             // Select all checkbox
             $("#select-all").click(function(){
@@ -365,10 +387,7 @@ function checkproduct(form) {
 	}
      
         
-      	 
-      	
-   
-   	
+  	
     </script>   
     
 

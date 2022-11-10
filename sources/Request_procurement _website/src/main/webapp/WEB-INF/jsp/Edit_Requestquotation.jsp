@@ -7,6 +7,8 @@
 FileManager fmanager = new FileManager();
 OrderRequest order_q = (OrderRequest) session.getAttribute("OrderRequest");
 List<File_Quotation> listFile = (List<File_Quotation>) fmanager.getAllQuotation(order_q.getOrderRequest_id()); 
+String major = (String) session.getAttribute("major");   
+String majorname = (String) session.getAttribute("majorName"); 
 
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 %>
@@ -49,7 +51,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
          <br>
               <% if (l != null){ %>
             <!-- Form Table -->
-             <form class="" id="frm" name="frm" action="EditOrderRequest2?username=<%= l.getUsername()  %>&OrderRequest_id=<%= order_q.getOrderRequest_id() %>"  method="post" enctype="multipart/form-data">
+             <form class="" id="frm" name="frm" action="EditOrderRequest2?username=<%= l.getUsername()  %>&OrderRequest_id=<%= order_q.getOrderRequest_id() %>&major=<%= major %>"  method="post" enctype="multipart/form-data">
                 
                     <div class="container" style="margin-top: -50px;">
                      

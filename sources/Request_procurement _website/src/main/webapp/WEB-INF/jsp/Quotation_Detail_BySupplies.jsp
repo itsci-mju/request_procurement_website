@@ -12,6 +12,17 @@ OrderRequest order_q = (OrderRequest) session.getAttribute("OrderRequest");
 List<File_Quotation> listFile = (List<File_Quotation>) fmanager.getAllQuotation(order_q.getOrderRequest_id()); 
 String majorname = (String) session.getAttribute("majorName");   
 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+double sum = 0.0;
+
+String OrderRequest_id = (String) session.getAttribute("OrderRequest_id");     
+ProductManager pmanager = new ProductManager();
+
+List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_id()); 
+
+
+
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,6 +52,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         <!--head-text-->
        	 <%if (majorname.equals("เจ้าหน้าที่")) {%>
 			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง (มีใบเสนอราคา)</h2>
+               
                 <form id="frm" name="frm" action="loadpageAddcommentBySupplise" method="post" >
                 <input type="hidden" name="OrderRequest_id" id="OrderRequest_id" value="<%= order_q.getOrderRequest_id() %>">
                 
@@ -129,6 +141,60 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="table-wrap" style="height: 300px;">
+                                
+                            
+                                  <table class="table" id="form_table" style="text-align: center;">
+                                   
+                                      <thead class="thead-dark">
+                                        <tr>
+                                            <th>ลำดับที่</th>
+				                            <th>รายละเอียด</th>
+				                            <th>จำนวน</th> 
+				                            <th>หน่วย</th>
+				                            <th>ราคา/หน่วย</th> 
+				                            <th>จำนวนเงิน</th>
+                                        <th></th>
+                                        </tr>
+                                      </thead>
+                                       <% if (listProduct != null){%>
+                                        <%for (int i=0 ; i<listProduct.size(); i++) {%>
+                                     <!-- row input -->
+                                      <tbody>
+                                        <tr class="alert" role="alert">
+                                          <th  scope="row"><%= i+1 %></th>
+                                          <td><%=listProduct.get(i).getProduct().getProduct_detail() %></td>     
+                                          <td> <%=listProduct.get(i).getQty() %> </td>  
+                                          <td><%=listProduct.get(i).getProduct().getUnit() %></td>  
+                                         <td><%=listProduct.get(i).getProduct().getPrice() %></td>  
+                                          <td><%=listProduct.get(i).getPrice() %></td>  
+                                          
+                                        </tr>                
+                                      </tbody>
+                                      	<%} %>
+                                      <%} %>
+                                     
+                                       <thead class="thead-dark">
+                                        <tr>
+                                            <th></th>
+				                            <th></th>
+				                            <th></th> 
+				                            <th></th>
+				                            <th>ค่าใช้จ่ายทั้งหมด</th> 
+				                            
+				                          <% for (int j=0 ; j<listProduct.size(); j++ ){%>
+				                          <label hidden><%=sum = sum+listProduct.get(j).getPrice() %></label>
+				                          
+				                            <%} %>
+				                            <th >
+				                          <label><%=sum%> </label>
+				                           </th>
+                                        <th>บาท</th>
+                                        </tr>
+                                      </thead>
+                                    </table> 
+                                   
+                                  <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"><b>- ใบเสนอราคา -</b></h2>
+                                
                                     <table class="table" id="form_table" style="text-align: center;">
                                    
                                       <thead class="thead-dark">

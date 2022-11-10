@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div class="alert alert-danger container"  style="font-size:larger;">
-  	<strong>คำเตือน!</strong> ระบบมีปัญหาขัดข้อง กรุณาลองใหม่อีกครั้ง.
+  	<strong>แจ้งเตือน!</strong> ระบบขาดการเชื่อมต่อ กรุณาเข้าสู่ระบบใหม่อีกครั้งครับ.
   	<a href="loadindex">คลิกที่นี่เพื่อเริ่มต้นใหม่</a> 
 	</div>
 	

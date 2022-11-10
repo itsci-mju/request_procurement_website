@@ -52,7 +52,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         <!--head-text-->
 	
          <br>
-         	 <% if(order_q.getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") ) { %>
+         	 <% if(order_q.getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ")  && order_q.getRequest_type().equals("ไม่มีใบเสนอราคา") ) { %>
               <% if (l != null){ %>
             <!-- Form Table -->
              <form class="" id="frm" name="frm" action="addQuotationBysupplies?username=<%= l.getUsername() %>&&OrderRequest_id=<%=OrderRequest_id %> "  method="post" enctype="multipart/form-data">
@@ -62,6 +62,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                         <div class="row"> 
                             <div class="col-md-12">
                                 <div class="table-wrap">
+                                
                                  <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง <span  style="color:#FF884B;">(ไม่มีใบเสนอราคา)</span></b></h2>
          
                                   <table class="table" id="form_table" style="text-align: center;">
@@ -113,10 +114,10 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                         </tr>
                                       </thead>
                                     </table> 
-                                    
+                                   
                                     <!-- ----------------------------------------------------------------------------------- -->
                                     
-                                    <% if(order_q.getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ") ) { %>
+                                    <% if(order_q.getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ")  && order_q.getRequest_type().equals("ไม่มีใบเสนอราคา") ) { %>
                                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"><b>- เพิ่มใบเสนอราคา - </b></h2>
                                     <table class="table" id="form_table" style="text-align: center;">
                                       <thead class="thead-dark">
@@ -190,15 +191,20 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                   <% if(order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")|| order_q.getStatus().equals("ยืนยันความประสงค์") ) { %>
               <% if (l != null){ %>
             <!-- Form Table -->
-             <form class="" id="frm2" name="frm2" action="EditQuotaionBySupplies?username=<%= l.getUsername() %>&&OrderRequest_id=<%=OrderRequest_id %> "  method="post" enctype="multipart/form-data">
+             <form class="" id="frm2" name="frm2" action="EditQuotaionBySupplies?username=<%= l.getUsername() %>&OrderRequest_id=<%=OrderRequest_id %> "  method="post" enctype="multipart/form-data">
                 
                     <div class="container" style="margin-top: -50px;">
                      
                         <div class="row"> 
                             <div class="col-md-12">
                                 <div class="table-wrap">
-                                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง <span  style="color:#FF884B;">(ไม่มีใบเสนอราคา)</span></b></h2>
-         
+                                <% if( order_q.getRequest_type().equals("มีใบเสนอราคา")){ %>
+                                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง <span  style="color:#FF884B;">(มีใบเสนอราคา)</span></b></h2>
+         							<%}else {%> 
+         							  <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง <span  style="color:#FF884B;">(ไม่มีใบเสนอราคา)</span></b></h2>
+         						<%} %>
+         							
+         						 <% if (listProduct.size() > 0 ){%>
                                   <table class="table" id="form_table" style="text-align: center;">
                                    
                                       <thead class="thead-dark">
@@ -212,7 +218,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                         <th></th>
                                         </tr>
                                       </thead>
-                                       <% if (listProduct != null){%>
+                                       
                                         <%for (int i=0 ; i<listProduct.size(); i++) {%>
                                      <!-- row input -->
                                       <tbody>
@@ -227,7 +233,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                         </tr>                
                                       </tbody>
                                       	<%} %>
-                                      <%} %>
+                                    
                                      
                                        <thead class="thead-dark">
                                         <tr>
@@ -248,9 +254,9 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                         </tr>
                                       </thead>
                                     </table> 
-                                    
+                                    <%} %>
                                  
-                                <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")|| order_q.getStatus().equals("ยืนยันความประสงค์") ){ %>
+                                <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")|| order_q.getStatus().equals("ยืนยันความประสงค์")  ){ %>
                                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"><b>- แก้ไขใบเสนอราคา -</b></h2>
                                   <table class="table" id="form_table" style="text-align: center;">
                                       <thead class="thead-dark">
@@ -310,7 +316,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                  
                     <!-- Button link-->
                     <div>
-                    <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm2);"> แก้ไขใบเสนอราคา  </button>             
+                    <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" onclick="return checkquotation(frm);"> แก้ไขใบเสนอราคา  </button>             
                     </div>
                    </form>
                     <%} %>  
@@ -457,168 +463,18 @@ function checkquotation(frm) {
 		return false;
 	}
 	
-	  return confirm('ต้องการเพิ่มใบเสนอราคาใช่หรือไม่?');
-
+	 if(confirm('ต้องการเพิ่มใบเสนอราคาใช่หรือไม่?') == true ){
+			alert("บันทึกสำเร็จ");
+			}else{
+				return false ;
+			}
+	 
 } 
 
 </script>     
 
 
-        <script type="text/javascript">
-
-function checkquotation(frm2) {
-	
-	var companyname = /^[A-Za-z0-9ก-์\s]{2,150}$/; 
-	var quotationNo = /^[A-Za-z0-9\-]{4,20}$/; 
-	var FILE = /^.+\.(([pP][dD][fF]))$/;
-
-	//company  1 
-	if(frm.a_name_company.value == "") {
-		alert("กรุณากรอกชื่อบริษัท ที่ 1 ");
-		frm.a_name_company.focus();
-		return false;
-	}
-	
-	//No Quotatuion
-	if(frm.a_number_quotation.value == "") {
-		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 1 ");
-		frm.a_number_quotation.focus();
-		return false;
-	}
-	if(!frm.a_number_quotation.value.match(quotationNo)){
-		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
-		frm.a_number_quotation.focus();
-		return false;
-	}
-
-	//Date Quotatuion
-	var ToDate = new Date();
-    var UserDate = document.getElementById("a_date_quotation").value;
-	console.log(ToDate)
-    if(UserDate==""){
-        alert("กรุณากรอกวันที่ใบเสนอราคา ที่ 1 ");
-        return false;
-    }    
-    if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
-         alert("วันที่เริ่มเป็นวันปัจจุบันหรือวันหลังจากปัจจุบันต้นไป");
-         document.getElementById("a_date_quotation").value ="";	         
-          return false;
-     }
-    
-	//File
-	if(frm.a_file_quotation.value == "") {
-		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 1");
-		frm.a_file_quotation.focus();
-		return false;
-	}
-	
-	 if(!frm.a_file_quotation.value.match(FILE)){
-	        alert("กรุณาเพิ่มใบเสนอราคา ที่1 เเป็น .pdf เท่านั้น");
-	        frm.a_file_quotation.value = "";
-	        return false;
-	    }
-	
-	
-	
-	//company  2 
-	if(frm.b_name_company.value == "") {
-		alert("กรุณากรอกชื่อบริษัท ที่ 2 ");
-		frm.b_name_company.focus();
-		return false;
-	}
-	
-	if(frm.b_number_quotation.value == "") {
-		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 2 ");
-		frm.b_number_quotation.focus();
-		return false;
-	}
-	if(!frm.b_number_quotation.value.match(quotationNo)){
-		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
-		frm.b_number_quotation.focus();
-		return false;
-	}
-	
-
-	//Date Quotatuion
-	var ToDate = new Date();
-    var UserDate = document.getElementById("b_date_quotation").value;
-	console.log(ToDate)
-    if(UserDate==""){
-        alert("กรุณากรอกวันที่ใบเสนอราคา ที่ 2 ");
-        return false;
-    }    
-    if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
-         alert("วันที่เริ่มเป็นวันปัจจุบันหรือวันหลังจากปัจจุบันต้นไป");
-         document.getElementById("b_date_quotation").value ="";	         
-          return false;
-     }
-	
-	
-	//File
-	if(frm.b_file_quotation.value == "") {
-		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 2 ");
-		frm.b_file_quotation.focus();
-		return false;
-	}
-
-	 if(!frm.b_file_quotation.value.match(FILE)){
-	        alert("กรุณาเพิ่มใบเสนอราคา ที่2 เเป็น .pdf เท่านั้น");
-	        frm.b_file_quotation.value = "";
-	        return false;
-	    }
-	
-	
-	
-	//company  3 
-	if(frm.c_name_company.value == "") {
-		alert("กรุณากรอกชื่อบริษัท ที่ 3");
-		frm.c_name_company.focus();
-		return false;
-	}
-	if(frm.c_number_quotation.value == "") {
-		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 3 ");
-		frm.c_number_quotation.focus();
-		return false;
-	}
-	if(!frm.c_number_quotation.value.match(quotationNo)){
-		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
-		frm.c_number_quotation.focus();
-		return false;
-	}
-	
-
-	//Date Quotatuion
-	var ToDate = new Date();
-    var UserDate = document.getElementById("c_date_quotation").value;
-	console.log(ToDate)
-    if(UserDate==""){
-        alert("กรุณากรอกวันที่ใบเสนอราคา ที่ 3");
-        return false;
-    }    
-    if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
-         alert("วันที่เริ่มเป็นวันปัจจุบันหรือวันหลังจากปัจจุบันต้นไป");
-         document.getElementById("c_date_quotation").value ="";	         
-          return false;
-     }
-	
-	//File
-	if(frm.c_file_quotation.value == "") {
-		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 3 ");
-		frm.c_file_quotation.focus();
-		return false;
-	}
-
-	 if(!frm.c_file_quotation.value.match(FILE)){
-	        alert("กรุณาเพิ่มใบเสนอราคา ที่3 เเป็น .pdf เท่านั้น");
-	        frm.c_file_quotation.value = "";
-	        return false;
-	    }
-	
-	  return confirm('ต้องการเพิ่มใบเสนอราคาใช่หรือไม่?');
-
-} 
-
-</script>   
+   
         
      <!-- script link -->     
   	 <script src="layout/scripts/jquery.min.js"></script>

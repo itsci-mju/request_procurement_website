@@ -31,8 +31,12 @@ public class MappingController {
 		// TODO Auto-generated constructor stub
 		
 	}
-
-	//Load index page
+		
+		
+	
+	
+	
+		//Load index page
 		@RequestMapping(value = "/loadindex", method = RequestMethod.GET)
 		public String loadthomePage() {
 			
@@ -85,7 +89,7 @@ public class MappingController {
 		
 
 	//load Edit  RequestDetail & Quotation detail page
-		@RequestMapping(value = "/loadEditRequestproduct", method = RequestMethod.GET)
+		@RequestMapping(value = "/loadEditRequest", method = RequestMethod.GET)
 		public String loadEditRequestProductPage(HttpServletRequest request, Model md, HttpSession session) throws java.text.ParseException{
 			
 			String Text_OrderRequest_id = request.getParameter("OrderRequest_id");

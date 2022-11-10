@@ -359,7 +359,7 @@ int a = 0;
 														|| listorderRequest.get(i).getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")
 														|| listorderRequest.get(i).getStatus().equals("รอยืนยันความประสงค์")    && major.equals("0")  ){ %>
 																
-		                                           <a href="loadEditRequestproduct?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type() %>  "> 
+		                                           <a href="loadEditRequest?OrderRequest_id=<%=listorderRequest.get(i).getOrderRequest_id() %>&request_type=<%=listorderRequest.get(i).getRequest_type() %>  "> 
 		                                          		<button type="button" class="button-18" role="button" >แก้ไข
 														&nbsp; 	<i class="gg-thermometer"></i>									
 														</button></a> &nbsp;	

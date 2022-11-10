@@ -11,9 +11,11 @@
 	double totalsEd = 0.0;
 	List<Product> listselect = pmanager.getAllListProduct(); 
 	int number = 0 ;
-	String majorname = (String) session.getAttribute("majorName");   
+	String majorname = (String) session.getAttribute("majorName"); 
+	
 	DecimalFormat df = new DecimalFormat("###,###,###.00");
-	String major = (String) session.getAttribute("major");     
+	String major = (String) session.getAttribute("major");   
+	System.out.print(major);
 	FileManager fmanager = new FileManager();
 	List<File_Quotation> listFile = (List<File_Quotation>) fmanager.getAllQuotation(order_q.getOrderRequest_id()); 
 
@@ -199,7 +201,7 @@ input {
 
              <div>
                 <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" 
-                onclick="getGridData()">บันทึกการแก้ไข</button>             
+                onclick="return confirm('ต้องการบันทึกการแก้ไขใช่หรือไม่?')">บันทึกการแก้ไข</button>             
              </div>
                 <div>
 				<a class="" href="loadpagelistorder"  style=" margin-left: 37%;"><button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button></a>
@@ -270,6 +272,7 @@ input {
                                     </table>   
                                 
                                 <% if(majorname.equals("เจ้าหน้าที่")){ %>
+                                 <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"><b>- แก้ไขใบเสนอราคา -</b></h2>
                                       <table class="table" id="form_table" style="text-align: center;">
                                       <thead class="thead-dark">
                                         <tr>
@@ -321,7 +324,7 @@ input {
 				                    </div>  
 				                   
 				                      <div>
-				                    <button type="submit"  style=" margin-left: 37%; margin-top: 25px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm2);"> บันทึกการแก้ไขใบเสนอราคา  </button>             
+				                    <button type="submit"  style=" margin-left: 37%; margin-top: 25px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" OnClick="return checkquotation(frm2)"> บันทึกการแก้ไขใบเสนอราคา  </button>             
 				                    </div> 
 				                    <%} %>
 				                     <div>
@@ -411,6 +414,171 @@ function checkproduct(form) {
 	
 
 } 
+</script>  
+	
+	
+	        <script type="text/javascript">
+
+function checkquotation(frm2) {
+	
+	var companyname = /^[A-Za-z0-9ก-์\s]{2,150}$/; 
+	var quotationNo = /^[A-Za-z0-9\-]{4,20}$/; 
+	var FILE = /^.+\.(([pP][dD][fF]))$/;
+
+	//company  1 
+	if(frm.a_name_company.value == "") {
+		alert("กรุณากรอกชื่อบริษัท ที่ 1 ");
+		frm.a_name_company.focus();
+		return false;
+	}
+	
+	//No Quotatuion
+	if(frm.a_number_quotation.value == "") {
+		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 1 ");
+		frm.a_number_quotation.focus();
+		return false;
+	}
+	if(!frm.a_number_quotation.value.match(quotationNo)){
+		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
+		frm.a_number_quotation.focus();
+		return false;
+	}
+
+	//Date Quotatuion
+	var ToDate = new Date();
+    var UserDate = document.getElementById("a_date_quotation").value;
+	console.log(ToDate)
+    if(UserDate==""){
+        alert("กรุณากรอกวันที่ใบเสนอราคา ที่ 1 ");
+        return false;
+    }    
+    if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
+         alert("วันที่เริ่มเป็นวันปัจจุบันหรือวันหลังจากปัจจุบันต้นไป");
+         document.getElementById("a_date_quotation").value ="";	         
+          return false;
+     }
+    
+	//File
+	if(frm.a_file_quotation.value == "") {
+		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 1");
+		frm.a_file_quotation.focus();
+		return false;
+	}
+	
+	 if(!frm.a_file_quotation.value.match(FILE)){
+	        alert("กรุณาเพิ่มใบเสนอราคา ที่1 เเป็น .pdf เท่านั้น");
+	        frm.a_file_quotation.value = "";
+	        return false;
+	    }
+	
+	
+	
+	//company  2 
+	if(frm.b_name_company.value == "") {
+		alert("กรุณากรอกชื่อบริษัท ที่ 2 ");
+		frm.b_name_company.focus();
+		return false;
+	}
+	
+	if(frm.b_number_quotation.value == "") {
+		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 2 ");
+		frm.b_number_quotation.focus();
+		return false;
+	}
+	if(!frm.b_number_quotation.value.match(quotationNo)){
+		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
+		frm.b_number_quotation.focus();
+		return false;
+	}
+	
+
+	//Date Quotatuion
+	var ToDate = new Date();
+    var UserDate = document.getElementById("b_date_quotation").value;
+	console.log(ToDate)
+    if(UserDate==""){
+        alert("กรุณากรอกวันที่ใบเสนอราคา ที่ 2 ");
+        return false;
+    }    
+    if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
+         alert("วันที่เริ่มเป็นวันปัจจุบันหรือวันหลังจากปัจจุบันต้นไป");
+         document.getElementById("b_date_quotation").value ="";	         
+          return false;
+     }
+	
+	
+	//File
+	if(frm.b_file_quotation.value == "") {
+		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 2 ");
+		frm.b_file_quotation.focus();
+		return false;
+	}
+
+	 if(!frm.b_file_quotation.value.match(FILE)){
+	        alert("กรุณาเพิ่มใบเสนอราคา ที่2 เเป็น .pdf เท่านั้น");
+	        frm.b_file_quotation.value = "";
+	        return false;
+	    }
+	
+	
+	
+	//company  3 
+	if(frm.c_name_company.value == "") {
+		alert("กรุณากรอกชื่อบริษัท ที่ 3");
+		frm.c_name_company.focus();
+		return false;
+	}
+	if(frm.c_number_quotation.value == "") {
+		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 3 ");
+		frm.c_number_quotation.focus();
+		return false;
+	}
+	if(!frm.c_number_quotation.value.match(quotationNo)){
+		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
+		frm.c_number_quotation.focus();
+		return false;
+	}
+	
+
+	//Date Quotatuion
+	var ToDate = new Date();
+    var UserDate = document.getElementById("c_date_quotation").value;
+	console.log(ToDate)
+    if(UserDate==""){
+        alert("กรุณากรอกวันที่ใบเสนอราคา ที่ 3");
+        return false;
+    }    
+    if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
+         alert("วันที่เริ่มเป็นวันปัจจุบันหรือวันหลังจากปัจจุบันต้นไป");
+         document.getElementById("c_date_quotation").value ="";	         
+          return false;
+     }
+	
+	//File
+	if(frm.c_file_quotation.value == "") {
+		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 3 ");
+		frm.c_file_quotation.focus();
+		return false;
+	}
+
+	 if(!frm.c_file_quotation.value.match(FILE)){
+	        alert("กรุณาเพิ่มใบเสนอราคา ที่3 เเป็น .pdf เท่านั้น");
+	        frm.c_file_quotation.value = "";
+	        return false;
+	    }
+	
+	
+	 if(confirm('ต้องการบันทึกการแก้ไขใช่หรือไม่?') == true ){
+			alert("บันทึกสำเร็จ");
+			}else{
+				return false ;
+			}
+	 
+
+} 
+
+
+
 </script>  
 	
 	

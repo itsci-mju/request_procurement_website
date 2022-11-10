@@ -265,7 +265,12 @@ function checkquotation(frm) {
 	    }
 	
 	
-	 return confirm('ต้องการแจ้งความประสงค์แบบมีใบเสนอราคาใช่หรือไม่?');
+	 if(confirm('ต้องการแจ้งความประสงค์แบบมีใบเสนอราคาใช่หรือไม่?') == true ){
+			alert("บันทึกสำเร็จ");
+			}else{
+				return false ;
+			}
+	 
 	
 	
 	

@@ -351,6 +351,8 @@ public class OrderRequestController {
 					String request_type =  "มีใบเสนอราคา";
 					String username = request.getParameter("username");
 					Staff  s = sm.getStaff(username);
+					String major = request.getParameter("major");
+					System.out.println(major);
 					OrderRequest or = om.OrderRequestByID(orderRequest_id);
 					
 					or.setStaff(s);
@@ -404,8 +406,13 @@ public class OrderRequestController {
 					File_Quotation fq3 = new File_Quotation(f.get(2).getFile_id(),cfilequotation,cnamecompany,cnumberquotation,cal_cdatequotation,request_type);
 					fq3.setOrderRequest(or);
 					fm.updateFileQuotaion(fq3);
-				
-					orm.updateStatus("ยืนยันความประสงค์", orderRequest_id);
+					
+					if(major.equals("0")) {
+						orm.updateStatus("ยืนยันความประสงค์", orderRequest_id);
+					}else {
+						orm.updateStatus("กำลังรอการดำเนินการจากหน่วยพัสดุ", orderRequest_id);
+						}
+					
 					
 					
 					
@@ -507,7 +514,7 @@ public class OrderRequestController {
 			OrderRequestManager orm = new OrderRequestManager();
 			
 			if(quotation_check.equals("1")) {
-				orm.updateStatus("ยืนยันความประสงค์",OrderRequest_id);
+				orm.updateStatusAndAddComment(OrderRequest_id,"ยืนยันความประสงค์", "-");
 			}else if(quotation_check.equals("2")) {
 				orm.updateStatusAndAddComment(OrderRequest_id, "ข้อมูลใบเสนอราคาไม่ถูกต้อง", comment);
 			}
