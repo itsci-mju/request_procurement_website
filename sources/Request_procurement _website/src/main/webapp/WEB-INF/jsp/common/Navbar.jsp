@@ -46,25 +46,25 @@ a{text-decoration:none;}
 </style>
 <body> 
         <!-- Navigation-->
-       
-<div class="wrapper row0">
-  <div id="topbar" class="hoc clear"> 
+    
+<div class="wrapper row0" style="width: 100%;max-width:100%;height:auto;">
+  <div id="topbar" class="hoc clear" > 
     <!-- ################################################################################################ -->
-    <table style="width: 100%;">
+    <table style="width: 100%;max-width:100%;height:auto;">
         <tbody>
            <tr>
-            <td style=" width: 90px ;">
+            <td style=" width: 90px ;max-width:100%;height:auto;" >
               <img src="images/mju.png" alt="IMG" style=" height:80px ; width: 90px ; margin-left: 50px;">
             
             </td>
-            <td style="vertical-align: middle;padding-left: 0.75rem;">
-              <div>
+            <td style="vertical-align: middle;padding-left: 0.75rem;max-width:100%;height:auto;">
+              <div style="width:auto">
                 <span  style="color: #017f3f; font-size: 2rem; font-weight: 700; margin-left: 50px;"> 
                   คณะวิทยาศาสตร์ มหาวิทยาลัยแม่โจ้
                 </span>
                </div>
 
-               <div>
+               <div style="width:auto;max-width:100%;height:auto;">
                 <span style="    font-size: 1.2rem;
                 color: rgba(0,0,0,0.7); font-weight: 700; margin-left: 50px;">Faculty of Science, Maejo University</span>
                </div>
@@ -99,7 +99,7 @@ a{text-decoration:none;}
       <li><a href="#" title="Sign Up"><i class="fa fa-lg fa-edit"></i></a></li>
       ################################################################################################ -->
   </div>
-</div>
+</div> 
 	
 	<div class="wrapper row1">
   <header id="header" class="hoc clear">
