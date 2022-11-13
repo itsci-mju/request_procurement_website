@@ -97,7 +97,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
 				                          
 				                            <%} %>
 				                            <th >
-				                          <label><%=df.format(sum)%> </label>
+				                          <label style="display: inline;"><%=df.format(sum)%> </label>
 				                           </th>
                                         <th>บาท</th>
                                         </tr>
@@ -144,7 +144,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                       
                                     </table> 
                                      <%} %>
-                                       <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง") || order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")){ %>
+                                       <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง") || order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง") && !majorname.equals("เจ้าหน้าที่")  ){ %>
                                     	 <div>
 		                                    <label for="exampleFormControlTextarea1" style="color: red;">*หมายเหตุ : ผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
 					                    </div>

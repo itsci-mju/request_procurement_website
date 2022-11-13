@@ -263,6 +263,8 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                     <table>
                                     
                                    	<h4><b>คณะกรรมการตรวจรับพัสดุ (วงเงิน 10,000.- ขึ้นไป กรรมการ 3 ท่าน) :</b>  </h4>
+                                   	<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"> - หมายเหตุ : ถ้าวงเงินไม่เกิน 10,000 .- ใช้กรรมการเพียง 1 ท่าน -  </h2>
+                               
 									 
 									<tr>
 									<td></td>
@@ -385,7 +387,7 @@ function checkconfirm(frm) {
 		  }
 		})
 	
-	var Board_name = /^[ก-์A-Za-z ]{2,50}$/;
+	var Board_name = /^[ก-์A-Za-z ]{0,50}$/;
 	var alertconfirm ;
 	
 	//Money Type
@@ -447,11 +449,11 @@ function checkconfirm(frm) {
 	}
 	
 	//Board_name2
-	if(frm.board_name2.value == "") {
+	/* if(frm.board_name2.value == "") {
 		alert("กรุณากรอกชื่อกรรมการคนที่ 2");
 		frm.board_name2.focus();
 		return false;
-	}
+	} */
 	if(!frm.board_name2.value.match(Board_name)){
 		alert("กรุณากรอกชื่อกรรมการคนที่ 2 เป็นภาษาไทยหรือภาษาอังกฤษเท่านั้น");		
 		frm.board_name2.focus();

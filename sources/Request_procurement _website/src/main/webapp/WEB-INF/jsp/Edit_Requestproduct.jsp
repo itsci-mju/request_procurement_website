@@ -82,7 +82,11 @@ input {
 	text-align:center;
 }
 
-
+#center-pd1{
+	border-style: solid;
+    border-width: 1px;
+    text-align:center;
+}
 </style>
 
 <body id="top ">
@@ -117,15 +121,14 @@ input {
 						<%}%>
                           </select>    				
                     </div>
-                     <div class="row">
                     <div class="col-md-6 form-group mb-3" style="width:400px;">
-                      <label for="" class="col-form-label">จำนวน *</label>
-                      <input type="number" class="form-control" name="totalproduct" id="totalproduct" placeholder="กรุณากรอกจำนวน" min="1" max="999"  style="height: 35px ; font-size: 14px; font-weight: 600;" required>
+                      <label for="" class="col-form-label"><b>จำนวน *</b></label>
+                      <input type="number" class="form-control" name="totalproduct" id="totalproduct" placeholder="กรุณากรอกจำนวน" min="1" max="999"   maxlength="3" style="height: 35px ; font-size: 14px; font-weight: 600;" required>
                     </div>
-                  </div>
-                   <div class="">
+                  
+                  <div class="" style="width:100%">
                       <button type="button"  class="btn btn-primary" id="add-row"  style=" border-radius: 15px; background-color: #17a2b8;     
-    				;border-color: #17a2b8;" Onclick="return checkproduct(form)" >เพิ่มรายการ</button>
+    				;border-color: #17a2b8; margin-left:70%;" Onclick="return checkproduct(form)" >เพิ่มรายการ</button>
                     </div>
                   </div>
                  
@@ -145,7 +148,8 @@ input {
             <% if (l != null){ %>
             <!-- Form Table -->
             <form class="" id="frm" name="frm" action="EditOrderRequestProduct?username=<%= l.getUsername()  %>&OrderRequest_id=<%= order_q.getOrderRequest_id() %>" method="Post">
-            <div class="container product-table"  style="margin-top: -113px;">
+            <div class="container product-table"  style="margin-top: -155px;">
+            <label for="" class="col-form-label">- สามารถแก้ไขจำนวนรายการในตารางได้ -</label>
                 <table class="table" > 
                     <thead class="thead-dark">
                         <tr style="text-align:center;"  >
@@ -169,7 +173,7 @@ input {
                                           <td>
                                           <input type="hidden"  name="id<%=i+1%>" value=" <%=listProduct.get(i).getProduct().getProduct_id() %>" readonly  >
                                           <input type="text" id="center-pd" name="p<%=i+1%>" value="<%=listProduct.get(i).getProduct().getProduct_detail() %>" readonly></td>     
-                                          <td><input type="text" id="center-pd" name="t<%=i+1%>" value="<%=listProduct.get(i).getQty() %>" readonly></td>  
+                                          <td><input type="number" id="center-pd1" name="t<%=i+1%>" value="<%=listProduct.get(i).getQty() %>" min="1" max="999" required></td>  
                                           <td><input type="text" id="center-pd"  name="u<%=i+1%>" value="<%=listProduct.get(i).getProduct().getUnit() %>" readonly></td>  
                                           <td><input type="text"  id="center-pd" name="pu<%=i+1%>" value="<%=df.format(listProduct.get(i).getProduct().getPrice()) %>" readonly></td>  
                                           <td><input type="text" id="center-pd" class="subtotal" name="tt<%=i+1%>"  value="<%=df.format(listProduct.get(i).getPrice()) %>" readonly></td>  
@@ -189,8 +193,10 @@ input {
                <thead class="thead-dark" style="text-align: center;"> 
               	 <tr>
                  	 <th style="text-align: initial;">&nbsp;&nbsp;&nbsp;<button type="button" class="remove-row" id="remove-row" style=" border-radius: 15px; " value="ลบ">&nbsp; ลบ &nbsp;</button></th>
-					 <th style="text-align: end;"> ค่าใช้จ่ายทั้งหมด	 </th> 
-          			 <th><label id="totals"><%=df.format(sum)%></label> &nbsp; <label > บาท </label></th>
+
+          			 <th style=" text-align: ;"></th> 
+          			 <th style="text-align: end;"> ค่าใช้จ่ายทั้งหมด	 </th> 
+          			  <th  style=" width: 250px; "> <label id="totals"><%=df.format(sum)%></label> &nbsp;&nbsp;  <label > บาท </label></th>
                  </tr>
                </thead>
               </table>
@@ -200,9 +206,7 @@ input {
             <input type="hidden" id="chList"/>
              
               <%}%>
-         
-           <div>  
-            </div>
+        
 
              <div>
                 <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" 
@@ -424,7 +428,7 @@ window.addEventListener('click', function(event) {
     	} */
     	
     	 
-          document.getElementById("totalproduct").value= 1;
+         // document.getElementById("totalproduct").value= 1;
         
 
     } 
@@ -583,7 +587,7 @@ function checkquotation(frm2) {
 	
 	
 	 if(confirm('ต้องการบันทึกการแก้ไขใช่หรือไม่?') == true ){
-			alert("บันทึกสำเร็จ");
+			 return true ;	
 			}else{
 				return false ;
 			}
@@ -620,6 +624,7 @@ function checkquotation(frm2) {
             	var productdetail = $("#product").val();
             	let product=productdetail.split("_") ;
                 var totalproduct = $("#totalproduct").val();
+                var totalproduct2 = $("#totalproduct").val();
                 var pricetotal = parseFloat(product[2])*parseFloat(totalproduct);
                 var unit = $("#unit").val();
                 var nf = Intl.NumberFormat();
@@ -639,7 +644,7 @@ function checkquotation(frm2) {
                  		console.log(listselect.length);	  
                  		flag = false;
                  		 document.getElementById("product").value= productdetail; 
-                          document.getElementById("totalproduct").value= 1;
+                    //      document.getElementById("totalproduct").value= 1;
                  		alert("รายการห้ามซ้ำกัน");             		
                  		return false;
                  	}
@@ -658,7 +663,7 @@ function checkquotation(frm2) {
                                   // '<td id="no" >'+number+'</td>'+
                                  '<td> <input type="hidden" name="id'+number+'" value="'+product[3]+'" readonly  > '+
                                    ' <input type="text" id="center-pd" name="p'+number+'" value="'+product[0]+'" readonly  > </td>'+
-                                   '<td> <input type="text" id="center-pd" name="t'+number+'" value="'+totalproduct+'" readonly> </td>'+
+                                   '<td> <input type="number" id="center-pd1"  name="t'+number+'" value="'+totalproduct+'" min="1" max="999" required> </td>'+
                                    '<td> <input type="text" id="center-pd" name="u'+number+'" value="'+product[1]+'" readonly> </td>'+
                                    '<td> <input type="text" id="center-pd" name="pu'+number+'" value="'+nf.format(product[2])+'" readonly> </td>'+
                                    '<td> <input type="text" id="center-pd" class="subtotal" name="tt'+number+'" value="'+nf.format(pricetotal)+'" readonly"> </td>'+
@@ -682,7 +687,7 @@ function checkquotation(frm2) {
                	
                }
                 document.getElementById("product").value= productdetail; 
-                document.getElementById("totalproduct").value= 1;
+              //  document.getElementById("totalproduct").value= 1;
                                      
             })
             

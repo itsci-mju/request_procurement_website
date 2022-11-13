@@ -156,7 +156,8 @@ public class OrderRequestController {
 					
 					//quotation  1
 					String anamecompany = request.getParameter("a_name_company");
-					String afilequotation = "Quotation_"+om.getMaxFileID()+"_"+anamecompany+".pdf";
+					String afilequotation = "Quotation_"+om.getMaxFileID()+".pdf";
+					//String afilequotation = "Quotation_"+om.getMaxFileID()+"_"+anamecompany+".pdf";
 					String anumberquotation = request.getParameter("a_number_quotation");
 					String adatequotation = request.getParameter("a_date_quotation");
 					
@@ -172,8 +173,8 @@ public class OrderRequestController {
 					fm.insertFileQuotaion(fq1);
 					//quotation  2
 					String bnamecompany = request.getParameter("b_name_company");
-					String bfilequotation = "Quotation_"+om.getMaxFileID()+"_"+bnamecompany+".pdf";
-					
+					String bfilequotation = "Quotation_"+om.getMaxFileID()+".pdf";
+				//	String bfilequotation = "Quotation_"+om.getMaxFileID()+"_"+bnamecompany+".pdf";
 					String bnumberquotation = request.getParameter("b_number_quotation");
 					String bdatequotation = request.getParameter("b_date_quotation");
 					
@@ -189,7 +190,8 @@ public class OrderRequestController {
 					
 					//quotation  3
 					String cnamecompany = request.getParameter("c_name_company");
-					String cfilequotation = "Quotation_"+om.getMaxFileID()+"_"+cnamecompany+".pdf";
+					String cfilequotation = "Quotation_"+om.getMaxFileID()+".pdf";
+					//String cfilequotation = "Quotation_"+om.getMaxFileID()+"_"+cnamecompany+".pdf";
 					String cnumberquotation = request.getParameter("c_number_quotation");
 					String cdatequotation = request.getParameter("c_date_quotation");
 					
@@ -360,7 +362,8 @@ public class OrderRequestController {
 					List<File_Quotation> f = fm.getAllQuotation(Integer.parseInt(orderRequest_id));
 					//quotation  1
 					String anamecompany = request.getParameter("a_name_company");
-					String afilequotation = "Quotation_"+f.get(0).getFile_id()+"_"+anamecompany+".pdf";
+					String afilequotation = "Quotation_"+f.get(0).getFile_id()+".pdf";
+				//	String afilequotation = "Quotation_"+f.get(0).getFile_id()+"_"+anamecompany+".pdf";
 					String anumberquotation = request.getParameter("a_number_quotation");
 					String adatequotation = request.getParameter("a_date_quotation");
 					
@@ -376,8 +379,8 @@ public class OrderRequestController {
 					fm.updateFileQuotaion(fq1);
 					//quotation  2
 					String bnamecompany = request.getParameter("b_name_company");
-					String bfilequotation = "Quotation_"+f.get(1).getFile_id()+"_"+bnamecompany+".pdf";
-					
+					String bfilequotation = "Quotation_"+f.get(1).getFile_id()+".pdf";
+				//	String bfilequotation = "Quotation_"+f.get(1).getFile_id()+"_"+bnamecompany+".pdf";
 					String bnumberquotation = request.getParameter("b_number_quotation");
 					String bdatequotation = request.getParameter("b_date_quotation");
 					
@@ -393,7 +396,8 @@ public class OrderRequestController {
 					
 					//quotation  3
 					String cnamecompany = request.getParameter("c_name_company");
-					String cfilequotation = "Quotation_"+f.get(2).getFile_id()+"_"+cnamecompany+".pdf";
+					//String cfilequotation = "Quotation_"+f.get(2).getFile_id()+"_"+cnamecompany+".pdf";
+					String cfilequotation = "Quotation_"+f.get(2).getFile_id()+".pdf";
 					String cnumberquotation = request.getParameter("c_number_quotation");
 					String cdatequotation = request.getParameter("c_date_quotation");
 					
@@ -554,7 +558,8 @@ public class OrderRequestController {
 						
 						//quotation  1
 						String anamecompany = request.getParameter("a_name_company");
-						String afilequotation = "Quotation_"+om.getMaxFileID()+"_"+anamecompany+".pdf";
+						String afilequotation = "Quotation_"+om.getMaxFileID()+".pdf";
+						//String afilequotation = "Quotation_"+om.getMaxFileID()+"_"+anamecompany+".pdf";
 						String anumberquotation = request.getParameter("a_number_quotation");
 						String adatequotation = request.getParameter("a_date_quotation");
 						
@@ -575,7 +580,8 @@ public class OrderRequestController {
 						
 						//quotation  2
 						String bnamecompany = request.getParameter("b_name_company");
-						String bfilequotation = "Quotation_"+om.getMaxFileID()+"_"+bnamecompany+".pdf";						
+						String bfilequotation = "Quotation_"+om.getMaxFileID()+".pdf";			
+					//	String bfilequotation = "Quotation_"+om.getMaxFileID()+"_"+bnamecompany+".pdf";		
 						String bnumberquotation = request.getParameter("b_number_quotation");
 						String bdatequotation = request.getParameter("b_date_quotation");
 						
@@ -591,7 +597,8 @@ public class OrderRequestController {
 						
 						//quotation  3
 						String cnamecompany = request.getParameter("c_name_company");
-						String cfilequotation = "Quotation_"+om.getMaxFileID()+"_"+cnamecompany+".pdf";
+						String cfilequotation = "Quotation_"+om.getMaxFileID()+".pdf";
+						//String cfilequotation = "Quotation_"+om.getMaxFileID()+"_"+cnamecompany+".pdf";
 						String cnumberquotation = request.getParameter("c_number_quotation");
 						String cdatequotation = request.getParameter("c_date_quotation");
 						
@@ -701,7 +708,8 @@ public class OrderRequestController {
 						List<File_Quotation> f = fm.getAllQuotation(Integer.parseInt(orderRequest_id));
 						//quotation  1
 						String anamecompany = request.getParameter("a_name_company");
-						String afilequotation = "Quotation_"+f.get(0).getFile_id()+"_"+anamecompany+".pdf";
+						String afilequotation = "Quotation_"+f.get(0).getFile_id()+".pdf";
+						//String afilequotation = "Quotation_"+f.get(0).getFile_id()+"_"+anamecompany+".pdf";
 						String anumberquotation = request.getParameter("a_number_quotation");
 						String adatequotation = request.getParameter("a_date_quotation");
 						
@@ -717,8 +725,8 @@ public class OrderRequestController {
 						fm.updateFileQuotaion(fq1);
 						//quotation  2
 						String bnamecompany = request.getParameter("b_name_company");
-						String bfilequotation = "Quotation_"+f.get(1).getFile_id()+"_"+bnamecompany+".pdf";
-						
+						String bfilequotation = "Quotation_"+f.get(1).getFile_id()+".pdf";
+					//	String bfilequotation = "Quotation_"+f.get(1).getFile_id()+"_"+bnamecompany+".pdf";
 						String bnumberquotation = request.getParameter("b_number_quotation");
 						String bdatequotation = request.getParameter("b_date_quotation");
 						
@@ -734,7 +742,8 @@ public class OrderRequestController {
 						
 						//quotation  3
 						String cnamecompany = request.getParameter("c_name_company");
-						String cfilequotation = "Quotation_"+f.get(2).getFile_id()+"_"+cnamecompany+".pdf";
+						String cfilequotation = "Quotation_"+f.get(2).getFile_id()+".pdf";
+					//	String cfilequotation = "Quotation_"+f.get(2).getFile_id()+"_"+cnamecompany+".pdf";
 						String cnumberquotation = request.getParameter("c_number_quotation");
 						String cdatequotation = request.getParameter("c_date_quotation");
 						

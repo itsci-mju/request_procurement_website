@@ -69,6 +69,11 @@ input {
 	text-align:center;
 }
 
+#center-pd1{
+	border-style: solid;
+    border-width: 1px;
+    text-align:center;
+}
 </style>
 
 <body id="top ">
@@ -104,22 +109,20 @@ input {
 						<%}%>
                           </select>    				
                     </div>
-                     <div class="row">
+                     
                     <div class="col-md-6 form-group mb-3" style="width:400px;">
                       <label for="" class="col-form-label"><b>จำนวน *</b></label>
-                      <input type="number" class="form-control" name="totalproduct" id="totalproduct" placeholder="กรุณากรอกจำนวน" min="1" max="999"   maxlength="3" style="height: 35px ; font-size: 14px; font-weight: 600;" required>
+                      <input type="number" class="form-control" name="totalproduct" id="totalproduct" placeholder="กรุณากรอกจำนวน" min="1" max="999" required  maxlength="3" style="height: 35px ; font-size: 14px; font-weight: 600;" >
                     </div>
-                  </div>
-                   <div class="">
+                  
+                   <div class="" style="width:100%">
                       <button type="button"  class="btn btn-primary" id="add-row"  style=" border-radius: 15px; background-color: #17a2b8;     
-    				;border-color: #17a2b8;" Onclick="return checkproduct(form)" >เพิ่มรายการ</button>
+    				;border-color: #17a2b8; margin-left:70%;" Onclick="return checkproduct(form)" >เพิ่มรายการ</button>
                     </div>
                   </div>
                  
                 
-                  <div class="row" id="table-pd">
-                   
-                  </div>
+             
                 </form>
                 
               </div>
@@ -131,7 +134,8 @@ input {
             <% if (l != null){ %>
             <!-- Form Table -->
             <form class="" id="frm" name="frm" action="addOrderRequest?username=<%= l.getUsername()  %>" method="Post">
-            <div class="container product-table"  style="margin-top: -113px;">
+            <div class="container product-table"  style="margin-top: -155px;">
+             <label for="" class="col-form-label">- สามารถแก้ไขจำนวนรายการในตารางได้ -</label>
                 <table class="table" > 
                     <thead class="thead-dark">
                         <tr style="text-align:center;"  >
@@ -141,6 +145,7 @@ input {
                             <th>หน่วย</th>
                             <th>ราคา/หน่วย</th> 
                             <th>จำนวนเงิน</th>
+                              <th></th>
                         </tr>
                     </thead>
                        <tbody>
@@ -152,12 +157,19 @@ input {
                    
                <thead class="thead-dark" style="text-align: center;"> 
               	 <tr>
-                 	 <th style="text-align: initial;">&nbsp;&nbsp;&nbsp;<button type="button" class="remove-row" id="remove-row" style=" border-radius: 15px; " value="ลบ">&nbsp; ลบ &nbsp;</button></th>
-					 <th style="text-align: end;"> ค่าใช้จ่ายทั้งหมด	 </th> 
-          			 <th><label id="totals">0.0 </label> &nbsp; <label > บาท </label></th>
+                 	 <th style="text-align: initial;"><button type="button" class="remove-row" id="remove-row" style=" border-radius: 15px; " value="ลบ">&nbsp; ลบ &nbsp;</button></th>
+					     <th></th>
+				         <th></th>
+				        <th></th>
+				      
+				           
+				          <th></th> 
+					 <th style="text-align: end;"> ค่าใช้จ่ายทั้งหมด</th> 
+          			 <th style="text-align: end;"><label id="totals">0.0</label></th>
+          			  <th>บาท</th>
                  </tr>
                </thead>
-              </table>
+              </table> 
             </div>
             
             
@@ -165,11 +177,10 @@ input {
             <br><br> 
             
             <!-- Sent button -->
-           <div>  
-            </div>
+         
 
              <div>
-                <button type="submit"  style=" margin-left: 37%; margin-top: 15px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" 
+                <button type="submit"  style=" margin-left: 37%; margin-top:-100px; width: 25% ;  background-color: #1abc9c; border-color: #1abc9c;" class="btn btn-dark" 
                 onclick="return checkpd(frm)">ส่งคำขอ</button>             
              </div>
              <input type="text" name="number" value="0" hidden>
@@ -178,7 +189,7 @@ input {
          
              
             <div>
-                <a class="" href="loadpagelistorder"  style=" margin-left: 37%;"><button   style="  margin-top: 15px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button></a>
+                <a class="" href="loadpagelistorder"  style=" margin-left: 37%;"><button   style="  margin-top: -40px; width: 25%" type="button" class="btn btn-dark">ย้อนกลับ</button></a>
               </div>
    
               <br><br><br><br><br>
@@ -245,7 +256,7 @@ function checkproduct(form) {
 		return false;
 	}else  {
 		if(confirm("ต้องการแจ้งความประสงค์แบบไม่มีใบเสนอราคาใช่หรือไม่?") == true ){
-			alert("บันทึกสำเร็จ");
+			return true ;	
 			}else{
 				return false ;
 			}
@@ -318,7 +329,7 @@ function checkproduct(form) {
                                    // '<td id="no" >'+number+'</td>'+
                                   '<td> <input type="hidden" name="id'+number+'" value="'+product[3]+'" readonly  > '+
                                     ' <input type="text" id="center-pd" name="p'+number+'" value="'+product[0]+'" readonly  > </td>'+
-                                    '<td> <input type="text" id="center-pd" name="t'+number+'" value="'+totalproduct+'" readonly> </td>'+
+                                    '<td> <input type="number" id="center-pd1" name="t'+number+'" value="'+totalproduct+'" min="1" max="999" required> </td>'+
                                     '<td> <input type="text" id="center-pd" name="u'+number+'" value="'+product[1]+'" readonly> </td>'+
                                     '<td> <input type="text" id="center-pd" name="pu'+number+'" value="'+nf.format(product[2])+'" readonly> </td>'+
                                     '<td> <input type="text" id="center-pd" class="subtotal" name="tt'+number+'" value="'+nf.format(pricetotal)+'" readonly"> </td>'+

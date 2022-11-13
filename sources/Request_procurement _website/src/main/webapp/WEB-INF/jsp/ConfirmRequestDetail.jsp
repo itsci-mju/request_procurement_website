@@ -120,7 +120,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
 				                          
 				                            <%} %>
 				                            <th >
-				                          <label><%=df.format(sum)%> </label>
+				                          <label style="display: inline;"><%=df.format(sum)%> </label>
 				                           </th>
                                         <th>บาท</th>
                                         </tr>
@@ -265,7 +265,8 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                     <table>
                                     
                                    	<h4><b>คณะกรรมการตรวจรับพัสดุ (วงเงิน 10,000.- ขึ้นไป กรรมการ 3 ท่าน) :</b>  </h4>
-									 
+									 <h4 class="" style="font-size: 20px;"> * <b>หมายเหตุ</b> : ถ้าวงเงินไม่เกิน 10,000 .- ใช้กรรมการเพียง 1 ท่าน *</h4>
+                               
 									<tr>
 									<td></td>
 									  <td> <div class="form-check">
