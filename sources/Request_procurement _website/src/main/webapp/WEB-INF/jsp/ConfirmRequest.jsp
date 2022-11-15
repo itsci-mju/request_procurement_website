@@ -135,7 +135,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                         <tr>
                                             <th>ลำดับที่</th>
 				                            <th>ชื่อบริษัท</th>
-				                            <th>เลขที่</th> 
+				                            <th>เลขที่ใบเสนอราคา</th> 
 				                            <th>วันที่ใบเสนอราคา</th>
 				                            <th>ใบเสนอราคา</th>             
                                         <th></th>
@@ -182,7 +182,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                     <%} %>
 										</select>								
 										</th>									
-									      <th scope="col" >เลขที่</th>
+									      <th scope="col" >เลขที่ใบเสนอราคา</th>
 									       <th scope="col"> <input style="width:150px ;color:black" type="text" id="quotation_no"name="quotation_no" readonly></label></th>
 									      <!--  //<th scope="col"><label  id="quotation_no" name="quotation_no"  ></label></th>-->
 									      <th scope="col">วันที่ใบเสนอราคา</th>
@@ -263,7 +263,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                     <table>
                                     
                                    	<h4><b>คณะกรรมการตรวจรับพัสดุ (วงเงิน 10,000.- ขึ้นไป กรรมการ 3 ท่าน) :</b>  </h4>
-                                   	<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"> - หมายเหตุ : ถ้าวงเงินไม่เกิน 10,000 .- ใช้กรรมการเพียง 1 ท่าน -  </h2>
+                                 	 <h4 class="" style="font-size: 20px;"> * <b>หมายเหตุ</b> : ถ้าวงเงินไม่เกิน 10,000 .- ใช้กรรมการเพียง 1 ท่าน *</h4>
                                
 									 
 									<tr>

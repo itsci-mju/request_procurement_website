@@ -58,7 +58,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                         <tr>
                                             <th>ลำดับที่</th>
 				                            <th>ชื่อบริษัท</th>
-				                            <th>เลขที่</th> 
+				                            <th>เลขที่ใบเสนอราคา</th> 
 				                            <th>วันที่ใบเสนอราคา</th>
 				                            <th>ใบเสนอราคา</th>             
                                         <th></th>

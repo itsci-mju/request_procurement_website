@@ -56,7 +56,7 @@
                                         <tr>
                                           <th style="width: 60px">ลำดับที่</th>
                                           <th>ชื่อบริษัท</th>
-                                          <th style="width: ">เลขที่</th>
+                                          <th style="width: ">เลขที่ใบเสนอราคา</th>
                                           <th style="width: ">วันที่ใบเสนอราคา</th>
                                           <th style="width: ">ใบเสนอราคา</th>
                                           <th>&nbsp;</th>

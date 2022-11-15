@@ -133,7 +133,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                         <tr>
                                             <th>ลำดับที่</th>
 				                            <th>ชื่อบริษัท</th>
-				                            <th>เลขที่</th> 
+				                            <th>เลขที่ใบเสนอราคา</th> 
 				                            <th>วันที่ใบเสนอราคา</th>
 				                            <th>ใบเสนอราคา</th>             
                                         <th></th>
@@ -173,7 +173,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
 								   			 <th scope="col"><label id="no" ></label>		</th>				
 											
 																
-									      <th scope="col" >เลขที่</th>
+									      <th scope="col" >เลขที่ใบเสนอราคา</th>
 									      <th scope="col"><label id="quotation_no" name="quotation_no" style="display: initial;"><%= cf_form.getQuotation_no() %></label></th>
 									      <th scope="col">วันที่ใบเสนอราคา</th>
 									      <th scope="col"><label id="quotation_date" name="quotation_date" style="display: initial;"><%= sdf.format( cf_form.getQuotation_date().getTime()) %></label></th>

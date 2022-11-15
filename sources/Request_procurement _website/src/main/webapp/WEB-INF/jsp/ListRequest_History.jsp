@@ -10,6 +10,7 @@ StaffManager sm = new StaffManager();
 Login l = (Login) session.getAttribute("login");
 List<OrderRequest> listorderRequest = qm.getAllListOrderRequestHistory();
 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+String major = (String) session.getAttribute("major");  
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -270,6 +271,16 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                                     <table class="table" id="form_table" style="text-align: center;">
                                    
                                       <thead class="thead-dark">
+                                       <% if(major.equals("0")){ %>                          
+                                          <th >ลำดับที่</th>
+                                          <th >วันที่แจ้ง</th>
+                                          <th >ชื่อผู้แจ้ง</th>
+                                          <th >สาขา</th>
+                                          <th >ประเภทการแจ้งความประสงค์</th>
+                                          <th >สถานะ</th>
+                                           <th  >ดูรายละเอียด</th>
+                                          <% } %>
+                                      <% if(!major.equals("0")){ %>
                                         <tr>
                                           <th>ลำดับที่</th>
                                           <th>วันที่แจ้ง</th>
@@ -278,6 +289,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                                           <th>ดูรายละเอียด</th>
                                         
                                         </tr>
+                                          <% } %>
                                       </thead>
                                        <% if (listorderRequest != null){%>
                                         <%for (int i=0 ; i<listorderRequest.size(); i++) {%>
@@ -285,7 +297,11 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                                       <tbody>
                                         <tr class="alert" role="alert">
                                           <th  scope="row"><%= i+1 %></th>
-                                          <td><%=sdf.format(listorderRequest.get(i).getOrderRequest_date().getTime())  %></td>     
+                                          <td><%=sdf.format(listorderRequest.get(i).getOrderRequest_date().getTime())  %></td> 
+                                            <% if(major.equals("0")){ %>
+                                        	 		<td><%= listorderRequest.get(i).getStaff().getStaff_name() %></td>
+                                          	 		<td><%= listorderRequest.get(i).getStaff().getMajor().getMajor_name() %></td>
+                                          		  <% } %>    
                                           <td><%=listorderRequest.get(i).getRequest_type() %> </td>  
                                           <td><label style="color:Green;"><%=listorderRequest.get(i).getStatus() %></label> </td>  
                                         

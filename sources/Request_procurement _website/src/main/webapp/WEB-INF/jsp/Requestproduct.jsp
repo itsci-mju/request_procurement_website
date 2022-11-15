@@ -64,15 +64,18 @@ input {
 	
 }
 
-#center-pd{
+.center-pd{
 
 	text-align:center;
 }
 
-#center-pd1{
+.center-pd1{
 	border-style: solid;
     border-width: 1px;
     text-align:center;
+}
+.subtotal{
+text-align:center;
 }
 </style>
 
@@ -112,9 +115,11 @@ input {
                      
                     <div class="col-md-6 form-group mb-3" style="width:400px;">
                       <label for="" class="col-form-label"><b>จำนวน *</b></label>
-                      <input type="number" class="form-control" name="totalproduct" id="totalproduct" placeholder="กรุณากรอกจำนวน" min="1" max="999" required  maxlength="3" style="height: 35px ; font-size: 14px; font-weight: 600;" >
+                      <input type="number" class="form-control" name="totalproduct" id="totalproduct" placeholder="กรุณากรอกจำนวน" 
+                      min="1" max="999" required  
+                      maxlength="3" style="height: 35px ; font-size: 14px; font-weight: 600;" >
                     </div>
-                  
+               <!--     <input type="hidden" id="changeTotal"/> -->
                    <div class="" style="width:100%">
                       <button type="button"  class="btn btn-primary" id="add-row"  style=" border-radius: 15px; background-color: #17a2b8;     
     				;border-color: #17a2b8; margin-left:70%;" Onclick="return checkproduct(form)" >เพิ่มรายการ</button>
@@ -265,7 +270,9 @@ function checkproduct(form) {
 		}  
 	
    }
-   </script>   
+   </script>   calFunction
+   
+  
    
  	<script type="text/javascript">
     
@@ -283,7 +290,7 @@ function checkproduct(form) {
    var form = $("#form");
    var count = 0;
    var listselect = ["1"];
-
+   var nf = Intl.NumberFormat();
         $(document).ready(function(){
             // Add new row
             $("#add-row").click(function(){
@@ -293,7 +300,7 @@ function checkproduct(form) {
                 var totalproduct = $("#totalproduct").val();
                 var pricetotal = parseFloat(product[2])*parseFloat(totalproduct);
                 var unit = $("#unit").val();
-                var nf = Intl.NumberFormat();
+               
                 
                 var select = product[0]; //Code bas sood tueng
                 console.log(select);
@@ -328,18 +335,18 @@ function checkproduct(form) {
                                     '<td><input type="checkbox" style="margin-top: 8px;"></td>'+
                                    // '<td id="no" >'+number+'</td>'+
                                   '<td> <input type="hidden" name="id'+number+'" value="'+product[3]+'" readonly  > '+
-                                    ' <input type="text" id="center-pd" name="p'+number+'" value="'+product[0]+'" readonly  > </td>'+
-                                    '<td> <input type="number" id="center-pd1" name="t'+number+'" value="'+totalproduct+'" min="1" max="999" required> </td>'+
-                                    '<td> <input type="text" id="center-pd" name="u'+number+'" value="'+product[1]+'" readonly> </td>'+
-                                    '<td> <input type="text" id="center-pd" name="pu'+number+'" value="'+nf.format(product[2])+'" readonly> </td>'+
-                                    '<td> <input type="text" id="center-pd" class="subtotal" name="tt'+number+'" value="'+nf.format(pricetotal)+'" readonly"> </td>'+
+                                    ' <input type="text" class="center-pd" name="p-'+number+'" value="'+product[0]+'" readonly  > </td>'+
+                                    '<td> <input type="number" class="center-pd1" name="t-'+number+'" value="'+totalproduct+'" min="1" max="999" onchange="calFunction(this)" required > </td>'+
+                                    '<td> <input type="text" class="center-pd" name="u-'+number+'" value="'+product[1]+'" readonly> </td>'+
+                                    '<td> <input type="text" class="center-pd" name="pu-'+number+'" value="'+product[2]+'" readonly> </td>'+
+                                    '<td> <input type="text" class="subtotal" name="tt-'+number+'" value="'+pricetotal+'" readonly"> </td>'+
                                 '</tr>'
                             	);
                             	  frm.number.value=count; // to input:hidden
                           
                             var totals= document.getElementById("totals").textContent;
                             var sum = parseFloat(totals.replaceAll(",","").valueOf())+pricetotal;
-                            
+                            // caltotal
                             document.getElementById("totals").innerHTML= (nf.format(parseFloat(sum)));
                             
                            
@@ -427,10 +434,41 @@ function checkproduct(form) {
 	}
      
         
-  	
-    </script>   
-    
+        function calFunction(val){
+            const productName = val.name
+            const pdname = productName.split("-")[1];
+            let productNumber = val.value
+            let ProductPrice = document.getElementsByName("pu-"+pdname)
+            let ProductToTal = document.getElementsByName("tt-"+pdname)
 
+            ProductToTal[0].value = parseFloat(ProductPrice[0].value)*parseFloat(productNumber);
+            let allprice = document.getElementsByClassName("subtotal");
+            let label_total = document.getElementById("totals");
+            let amount = 0;
+            var i = 0;
+            for (i=0;i<allprice.length;i++){
+                amount += parseFloat(allprice[i].value);
+            }
+
+            label_total.innerHTML = nf.format(amount);
+        }
+        
+        
+        
+        </script>  
+        
+<!--      <script >
+   function calFunction(test1) {
+	 var sumUnit = test1.name.split("-")[1];
+	 var sumInput = test1.value;
+	 var total = sumUnit*sumInput;
+	 var n = test1.name.split("-")[0];
+	 var bn = "t"+n;
+	
+     console.log("no"+test1.value+test1.name);
+     $(':text[name="'+bn+'"]').val(total);
+   }
+   </script> -->
 
 <!-- JAVASCRIPTS -->
 <script src="layout/scripts/jquery.min.js"></script>

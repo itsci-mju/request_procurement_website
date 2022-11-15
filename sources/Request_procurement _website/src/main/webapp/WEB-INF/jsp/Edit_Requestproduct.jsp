@@ -77,15 +77,18 @@ input {
 	border: none;
 	
 }
-#center-pd{
+.center-pd{
 
 	text-align:center;
 }
 
-#center-pd1{
+.center-pd1{
 	border-style: solid;
     border-width: 1px;
     text-align:center;
+}
+.subtotal{
+text-align:center;
 }
 </style>
 
@@ -155,7 +158,7 @@ input {
                         <tr style="text-align:center;"  >
                             <th>เลือก&nbsp;<input  type="checkbox" id="select-all" style="display: inherit;"></th>
                            
-                            <th>รายละเอียด</th>
+                            <th style="width:300px">รายละเอียด</th>
                             <th>จำนวน</th> 
                             <th>หน่วย</th>
                             <th>ราคา/หน่วย</th> 
@@ -172,11 +175,11 @@ input {
                                           
                                           <td>
                                           <input type="hidden"  name="id<%=i+1%>" value=" <%=listProduct.get(i).getProduct().getProduct_id() %>" readonly  >
-                                          <input type="text" id="center-pd" name="p<%=i+1%>" value="<%=listProduct.get(i).getProduct().getProduct_detail() %>" readonly></td>     
-                                          <td><input type="number" id="center-pd1" name="t<%=i+1%>" value="<%=listProduct.get(i).getQty() %>" min="1" max="999" required></td>  
-                                          <td><input type="text" id="center-pd"  name="u<%=i+1%>" value="<%=listProduct.get(i).getProduct().getUnit() %>" readonly></td>  
-                                          <td><input type="text"  id="center-pd" name="pu<%=i+1%>" value="<%=df.format(listProduct.get(i).getProduct().getPrice()) %>" readonly></td>  
-                                          <td><input type="text" id="center-pd" class="subtotal" name="tt<%=i+1%>"  value="<%=df.format(listProduct.get(i).getPrice()) %>" readonly></td>  
+                                          <input type="text" class="center-pd" name="p-<%=i+1%>" value="<%=listProduct.get(i).getProduct().getProduct_detail() %>" readonly></td>     
+                                          <td><input type="number" class="center-pd1" name="t-<%=i+1%>" value="<%=listProduct.get(i).getQty() %>" min="1" max="999" onchange="calFunction(this)"  required></td>  
+                                          <td><input type="text" class="center-pd"  name="u-<%=i+1%>" value="<%=listProduct.get(i).getProduct().getUnit() %>" readonly></td>  
+                                          <td><input type="text"  class="center-pd" name="pu-<%=i+1%>" value="<%=listProduct.get(i).getProduct().getPrice() %>" readonly></td>  
+                                          <td><input type="text"  class="subtotal" name="tt-<%=i+1%>"  value="<%=listProduct.get(i).getPrice() %>" readonly></td>  
                                       
                                         <label hidden><%=df.format(sum += listProduct.get(i).getPrice())  %></label>
                                         </tr>                
@@ -233,7 +236,7 @@ input {
                                       <thead class="thead-dark">
                                         <tr>
                                             <th>ลำดับที่</th>
-				                            <th>รายละเอียด</th>
+				                            <th >รายละเอียด</th>
 				                            <th>จำนวน</th> 
 				                            <th>หน่วย</th>
 				                            <th>ราคา/หน่วย</th> 
@@ -247,7 +250,7 @@ input {
                                       <tbody>
                                         <tr class="alert" role="alert">
                                           <th  scope="row"><%= i+1 %></th>
-                                          <td><%=listProduct.get(i).getProduct().getProduct_detail() %></td>     
+                                          <td ><%=listProduct.get(i).getProduct().getProduct_detail() %></td>     
                                           <td> <%=listProduct.get(i).getQty() %> </td>  
                                           <td><%=listProduct.get(i).getProduct().getUnit() %></td>  
                                          <td><%=df.format(listProduct.get(i).getProduct().getPrice()) %></td>  
@@ -285,7 +288,7 @@ input {
                                         <tr>
                                           <th style="width: 60px">ลำดับที่</th>
                                           <th>ชื่อบริษัท</th>
-                                          <th style="width: ">เลขที่</th>
+                                          <th style="width: ">เลขที่ใบเสนอราคา</th>
                                           <th style="width: ">วันที่ใบเสนอราคา</th>
                                           <th style="width: ">ใบเสนอราคา</th>
                                         </tr>
@@ -602,11 +605,10 @@ function checkquotation(frm2) {
 	
 	<script type="text/javascript">
 	 var form = $("#form");
-	 var count = 0;
+	 var count = parseInt(document.getElementById("number").value);
 	 var listselect = ["1"];
 	 var oldselect ;
-  
-	
+	 var nf = Intl.NumberFormat();
         
         $(document).ready(function(){
             // Add new row
@@ -616,7 +618,7 @@ function checkquotation(frm2) {
 			 
 		 	<%}%>
             $("#add-row").click(function(){
-            	count++;
+            //	count++;
             	
             	<%size = size+1;%>
             	var number = document.getElementsByName("number").value;
@@ -627,7 +629,7 @@ function checkquotation(frm2) {
                 var totalproduct2 = $("#totalproduct").val();
                 var pricetotal = parseFloat(product[2])*parseFloat(totalproduct);
                 var unit = $("#unit").val();
-                var nf = Intl.NumberFormat();
+               
                 
                 var select = product[0];
                 console.log(select);
@@ -650,45 +652,45 @@ function checkquotation(frm2) {
                  	}
                  
                  }
-                
+          
                 if(flag === true){
    				 listselect.push(select);         
                			count++;
-                       	var number = document.getElementsByName("number").value;
-                       	number = count;
+                       	let number1 = document.getElementById("number").value;
+                       	number1 = count;
                		    if(productdetail != "" && totalproduct != ""){
-                           	$(".table tbody tr").last().after(
-                               '<tr class="fadetext" id="select-row" >'+
-                                   '<td><input type="checkbox" style="margin-top: 8px;"></td>'+
-                                  // '<td id="no" >'+number+'</td>'+
-                                 '<td> <input type="hidden" name="id'+number+'" value="'+product[3]+'" readonly  > '+
-                                   ' <input type="text" id="center-pd" name="p'+number+'" value="'+product[0]+'" readonly  > </td>'+
-                                   '<td> <input type="number" id="center-pd1"  name="t'+number+'" value="'+totalproduct+'" min="1" max="999" required> </td>'+
-                                   '<td> <input type="text" id="center-pd" name="u'+number+'" value="'+product[1]+'" readonly> </td>'+
-                                   '<td> <input type="text" id="center-pd" name="pu'+number+'" value="'+nf.format(product[2])+'" readonly> </td>'+
-                                   '<td> <input type="text" id="center-pd" class="subtotal" name="tt'+number+'" value="'+nf.format(pricetotal)+'" readonly"> </td>'+
-                               '</tr>'
-                           	);
+               		 	$(".table tbody tr").last().after(
+                                '<tr class="fadetext" id="select-row" >'+
+                                    '<td><input type="checkbox" style="margin-top: 8px;"></td>'+
+                                   // '<td id="no" >'+number+'</td>'+
+                                  '<td> <input type="hidden" name="id'+number1+'" value="'+product[3]+'" readonly  > '+
+                                    ' <input type="text" class="center-pd" name="p-'+number1+'" value="'+product[0]+'" readonly  > </td>'+
+                                    '<td> <input type="number" class="center-pd1" name="t-'+number1+'" value="'+totalproduct+'" min="1" max="999" onchange="calFunction(this)" required > </td>'+
+                                    '<td> <input type="text" class="center-pd" name="u-'+number1+'" value="'+product[1]+'" readonly> </td>'+
+                                    '<td> <input type="text" class="center-pd" name="pu-'+number1+'" value="'+product[2]+'" readonly> </td>'+
+                                    '<td> <input type="text" class="subtotal" name="tt-'+number1+'" value="'+pricetotal+'" readonly"> </td>'+
+                                '</tr>'
+                            	);
                            	  frm.number.value=count; // to input:hidden
                          
                            var totals= document.getElementById("totals").textContent;
                            var sum = parseFloat(totals.replaceAll(",","").valueOf())+pricetotal;
-                           
+                      	  
                            document.getElementById("totals").innerHTML= (nf.format(parseFloat(sum)));
-                              
+                         
                          
                           
                             document.getElementById("product").options[2].disabled = true;
                              $('.form-div row col-md-3').parent('div').remove();
                              $("#totalproduct").val(null);
                              $("#unit").val(null); 
-                
+                             
                            }
                	
                }
                 document.getElementById("product").value= productdetail; 
               //  document.getElementById("totalproduct").value= 1;
-                                     
+                     
             })
             
 
@@ -735,7 +737,7 @@ function checkquotation(frm2) {
                     }
                 });
             });
-
+          
         })
         
 		  
@@ -759,8 +761,29 @@ function checkquotation(frm2) {
 	}
      
         
-      	 
-      	
+        
+        function calFunction(val){
+            const productName = val.name
+            const pdname = productName.split("-")[1];
+            let productNumber = val.value
+            let ProductPrice = document.getElementsByName("pu-"+pdname)
+            let ProductToTal = document.getElementsByName("tt-"+pdname)
+
+            ProductToTal[0].value = parseFloat(ProductPrice[0].value)*parseFloat(productNumber);
+            calsum();
+        }
+         
+      	function calsum(){
+      		 let allprice = document.getElementsByClassName("subtotal");
+             let label_total = document.getElementById("totals");
+             let amount = 0;
+             var i = 0;
+             for (i=0;i<allprice.length;i++){
+                 amount += parseFloat(allprice[i].value);
+             }
+
+             label_total.innerHTML = nf.format(amount);
+      	}
    
    	
     </script>   

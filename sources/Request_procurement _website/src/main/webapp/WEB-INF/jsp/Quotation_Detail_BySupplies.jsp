@@ -64,7 +64,7 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
                                         <tr>
                                             <th>ลำดับที่</th>
 				                            <th>ชื่อบริษัท</th>
-				                            <th>เลขที่</th> 
+				                            <th>เลขที่ใบเสนอราคา</th> 
 				                            <th>วันที่ใบเสนอราคา</th>
 				                            <th>ใบเสนอราคา</th>             
                                         <th></th>
@@ -87,6 +87,11 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
                                       <%} %>
                                      
                                     </table>   
+                                    <div>
+                                        <label for="exampleFormControlTextarea1">คำเสนอแนะ</label>
+	                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
+				                    </div>  
+				                    <br> 
                                     <div class="form-check">
                                     <div>  <input class="form-check-input" type="radio" name="quotation_check" id="radio1"  value="1" checked>
 									  <label class="form-check-label" for="flexRadioDefault1" >
@@ -194,7 +199,7 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
                                         <tr>
                                             <th>ลำดับที่</th>
 				                            <th>ชื่อบริษัท</th>
-				                            <th>เลขที่</th> 
+				                            <th>เลขที่ใบเสนอราคา</th> 
 				                            <th>วันที่ใบเสนอราคา</th>
 				                            <th>ใบเสนอราคา</th>             
                                         <th></th>
@@ -217,6 +222,12 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
                                       <%} %>
                                      
                                     </table>   
+                                    
+                                    <div>
+                                        <label for="exampleFormControlTextarea1">คำเสนอแนะ</label>
+	                                    <label for="exampleFormControlTextarea1" style="color: red;">: <%= order_q.getComment() %></label>
+				                    </div>  
+                                    <br>
                                     <div class="form-check">
                                      <div>
 		                                    <label for="exampleFormControlTextarea1" style="color:red">*หมายเหตุ : ผู้ใช้สามารถส่งคำเสนอแนะถึงเจ้าหน้าที่ได้ถ้าใบเสนอราคามีปัญหา หรือไม่ตรงตามความต้องการ*</label>
