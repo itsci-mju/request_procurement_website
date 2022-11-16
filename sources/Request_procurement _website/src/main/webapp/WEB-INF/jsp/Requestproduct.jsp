@@ -140,7 +140,7 @@ text-align:center;
             <!-- Form Table -->
             <form class="" id="frm" name="frm" action="addOrderRequest?username=<%= l.getUsername()  %>" method="Post">
             <div class="container product-table"  style="margin-top: -155px;">
-             <label for="" class="col-form-label">- สามารถแก้ไขจำนวนรายการในตารางได้ -</label>
+           <!--   <label for="" class="col-form-label"> สามารถแก้ไขจำนวนรายการในตารางได้ </label> -->
                 <table class="table" > 
                     <thead class="thead-dark">
                         <tr style="text-align:center;"  >
@@ -175,7 +175,7 @@ text-align:center;
                  </tr>
                </thead>
               </table> 
-            </div>
+            </div> 
             
             
             <input type="hidden" id="chList"/>
@@ -270,7 +270,7 @@ function checkproduct(form) {
 		}  
 	
    }
-   </script>   calFunction
+   </script>  
    
   
    
@@ -457,18 +457,7 @@ function checkproduct(form) {
         
         </script>  
         
-<!--      <script >
-   function calFunction(test1) {
-	 var sumUnit = test1.name.split("-")[1];
-	 var sumInput = test1.value;
-	 var total = sumUnit*sumInput;
-	 var n = test1.name.split("-")[0];
-	 var bn = "t"+n;
-	
-     console.log("no"+test1.value+test1.name);
-     $(':text[name="'+bn+'"]').val(total);
-   }
-   </script> -->
+
 
 <!-- JAVASCRIPTS -->
 <script src="layout/scripts/jquery.min.js"></script>

@@ -269,12 +269,13 @@ int a = 0;
         <% if (!major.equals("0") ){ %>
           	<div class="container">
 			<div>
-                <h1 style="text-align: center;" class="masthead-heading text-uppercase mb-0" >"<b> ยินดี<span style="color:#017f3f">ต้อนรับ</span></b>"</h1>
+                <h1 style="text-align: center;" class="masthead-heading text-uppercase mb-0" ><b> ยินดี<span style="color:#017f3f">ต้อนรับ</span></b></h1>
             </div>
             <div>
                 <h2 style="text-align: center;" class="masthead-heading text-uppercase mb-0" >กรุณาเลือกประเภทการแจ้งความประสงค์ตามที่ต้องการ</h2>
             </div>
             <div>
+              
                 <form class=" validate-form" name="frm" action="" method=GET>
                     <span class="login100-form-title p-b-43">
                     </span>
@@ -291,11 +292,13 @@ int a = 0;
                                 </div>         
                             </form> 
 		            </div>
+		       
 				</div>
          <% } %> 
         
         <% if (listorderRequest.size() > 0 || major.equals("0") ) {%>   
 			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>ประวัติการแจ้งความประสงค์การจัดซื้อจัดจ้าง</b></h2>
+            
              <br>
             <!-- Form Table -->
              <form class="" name="frm" action=""  id="product_form">    
@@ -646,6 +649,7 @@ int a = 0;
                         </div>
 					</div>
                    </form>
+                   
                 <br><br><br>
                  <% } %>
                     <!-- Button link

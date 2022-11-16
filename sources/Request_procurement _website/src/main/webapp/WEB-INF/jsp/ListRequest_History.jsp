@@ -260,7 +260,7 @@ String major = (String) session.getAttribute("major");
         <!-- Navigation -->
        <jsp:include page="common/Navbar.jsp"/>  
         <!--head-text-->      
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>ประวัติการแจ้งความประสงค์การจัดซื้อจัดจ้างที่</b> <span style="color:#017f3f"><b>ดำเนินการสำเร็จแล้ว</b> </span></h2>
+			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายการแจ้งความประสงค์การจัดซื้อจัดจ้างที่</b> <span style="color:#017f3f"><b>ดำเนินการสำเร็จแล้ว</b> </span></h2>
              <br>
             <!-- Form Table -->
              <form class="" name="frm" action=""  id="product_form">    

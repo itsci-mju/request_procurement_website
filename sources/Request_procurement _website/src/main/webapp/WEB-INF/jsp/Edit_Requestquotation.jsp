@@ -34,7 +34,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     <link href='https://css.gg/lock.css' rel='stylesheet'>
     <link href='https://css.gg/mail.css' rel='stylesheet'>
     <link href='https://css.gg/chevron-right.css' rel='stylesheet'>
-  
+  <link href='https://css.gg/file.css' rel='stylesheet'>
   
     </head>
     
@@ -68,33 +68,33 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                           <th style="width: ">ใบเสนอราคา</th>
                                         </tr>
                                       </thead>
-                                      
+                                     
                                       <!-- row1 input -->
                                       <tbody >
                                         <tr class="alert" role="alert">
-                                          <th  scope="row" style="width: 120px; ">001</th>
-                                          <td><input type="text" class="form-control" id="a-row1" name ="a_name_company" placeholder="ชื่อบริษัท ที่ 1" value="<%= listFile.get(0).getFile_name() %>"></td> 
-                                          <td><input type="text" class="form-control" id="a-row2" name="a_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 1" value="<%= listFile.get(0).getQuotation_no() %>"></td>
-                                          <td><input type="date" class="form-control" id="a-row3" name="a_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(0).getQuotation_date().getTime()) %>"></td>    
-                                          <td><input type="file" class="form-control" id="a-row4" name="a_file_quotation" style="width: 250px" value="<%= listFile.get(0).getCompany_name() %>"><a href="./pdf/<%= listFile.get(0).getCompany_name() %>"><%= listFile.get(0).getCompany_name() %></a></td>                                                                                           
+                                          <th  scope="row" style="width: 120px; ">1</th>
+                                          <td><input type="text" class="form-control" id="a_name_company" name ="a_name_company" placeholder="ชื่อบริษัท ที่ 1" value="<%= listFile.get(0).getFile_name() %>" style="width: 300px"></td> 
+                                          <td><input type="text" class="form-control" id="a_number_quotation" name="a_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 1" value="<%= listFile.get(0).getQuotation_no() %>"></td>
+                                          <td><input type="date" class="form-control" id="a_date_quotation" name="a_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(0).getQuotation_date().getTime()) %>"></td>    
+                                          <td><input type="file" class="form-control" id="a_file_quotation" name="a_file_quotation" style="width: 250px" value="<%= listFile.get(0).getCompany_name() %>"><a href="./pdf/<%= listFile.get(0).getCompany_name() %>" style="width: 300px"><%= listFile.get(0).getCompany_name() %></a></td>                                                                                           
                                         </tr>     
 
                                        <!-- row2 input --> 
                                         <tr class="alert" role="alert">
-                                          <th  scope="row" style="width: 120px">002</th>
-                                          <td><input type="text" class="form-control" id="b-row1" name ="b_name_company" placeholder="ชื่อบริษัท ที่ 2" value="<%= listFile.get(1).getFile_name() %>"></td> 
-                                          <td><input type="text" class="form-control" id="b-row2" name="b_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 2" value="<%= listFile.get(1).getQuotation_no() %>"></td>
-                                          <td><input type="date" class="form-control" id="b-row3" name="b_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(1).getQuotation_date().getTime()) %>"></td>                                            
-                                          <td><input type="file" class="form-control" id="b-row4" name="b_file_quotation" style="width: 250px" value="<%= listFile.get(1).getCompany_name() %>"><a href="./pdf/<%= listFile.get(1).getCompany_name() %>"><%= listFile.get(1).getCompany_name() %></a></td>                                                                                 
+                                          <th  scope="row" style="width: 120px">2</th>
+                                          <td><input type="text" class="form-control" id="b_name_company" name ="b_name_company" placeholder="ชื่อบริษัท ที่ 2" value="<%= listFile.get(1).getFile_name() %>" style="width: 300px"></td> 
+                                          <td><input type="text" class="form-control" id="b_number_quotation" name="b_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 2" value="<%= listFile.get(1).getQuotation_no() %>"></td>
+                                          <td><input type="date" class="form-control" id="b_date_quotation" name="b_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(1).getQuotation_date().getTime()) %>"></td>                                            
+                                          <td><input type="file" class="form-control" id="b_file_quotation" name="b_file_quotation" style="width: 250px" value="<%= listFile.get(1).getCompany_name() %>"><a href="./pdf/<%= listFile.get(1).getCompany_name() %>" style="width: 300px"><%= listFile.get(1).getCompany_name() %></a></td>                                                                                 
                                         </tr>  
                                         
                                         <!-- row3 input --> 
                                           <tr class="alert" role="alert">
-                                          <th  scope="row" style="width: 120px">003</th>
-                                          <td><input type="text" class="form-control" id="c-row1" name ="c_name_company" placeholder="ชื่อบริษัท ที่ 3" value="<%= listFile.get(2).getFile_name() %>"></td> 
-                                          <td><input type="text" class="form-control" id="c-row2" name="c_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 3" value="<%= listFile.get(2).getQuotation_no() %>"></td>
-                                          <td><input type="date" class="form-control" id="c-row3" name="c_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(2).getQuotation_date().getTime()) %>"></td>    
-                                          <td><input type="file" class="form-control" id="c-row4" name="c_file_quotation" style="width: 250px" value="<%= listFile.get(2).getCompany_name() %>"><a href="./pdf/<%= listFile.get(2).getCompany_name() %>"><%= listFile.get(2).getCompany_name() %></a></td>                                                                         
+                                          <th  scope="row" style="width: 120px">3</th>
+                                          <td><input type="text" class="form-control" id="c_name_company" name ="c_name_company" placeholder="ชื่อบริษัท ที่ 3" value="<%= listFile.get(2).getFile_name() %>" style="width: 300px"></td> 
+                                          <td><input type="text" class="form-control" id=c_number_quotation name="c_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 3" value="<%= listFile.get(2).getQuotation_no() %>"></td>
+                                          <td><input type="date" class="form-control" id="c_date_quotation" name="c_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(2).getQuotation_date().getTime()) %>"></td>    
+                                          <td><input type="file" class="form-control" id="c_file_quotation" name="c_file_quotation" style="width: 250px" value="<%= listFile.get(2).getCompany_name() %>"><a href="./pdf/<%= listFile.get(2).getCompany_name() %>" style="width: 300px"><%= listFile.get(2).getCompany_name() %></a></td>                                                                         
                                         </tr>         
                                       </tbody>
                                     </table>  
@@ -130,161 +130,240 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
       
         <script type="text/javascript">
 
-function checkquotation(frm) {
-	
-	var companyname = /^[A-Za-zก-์\s]{2,50}$/; 
+        function checkquotation(frm) {
+        	
+        	var companyname = /^[A-Za-z0-9ก-์\s]{2,150}$/; 
+        	var quotationNo = /^[A-Za-z0-9\-]{4,20}$/; 
+        	var FILE = /^.+\.(([pP][dD][fF]))$/;
 
-	ar companyname = /^[A-Za-z0-9ก-์\s]{2,150}$/; 
-	var quotationNo = /^[A-Za-z0-9\-]{4,20}$/; 
-	var FILE = /^.+\.(([pP][dD][fF]))$/;
+        	//company  1 
+        	if(frm.a_name_company.value == "") {
+        		alert("กรุณากรอกชื่อบริษัท ที่ 1 ");
+        		frm.a_name_company.focus();
+        		return false;
+        	}
+        	
+        	//No Quotatuion
+        	if(frm.a_number_quotation.value == "") {
+        		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 1 "); 
+        		frm.a_number_quotation.focus();
+        		return false;
+        	}
+        	
+        	if(frm.a_number_quotation.value == frm.b_number_quotation.value) {
+        		alert("เลขที่ใบเสนอราคาที่ 1 กับ 2 ห้ามซ้ำกัน ");
+        		
+        		frm.a_number_quotation.focus();
+        		return false;
+        	}
+        	if(frm.a_number_quotation.value == frm.c_number_quotation.value) {
+        		alert("เลขที่ใบเสนอราคาที่ 1 กับ 3 ห้ามซ้ำกัน ");
+        		
+        		frm.a_number_quotation.focus();
+        		return false;
+        	}
+        	
+        	
+        	if(!frm.a_number_quotation.value.match(quotationNo)){
+        		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");	
+        		frm.a_number_quotation.value = "";
+        		frm.a_number_quotation.focus();
+        		return false;
+        	}
 
-	//company  1 
-	if(frm.a_name_company.value == "") {
-		alert("กรุณากรอกชื่อบริษัท ที่ 1 ");
-		frm.a_name_company.focus();
-		return false;
-	}
-	
-	//No Quotatuion
-	if(frm.a_number_quotation.value == "") {
-		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 1 ");
-		frm.a_number_quotation.focus();
-		return false;
-	}
-	if(!frm.a_number_quotation.value.match(quotationNo)){
-		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
-		frm.a_number_quotation.focus();
-		return false;
-	}
+        	//Date Quotatuion
+        	var ToDate = new Date();
+            var UserDate = document.getElementById("a_date_quotation").value;
+        	console.log(ToDate)
+            if(UserDate==""){
+                alert("กรุณากรอกวันที่ใบเสนอราคา ที่ 1 ");
+                return false;
+            }    
+            if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
+                 alert("วันที่ใบเสนอราคาที่ 1 ต้องเป็นวันปัจจุบันหรือวันที่หลังการแจ้งความประสงค์");
+                 document.getElementById("a_date_quotation").value ="";	         
+                  return false;
+             }
+            var args = {};
+            var maxDate = new Date(); 
+            maxDate.setDate(maxDate.getDate() - 90);
+            if(new Date (UserDate).getTime() < (maxDate).getTime()){  	
+            	 alert("ใบเสนอราคาที่ 1 ห้ามเกิน90วัน");
+            	 frm.a_date_quotation.value = "";
+            	 return false;
+            }
+            
+        	//File
+         /* 	if(frm.a_file_quotation.value == "") {
+        		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 1");
+        		frm.a_file_quotation.focus();
+        		return false;
+        	} */
+        	 
+        	 if(!frm.a_file_quotation.value.match(FILE) && !(frm.a_file_quotation.value == "")){
+        	        alert("กรุณาเพิ่มใบเสนอราคา ที่1 เเป็น .pdf เท่านั้น");
+        	        frm.a_file_quotation.value = "";
+        	        return false;
+        	    }
+        	
+        	
+        	
+        	//company  2 
+        	if(frm.b_name_company.value == "") {
+        		alert("กรุณากรอกชื่อบริษัท ที่ 2 ");
+        		frm.b_name_company.focus();
+        		return false;
+        	}
+        	
+        	if(frm.b_number_quotation.value == "") {
+        		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 2 ");
+        		frm.b_number_quotation.focus();
+        		return false;
+        	}
+        	
 
-	//Date Quotatuion
-	var ToDate = new Date();
-    var UserDate = document.getElementById("a_date_quotation").value;
-	console.log(ToDate)
-    if(UserDate==""){
-        alert("กรุณากรอกวันที่ใบเสนอราคา ที่ 1 ");
-        return false;
-    }    
-    if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
-         alert("วันที่เริ่มเป็นวันปัจจุบันหรือวันหลังจากปัจจุบันต้นไป");
-         document.getElementById("a_date_quotation").value ="";	         
-          return false;
-     }
-    
-	//File
-	if(frm.a_file_quotation.value == "") {
-		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 1");
-		frm.a_file_quotation.focus();
-		return false;
-	}
-	
-	 if(!frm.a_file_quotation.value.match(FILE)){
-	        alert("กรุณาเพิ่มใบเสนอราคา ที่1 เเป็น .pdf เท่านั้น");
-	        frm.a_file_quotation.value = "";
-	        return false;
-	    }
-	
-	
-	
-	//company  2 
-	if(frm.b_name_company.value == "") {
-		alert("กรุณากรอกชื่อบริษัท ที่ 2 ");
-		frm.b_name_company.focus();
-		return false;
-	}
-	
-	if(frm.b_number_quotation.value == "") {
-		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 2 ");
-		frm.b_number_quotation.focus();
-		return false;
-	}
-	if(!frm.b_number_quotation.value.match(quotationNo)){
-		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
-		frm.b_number_quotation.focus();
-		return false;
-	}
-	
+        	
+        	if(!frm.b_number_quotation.value.match(quotationNo)){
+        		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
+        		frm.b_number_quotation.focus();
+        		return false;
+        	}
+        	
+        	if(frm.b_number_quotation.value == frm.a_number_quotation.value) {
+        		alert("เลขที่ใบเสนอราคาที่ 2 กับ 1 ห้ามซ้ำกัน ");
+        		frm.b_number_quotation.focus();
+        		return false;
+        	}
+        	if(frm.b_number_quotation.value == frm.c_number_quotation.value) {
+        		alert("เลขที่ใบเสนอราคาที่ 2 กับ 3 ห้ามซ้ำกัน ");		
+        		frm.b_number_quotation.focus();
+        		
+        		return false;
+        	}
+        	
+        	
+        	
+        	//Date Quotatuion
+        	var ToDate = new Date();
+            var UserDate = document.getElementById("b_date_quotation").value;
+           
+        	console.log(ToDate)
+            if(UserDate==""){
+                alert("กรุณากรอกวันที่ใบเสนอราคา ที่ 2 ");
+                return false;
+            }    
+            if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
+            	  alert("วันที่ใบเสนอราคาที่ 2 ต้องเป็นวันปัจจุบันหรือวันที่หลังการแจ้งความประสงค์");
+                 document.getElementById("b_date_quotation").value ="";	         
+                  return false;
+             }
+            var args = {};
+            var maxDate = new Date(); 
+            maxDate.setDate(maxDate.getDate() - 90);
+            if(new Date (UserDate).getTime() < (maxDate).getTime()){  	
+            	 alert("ใบเสนอราคาที่ 2 ห้ามเกิน90วัน");
+            	 frm.b_date_quotation.value = "";
+            	 return false;
+            }
 
-	//Date Quotatuion
-	var ToDate = new Date();
-    var UserDate = document.getElementById("b_date_quotation").value;
-	console.log(ToDate)
-    if(UserDate==""){
-        alert("กรุณากรอกวันที่ใบเสนอราคา ที่ 2 ");
-        return false;
-    }    
-    if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
-         alert("วันที่เริ่มเป็นวันปัจจุบันหรือวันหลังจากปัจจุบันต้นไป");
-         document.getElementById("b_date_quotation").value ="";	         
-          return false;
-     }
-	
-	
-	//File
-	if(frm.b_file_quotation.value == "") {
-		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 2 ");
-		frm.b_file_quotation.focus();
-		return false;
-	}
 
-	 if(!frm.b_file_quotation.value.match(FILE)){
-	        alert("กรุณาเพิ่มใบเสนอราคา ที่2 เเป็น .pdf เท่านั้น");
-	        frm.b_file_quotation.value = "";
-	        return false;
-	    }
-	
-	
-	
-	//company  3 
-	if(frm.c_name_company.value == "") {
-		alert("กรุณากรอกชื่อบริษัท ที่ 3");
-		frm.c_name_company.focus();
-		return false;
-	}
-	if(frm.c_number_quotation.value == "") {
-		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 3 ");
-		frm.c_number_quotation.focus();
-		return false;
-	}
-	if(!frm.c_number_quotation.value.match(quotationNo)){
-		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
-		frm.c_number_quotation.focus();
-		return false;
-	}
-	
+        	
+        	
+        	//File
+        /* 	if(frm.b_file_quotation.value == "") {
+        		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 2 ");
+        		frm.b_file_quotation.focus();
+        		return false;
+        	} */
 
-	//Date Quotatuion
-	var ToDate = new Date();
-    var UserDate = document.getElementById("c_date_quotation").value;
-	console.log(ToDate)
-    if(UserDate==""){
-        alert("กรุณากรอกวันที่ใบเสนอราคา ที่ 3");
-        return false;
-    }    
-    if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
-         alert("วันที่เริ่มเป็นวันปัจจุบันหรือวันหลังจากปัจจุบันต้นไป");
-         document.getElementById("c_date_quotation").value ="";	         
-          return false;
-     }
-	
-	//File
-	if(frm.c_file_quotation.value == "") {
-		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 3 ");
-		frm.c_file_quotation.focus();
-		return false;
-	}
+        	 if(!frm.b_file_quotation.value.match(FILE) && !(frm.b_file_quotation.value == "")){
+        	        alert("กรุณาเพิ่มใบเสนอราคา ที่2 เเป็น .pdf เท่านั้น");
+        	        frm.b_file_quotation.value = "";
+        	        return false;
+        	    }
+        	
+        	
+        	
+        	//company  3 
+        	if(frm.c_name_company.value == "") {
+        		alert("กรุณากรอกชื่อบริษัท ที่ 3");
+        		frm.c_name_company.focus();
+        		return false;
+        	}
+        	if(frm.c_number_quotation.value == "") {
+        		alert("กรุณากรอกเลขที่ใบเสนอราคา ที่ 3 ");
+        		frm.c_number_quotation.focus();
+        		return false;
+        	}
+        	if(!frm.c_number_quotation.value.match(quotationNo)){
+        		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
+        		frm.c_number_quotation.focus();
+        		frm.c_number_quotation.value = "";
+        		return false;
+        	}
+        	
+        	if(frm.c_number_quotation.value == frm.a_number_quotation.value) {
+        		alert("เลขที่ใบเสนอราคาที่ 3 กับ 1 ห้ามซ้ำกัน ");
+        	
+        		frm.c_number_quotation.focus();
+        		
+        		return false;
+        	}
+        	if(frm.c_number_quotation.value == frm.b_number_quotation.value) {
+        		alert("เลขที่ใบเสนอราคาที่ 3 กับ 2 ห้ามซ้ำกัน ");
 
-	 if(!frm.c_file_quotation.value.match(FILE)){
-	        alert("กรุณาเพิ่มใบเสนอราคา ที่3 เป็น .pdf เท่านั้น");
-	        frm.c_file_quotation.value = "";
-	        return false;
-	    }
-	
-		
-	 return confirm('ต้องการแก้ไขแจ้งความประสงค์แบบมีใบเสนอราคาใช่หรือไม่?');
-	
-} 
-</script>       
+        		frm.c_number_quotation.focus();
+        	
+        		return false;
+        	}
+
+        	//Date Quotatuion
+        	var ToDate = new Date();
+            var UserDate = document.getElementById("c_date_quotation").value;
+        	console.log(ToDate)
+            if(UserDate==""){
+                alert("กรุณากรอกวันที่ใบเสนอราคา ที่ 3");
+                return false;
+            }    
+            if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
+            	  alert("วันที่ใบเสนอที่ 3 ราคาต้องเป็นวันปัจจุบันหรือวันที่หลังการแจ้งความประสงค์");
+                 document.getElementById("c_date_quotation").value ="";	         
+                  return false;
+             }
+            var args = {};
+            var maxDate = new Date(); 
+            maxDate.setDate(maxDate.getDate() - 90);
+            if(new Date (UserDate).getTime() < (maxDate).getTime()){  	
+            	 alert("ใบเสนอราคาที่ 3 ห้ามเกิน90วัน");
+            	 frm.c_date_quotation.value = "";
+            	 return false;
+            }
+        	
+        	//File
+      /*    	if(frm.c_file_quotation.value == "") {
+        		alert("กรุณาเพิ่มไฟล์ใบเสนอราคา ที่ 3 ");
+        		frm.c_file_quotation.focus();
+        		return false;
+        	}  */
+
+        	 if(!frm.c_file_quotation.value.match(FILE) && !(frm.c_file_quotation.value == "")){
+        	        alert("กรุณาเพิ่มใบเสนอราคา ที่3 เเป็น .pdf เท่านั้น");
+        	        frm.c_file_quotation.value = "";
+        	        return false;
+        	    }
+        	
+        	
+        	 if(confirm('ต้องการแก้ไขแจ้งความประสงค์แบบมีใบเสนอราคาใช่หรือไม่?') == true ){
+        			alert("บันทึกสำเร็จ");
+        			}else{
+        				return false ;
+        			}
+        	 
+  
+        	
+        } 
+        </script>
+      
         
      <!-- script link -->     
   	 <script src="layout/scripts/jquery.min.js"></script>

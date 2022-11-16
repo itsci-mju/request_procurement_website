@@ -47,6 +47,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
 	    
 	     <link href='https://css.gg/lock.css' rel='stylesheet'>
     	 <link href='https://css.gg/mail.css' rel='stylesheet'>
+    	 <link href='https://css.gg/file.css' rel='stylesheet'>
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap');
@@ -71,12 +72,12 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
      
         <!--head-text-->
        	
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>" รายละเอียดข้อมูลการแจ้งความประสงค์การจัดซื้อจัดจ้าง " </b> </h2>
+			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายละเอียดข้อมูลการแจ้งความประสงค์การจัดซื้อจัดจ้าง  </b> </h2>
                  <div class="container product-table" > 
               
                                 
                                 <% if( order_q.getRequest_type().equals("ไม่มีใบเสนอราคา") ){ %>
-                                  <h4 style="text-align: center;">  <b>- รายละเอียดรายการที่แจ้งความประสงค์ -</b></h4>
+                                  <h4 style="text-align: center;">  <b>รายละเอียดรายการที่แจ้งความประสงค์</b></h4>
                                  <table class="table" id="form_table" style="text-align: center;">
                                    
                                       <thead class="thead-dark">
@@ -127,7 +128,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                       </thead>
                                     </table>   
                                 <%} %>
-                                  <h4 style="text-align: center;">  <b>- ใบเสนอราคา -</b></h4>
+                                  <h4 style="text-align: center;">  <b> ใบเสนอราคา </b></h4>
                                     <table class="table" id="form_table" style="text-align: center;">                                  
                                       <thead class="thead-dark">
                                         <tr>
@@ -136,19 +137,19 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
 				                            <th>เลขที่ใบเสนอราคา</th> 
 				                            <th>วันที่ใบเสนอราคา</th>
 				                            <th>ใบเสนอราคา</th>             
-                                        <th></th>
+                                        
                                         </tr>
                                       </thead>
                                        <% if (listFile != null){%>
                                         <%for (int i=0 ; i<listFile.size(); i++) {%>
                                      <!-- row input -->
                                       <tbody>
-                                        <tr class="alert" role="alert">
+                                        <tr class="alert quotationrow" role="alert" id="<%=listFile.get(i).getQuotation_no() %>">
                                           <th  scope="row"><%= i+1 %></th>
                                           <td><%=listFile.get(i).getFile_name() %></td>     
                                           <td> <%=listFile.get(i).getQuotation_no() %> </td>  
                                          <td><%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %></td>  
-                                      <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"><%= listFile.get(i).getCompany_name() %></a></td>  
+                                      <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"><i class="gg-file" style="margin-left:90px"></i></a></td>  
                                      
                                         </tr>                
                                       </tbody>
@@ -168,15 +169,15 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                     <table class="table">
 									  <thead  class="thead-dark">
 									    <tr>
-									      <th scope="col" style="width: 160px;">ใบเสนอราคา บริษัท : </th>								    
-								      		<th scope="col" style="width: 350px;"> <%= cf_form.getCompany_name() %> </th>
-								   			 <th scope="col"><label id="no" ></label>		</th>				
+									      <th scope="col" >บริษัท : </th>								    
+								      		<th scope="col" style="width: 350px;"><%= cf_form.getCompany_name() %> </th>
+								   			 <th scope="col"><label id="no" ></label></th>				
 											
 																
 									      <th scope="col" >เลขที่ใบเสนอราคา</th>
-									      <th scope="col"><label id="quotation_no" name="quotation_no" style="display: initial;"><%= cf_form.getQuotation_no() %></label></th>
+									      <th scope="col"><label id="quotation_no" name="quotation_no" style="display: initial;"><%=cf_form.getQuotation_no() %></label></th>
 									      <th scope="col">วันที่ใบเสนอราคา</th>
-									      <th scope="col"><label id="quotation_date" name="quotation_date" style="display: initial;"><%= sdf.format( cf_form.getQuotation_date().getTime()) %></label></th>
+									      <th scope="col"><label id="quotation_date" name="quotation_date" style="display: initial;"><%=sdf.format( cf_form.getQuotation_date().getTime()) %></label></th>
  																		      
 									    </tr>	
 									    </thead>
@@ -331,8 +332,31 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
         
                 <!-- Footer -->
       <div style=" margin-top: 50px;" >   <jsp:include page="common/footer.jsp"/>       </div>
-      
-
+ <script>     
+ function changing(){
+		console.log("test");
+		const qsent =  document.getElementById('quotation_no').textContent;
+		console.log(qsent.replaceAll(" ","!"));
+		const  tr = document.getElementById(qsent.replaceAll(" ","")) ;
+		console.log(tr);
+		const  qr = document.getElementsByClassName('quotationrow') ;
+		var i = 0 ;
+		/* console.log(qr[0]); */ 
+		
+		for(i=0;i<3;i++){
+		qr[i].style.backgroundColor = '#fff';    
+		qr[i].style.color = '#000';
+		console.log(qr[i]);
+		}
+		tr.style.backgroundColor = '#017f3f';
+		tr.style.color = '#fff';
+	 
+	  } 	
+ 
+ 	window.addEventListener("load",(load)=>{              
+	 changing();
+ });
+    </script> 
 	<!-- script link -->
   	<script src="layout/scripts/jquery.min.js"></script>
 	<script src="layout/scripts/jquery.backtotop.js"></script>

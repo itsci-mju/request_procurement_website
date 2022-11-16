@@ -37,7 +37,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	     <link rel="stylesheet" type="text/css" href="css/layout.css">
 	     <link rel="stylesheet" type="text/css" href="css/login.css">
 	     <link rel="stylesheet" type="text/css" href="css/footer.css">
-	
+		<link href='https://css.gg/file.css' rel='stylesheet'>
 	    
 	     <link href='https://css.gg/lock.css' rel='stylesheet'>
     	 <link href='https://css.gg/mail.css' rel='stylesheet'>
@@ -70,10 +70,10 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                       <tbody>
                                         <tr class="alert" role="alert">
                                           <th  scope="row"><%= i+1 %></th>
-                                          <td><%=listFile.get(i).getFile_name() %></td>     
+                                          <td style="width: 300px"><%=listFile.get(i).getFile_name() %></td>     
                                           <td> <%=listFile.get(i).getQuotation_no() %> </td>  
                                          <td><%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %></td>  
-                                         <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"><%= listFile.get(i).getCompany_name() %></a></td>  
+                                         <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"  ><i class="gg-file" style="margin-left:90px"></i></a></td>  
                                      
                                         </tr>                
                                       </tbody>

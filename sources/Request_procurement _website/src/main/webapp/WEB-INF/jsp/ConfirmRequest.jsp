@@ -43,6 +43,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
 	    
 	     <link href='https://css.gg/lock.css' rel='stylesheet'>
     	 <link href='https://css.gg/mail.css' rel='stylesheet'>
+    	  <link href='https://css.gg/file.css' rel='stylesheet'>
 </head>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap');
@@ -67,7 +68,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
      
         <!--head-text-->
        	
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>"ยืนยันความประสงค์การจัดซื้อจัดจ้าง" </b></h2>
+			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>ยืนยันความประสงค์การจัดซื้อจัดจ้าง </b></h2>
 			 
 			
 			
@@ -75,7 +76,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                     
                                
                                <% if(order_q.getRequest_type().equals("ไม่มีใบเสนอราคา")){ %>
-                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;">- รายละเอียดข้อมูลการแจ้งความประสงค์การจัดซื้อจัดจ้าง -</h2>
+                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"> รายละเอียดข้อมูลการแจ้งความประสงค์การจัดซื้อจัดจ้าง </h2>
                                 <table class="table" id="form_table" style="text-align: center;">
                                    
                                       <thead class="thead-dark">
@@ -128,7 +129,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                     <%} %>
                              
                                     
-                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"> - ไฟล์ใบเสนอราคา -  </h2>
+                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;">  ไฟล์ใบเสนอราคา   </h2>
                                
                                     <table class="table" id="form_table" style="text-align: center;">                                  
                                       <thead class="thead-dark">
@@ -138,19 +139,19 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
 				                            <th>เลขที่ใบเสนอราคา</th> 
 				                            <th>วันที่ใบเสนอราคา</th>
 				                            <th>ใบเสนอราคา</th>             
-                                        <th></th>
+                                     
                                         </tr>
                                       </thead>
                                        <% if (listFile != null){%>
                                         <%for (int i=0 ; i<listFile.size(); i++) {%>
                                      <!-- row input -->
                                       <tbody>
-                                        <tr class="alert" role="alert">
+                                        <tr class="alert quotationrow" role="alert" id="<%=listFile.get(i).getQuotation_no() %>">
                                           <th  scope="row"><%= i+1 %></th>
                                           <td><%=listFile.get(i).getFile_name() %></td>     
                                           <td> <%=listFile.get(i).getQuotation_no() %> </td>  
                                          <td><%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %></td>  
-                                        <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"><%= listFile.get(i).getCompany_name() %></a></td>  
+                                        <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"><i class="gg-file" style="margin-left:90px"></i></a></td>  
                                      
                                         </tr>                
                                       </tbody>
@@ -170,9 +171,9 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                     <table class="table">
 									  <thead  class="thead-dark">
 									    <tr>
-									      <th scope="col" style="width: 160px;">ใบเสนอราคา บริษัท : </th>								    
-								      <th scope="col" style="width: 350px;">
-								      <select style="width: 300px; color: black;"  name="company_name" id="company_name" onchange='validate()'>
+									      <th scope="col">บริษัท : </th>								    
+								      <th scope="col" style="width: 350px;" >
+								      <select style="width: 300px; color: black;"   name="company_name" id="company_name" onchange='validate()'>
 									        <% if (listFile != null){%>
                                       	 <option disabled selected>กรุณาเลือกใบเสนอราคาที่ต้องการ</option>
                                           <%for (int i=0 ; i<listFile.size(); i++) {%>		
@@ -437,11 +438,7 @@ function checkconfirm(frm) {
 	}
 	
 	//Board_name1
-	if(frm.board_name1.value == "") {
-		alert("กรุณากรอกกรรมการคนที่ 1");
-		frm.board_name1.focus();
-		return false;
-	}
+	
 	if(!frm.board_name1.value.match(Board_name)){
 		alert("กรุณากรอกชื่อกรรมการคนที่ 1 เป็นภาษาไทยหรือภาษาอังกฤษเท่านั้น");		
 		frm.board_name1.focus();
@@ -490,7 +487,27 @@ function validate(){
 	 
 	}
 
-
+ function changing(){
+		console.log("test");
+		const  quotation = document.getElementById('quotation_no').value ;
+		const  tr = document.getElementById(quotation) ;
+		const  qr = document.getElementsByClassName('quotationrow') ;
+		var i = 0 ;
+		/* console.log(qr[0]); */ 
+		
+		for(i=0;i<3;i++){
+		qr[i].style.backgroundColor = '#fff';    
+		qr[i].style.color = '#000';
+		console.log(qr[i]);
+		}
+		tr.style.backgroundColor = '#017f3f';
+		tr.style.color = '#fff';
+	 
+	  } 	
+ 	const comname = document.getElementById("company_name")     
+ 	comname.addEventListener("change",(change)=>{              
+	 changing();
+ });
     </script> 
 
 

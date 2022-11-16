@@ -14,7 +14,7 @@
   <link rel="stylesheet" type="text/css" href="css/footer.css">
 </head>
 <style>
-
+ #footer{padding:0px 0;} 
 </style>
 <body>
 

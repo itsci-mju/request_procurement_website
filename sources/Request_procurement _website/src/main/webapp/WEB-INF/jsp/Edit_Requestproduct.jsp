@@ -152,7 +152,7 @@ text-align:center;
             <!-- Form Table -->
             <form class="" id="frm" name="frm" action="EditOrderRequestProduct?username=<%= l.getUsername()  %>&OrderRequest_id=<%= order_q.getOrderRequest_id() %>" method="Post">
             <div class="container product-table"  style="margin-top: -155px;">
-            <label for="" class="col-form-label">- สามารถแก้ไขจำนวนรายการในตารางได้ -</label>
+          <!--   <label for="" class="col-form-label"> สามารถแก้ไขจำนวนรายการในตารางได้ -</label> -->
                 <table class="table" > 
                     <thead class="thead-dark">
                         <tr style="text-align:center;"  >

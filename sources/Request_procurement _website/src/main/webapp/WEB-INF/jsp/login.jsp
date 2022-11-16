@@ -5,7 +5,8 @@
 
 <%
 
-
+Login l = (Login) session.getAttribute("login");
+String major = (String) session.getAttribute("major");
 String err = "";
 try {
 	err = (String) session.getAttribute("login");

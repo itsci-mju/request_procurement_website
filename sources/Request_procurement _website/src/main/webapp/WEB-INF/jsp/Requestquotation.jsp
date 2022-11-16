@@ -48,14 +48,13 @@
             <!-- Form Table -->
              <form class="" id="frm" name="frm" action="addOrderRequest2?username=<%= l.getUsername()  %>"  method="post" enctype="multipart/form-data">
                 
-                    <div class="container" >
-                     
-                     
+                    <div class="container" style="margin-top:-50px">
+
                                     <table class="table" id="form_table" style="text-align: center;">
                                       <thead class="thead-dark">
                                         <tr>
                                           <th style="width: 60px">ลำดับที่</th>
-                                          <th>ชื่อบริษัท</th>
+                                          <th style="width: 160px">ชื่อบริษัท</th>
                                           <th style="width: ">เลขที่ใบเสนอราคา</th>
                                           <th style="width: ">วันที่ใบเสนอราคา</th>
                                           <th style="width: ">ใบเสนอราคา</th>
@@ -66,8 +65,8 @@
                                       <!-- row1 input -->
                                       <tbody >
                                         <tr class="alert" role="alert">
-                                          <th  scope="row" style="width: 120px; ">001</th>
-                                          <td><input type="text" class="form-control" id="a_name_company" name ="a_name_company" placeholder="ชื่อบริษัท ที่ 1"></td> 
+                                          <th  scope="row" style="width: 120px; ">1</th>
+                                          <td><input type="text" class="form-control" id="a_name_company" name ="a_name_company" placeholder="ชื่อบริษัท ที่ 1" style="width: 300px"></td> 
                                           <td><input type="text" class="form-control" id="a_number_quotation" name="a_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 1"></td>
                                           <td><input type="date" class="form-control" id="a_date_quotation" name="a_date_quotation" style="width: 170px"></td>    
                                           <td><input type="file" class="form-control" id="a_file_quotation" name="a_file_quotation" style="width: 250px"></td>                                                             
@@ -75,8 +74,8 @@
 
                                        <!-- row2 input --> 
                                         <tr class="alert" role="alert">
-                                          <th  scope="row" style="width: 120px">002</th>
-                                          <td><input type="text" class="form-control" id="b_name_company" name ="b_name_company" placeholder="ชื่อบริษัท ที่ 2"></td> 
+                                          <th  scope="row" style="width: 120px">2</th>
+                                          <td><input type="text" class="form-control" id="b_name_company" name ="b_name_company" placeholder="ชื่อบริษัท ที่ 2" style="width: 300px"></td> 
                                           <td><input type="text" class="form-control" id="b_number_quotation" name="b_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 2"></td>
                                           <td><input type="date" class="form-control" id="b_date_quotation" name="b_date_quotation" style="width: 170px"></td>    
                                           <td><input type="file" class="form-control" id="b_file_quotation" name="b_file_quotation" style="width: 250px"></td>                                            
@@ -84,8 +83,8 @@
                                         
                                         <!-- row3 input --> 
                                           <tr class="alert" role="alert">
-                                          <th  scope="row" style="width: 120px">003</th>
-                                          <td><input type="text" class="form-control" id="c_name_company" name ="c_name_company" placeholder="ชื่อบริษัท ที่ 3"></td> 
+                                          <th  scope="row" style="width: 120px">3</th>
+                                          <td><input type="text" class="form-control" id="c_name_company" name ="c_name_company" placeholder="ชื่อบริษัท ที่ 3" style="width: 300px"></td> 
                                           <td><input type="text" class="form-control" id="c_number_quotation" name="c_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 3"></td>
                                           <td><input type="date" class="form-control" id="c_date_quotation" name="c_date_quotation" style="width: 170px"></td>    
                                           <td><input type="file" class="form-control" id="c_file_quotation" name="c_file_quotation" style="width: 250px"></td>                                         
@@ -131,8 +130,24 @@ function checkquotation(frm) {
 		frm.a_number_quotation.focus();
 		return false;
 	}
+	
+	if(frm.a_number_quotation.value == frm.b_number_quotation.value) {
+		alert("เลขที่ใบเสนอราคาที่ 1 กับ 2 ห้ามซ้ำกัน ");
+		
+		frm.a_number_quotation.focus();
+		return false;
+	}
+	if(frm.a_number_quotation.value == frm.c_number_quotation.value) {
+		alert("เลขที่ใบเสนอราคาที่ 1 กับ 3 ห้ามซ้ำกัน ");
+		
+		frm.a_number_quotation.focus();
+		return false;
+	}
+	
+	
 	if(!frm.a_number_quotation.value.match(quotationNo)){
-		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
+		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");	
+		frm.a_number_quotation.value = "";
 		frm.a_number_quotation.focus();
 		return false;
 	}
@@ -146,10 +161,18 @@ function checkquotation(frm) {
         return false;
     }    
     if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
-         alert("วันที่เริ่มเป็นวันปัจจุบันหรือวันหลังจากปัจจุบันต้นไป");
+         alert("วันที่ใบเสนอราคาที่ 1 ต้องเป็นวันปัจจุบันหรือวันที่หลังการแจ้งความประสงค์");
          document.getElementById("a_date_quotation").value ="";	         
           return false;
      }
+    var args = {};
+    var maxDate = new Date(); 
+    maxDate.setDate(maxDate.getDate() - 90);
+    if(new Date (UserDate).getTime() < (maxDate).getTime()){  	
+    	 alert("ใบเสนอราคาที่ 1 ห้ามเกิน90วัน");
+    	 frm.a_date_quotation.value = "";
+    	 return false;
+    }
     
 	//File
 	if(frm.a_file_quotation.value == "") {
@@ -178,26 +201,53 @@ function checkquotation(frm) {
 		frm.b_number_quotation.focus();
 		return false;
 	}
+	
+
+	
 	if(!frm.b_number_quotation.value.match(quotationNo)){
 		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
 		frm.b_number_quotation.focus();
 		return false;
 	}
 	
-
+	if(frm.b_number_quotation.value == frm.a_number_quotation.value) {
+		alert("เลขที่ใบเสนอราคาที่ 2 กับ 1 ห้ามซ้ำกัน ");
+		frm.b_number_quotation.focus();
+		return false;
+	}
+	if(frm.b_number_quotation.value == frm.c_number_quotation.value) {
+		alert("เลขที่ใบเสนอราคาที่ 2 กับ 3 ห้ามซ้ำกัน ");		
+		frm.b_number_quotation.focus();
+		
+		return false;
+	}
+	
+	
+	
 	//Date Quotatuion
 	var ToDate = new Date();
     var UserDate = document.getElementById("b_date_quotation").value;
+   
 	console.log(ToDate)
     if(UserDate==""){
         alert("กรุณากรอกวันที่ใบเสนอราคา ที่ 2 ");
         return false;
     }    
     if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
-         alert("วันที่เริ่มเป็นวันปัจจุบันหรือวันหลังจากปัจจุบันต้นไป");
+    	  alert("วันที่ใบเสนอราคาที่ 2 ต้องเป็นวันปัจจุบันหรือวันที่หลังการแจ้งความประสงค์");
          document.getElementById("b_date_quotation").value ="";	         
           return false;
      }
+    var args = {};
+    var maxDate = new Date(); 
+    maxDate.setDate(maxDate.getDate() - 90);
+    if(new Date (UserDate).getTime() < (maxDate).getTime()){  	
+    	 alert("ใบเสนอราคาที่ 2 ห้ามเกิน90วัน");
+    	 frm.b_date_quotation.value = "";
+    	 return false;
+    }
+
+
 	
 	
 	//File
@@ -229,9 +279,24 @@ function checkquotation(frm) {
 	if(!frm.c_number_quotation.value.match(quotationNo)){
 		alert("กรุณากรอกเลขที่ใบเสนอราคาให้ถูกต้อง");		
 		frm.c_number_quotation.focus();
+		frm.c_number_quotation.value = "";
 		return false;
 	}
 	
+	if(frm.c_number_quotation.value == frm.a_number_quotation.value) {
+		alert("เลขที่ใบเสนอราคาที่ 3 กับ 1 ห้ามซ้ำกัน ");
+	
+		frm.c_number_quotation.focus();
+		
+		return false;
+	}
+	if(frm.c_number_quotation.value == frm.b_number_quotation.value) {
+		alert("เลขที่ใบเสนอราคาที่ 3 กับ 2 ห้ามซ้ำกัน ");
+
+		frm.c_number_quotation.focus();
+	
+		return false;
+	}
 
 	//Date Quotatuion
 	var ToDate = new Date();
@@ -242,10 +307,18 @@ function checkquotation(frm) {
         return false;
     }    
     if (new Date (UserDate).getTime() >= (ToDate).getTime()) {
-         alert("วันที่เริ่มเป็นวันปัจจุบันหรือวันหลังจากปัจจุบันต้นไป");
+    	  alert("วันที่ใบเสนอที่ 3 ราคาต้องเป็นวันปัจจุบันหรือวันที่หลังการแจ้งความประสงค์");
          document.getElementById("c_date_quotation").value ="";	         
           return false;
      }
+    var args = {};
+    var maxDate = new Date(); 
+    maxDate.setDate(maxDate.getDate() - 90);
+    if(new Date (UserDate).getTime() < (maxDate).getTime()){  	
+    	 alert("ใบเสนอราคาที่ 3 ห้ามเกิน90วัน");
+    	 frm.c_date_quotation.value = "";
+    	 return false;
+    }
 	
 	//File
 	if(frm.c_file_quotation.value == "") {

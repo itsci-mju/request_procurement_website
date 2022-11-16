@@ -48,7 +48,7 @@ font-family: 'Kanit', sans-serif;
     <!-- ################################################################################################ -->
   	<div class="container">
 			<div>
-                <h1 style="text-align: center;" class="masthead-heading text-uppercase mb-0" >"<b> ยินดี<span style="color:#017f3f">ต้อนรับ</span></b>"</h1>
+                <h1 style="text-align: center;" class="masthead-heading text-uppercase mb-0" ><b> ยินดี<span style="color:#017f3f">ต้อนรับ</span></b></h1>
             </div>
             <div>
                 <h2 style="text-align: center;" class="masthead-heading text-uppercase mb-0" >กรุณาเลือกประเภทการแจ้งความประสงค์ตามที่ต้องการ</h2>
@@ -72,6 +72,7 @@ font-family: 'Kanit', sans-serif;
                             
                             </form> 
             </div>
+            
 		</div>
 
 <br><br><br><br><br><br><br>
@@ -120,7 +121,7 @@ font-family: 'Kanit', sans-serif;
                 </div>
             </div>
         </div>
- 
+  </div>
  
 </footer>
 

@@ -22,7 +22,7 @@ String staffname = (String) session.getAttribute("staffname");
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link rel="stylesheet" href="css/stylehome.css">
+       
         <link rel="stylesheet" href="css/navbar.css">
         
         <link rel="stylesheet" href="js/scripts.js">
@@ -106,13 +106,13 @@ a{text-decoration:none;}
   
     <nav id="mainav" style="margin-top: -50px"> 
       <!-- ################################################################################################ -->
-      <ul class="clear">
+      <ul class="clear" style="text-align: left; margin-left:80px">
       <%if (l != null) {%>
 		
         <li class="active"><a href="loadpagelistorder">หน้าแรก</a></li>
       
       
-        <li><a class="" href="loadpagelistrequestHistory">ประวัติรายการที่ดำเนินการสำเร็จ</a>
+        <li><a class="" href="loadpagelistrequestHistory">รายการที่ดำเนินการสำเร็จ</a>
         
         <%}%>
         <li><a  class="" href="http://www.science.mju.ac.th/role/role.html">ติดต่อ </a>

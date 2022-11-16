@@ -119,7 +119,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                     <!-- ----------------------------------------------------------------------------------- -->
                                     
                                     <% if(order_q.getStatus().equals("กำลังรอการดำเนินการจากหน่วยพัสดุ")  && order_q.getRequest_type().equals("ไม่มีใบเสนอราคา") ) { %>
-                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"><b>- เพิ่มใบเสนอราคา - </b></h2>
+                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"><b> เพิ่มใบเสนอราคา  </b></h2>
                                     <table class="table" id="form_table" style="text-align: center;">
                                       <thead class="thead-dark">
                                         <tr>
@@ -135,8 +135,8 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                       <!-- row1 input -->
                                       <tbody >
                                         <tr class="alert" role="alert">
-                                          <th  scope="row" style="width: 120px; ">001</th>
-                                          <td><input type="text" class="form-control" id="a_name_company" name ="a_name_company" placeholder="ชื่อบริษัท ที่ 1"></td> 
+                                          <th  scope="row" style="width: 120px; ">1</th>
+                                          <td><input type="text" class="form-control" id="a_name_company" name ="a_name_company" placeholder="ชื่อบริษัท ที่ 1" style="width: 300px"></td> 
                                           <td><input type="text" class="form-control" id="a_number_quotation" name="a_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 1"></td>
                                           <td><input type="date" class="form-control" id="a_date_quotation" name="a_date_quotation" style="width: 170px"></td>    
                                           <td><input type="file" class="form-control" id="a_file_quotation" name="a_file_quotation" style="width: 250px"></td>                                                             
@@ -144,8 +144,8 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
 
                                        <!-- row2 input --> 
                                         <tr class="alert" role="alert">
-                                          <th  scope="row" style="width: 120px">002</th>
-                                          <td><input type="text" class="form-control" id="b_name_company" name ="b_name_company" placeholder="ชื่อบริษัท ที่ 2"></td> 
+                                          <th  scope="row" style="width: 120px">2</th>
+                                          <td><input type="text" class="form-control" id="b_name_company" name ="b_name_company" placeholder="ชื่อบริษัท ที่ 2" style="width: 300px"></td> 
                                           <td><input type="text" class="form-control" id="b_number_quotation" name="b_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 2"></td>
                                           <td><input type="date" class="form-control" id="b_date_quotation" name="b_date_quotation" style="width: 170px"></td>    
                                           <td><input type="file" class="form-control" id="b_file_quotation" name="b_file_quotation" style="width: 250px"></td>                                            
@@ -153,8 +153,8 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                         
                                         <!-- row3 input --> 
                                           <tr class="alert" role="alert">
-                                          <th  scope="row" style="width: 120px">003</th>
-                                          <td><input type="text" class="form-control" id="c_name_company" name ="c_name_company" placeholder="ชื่อบริษัท ที่ 3"></td> 
+                                          <th  scope="row" style="width: 120px">3</th>
+                                          <td><input type="text" class="form-control" id="c_name_company" name ="c_name_company" placeholder="ชื่อบริษัท ที่ 3" style="width: 300px"></td> 
                                           <td><input type="text" class="form-control" id="c_number_quotation" name="c_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 3"></td>
                                           <td><input type="date" class="form-control" id="c_date_quotation" name="c_date_quotation" style="width: 170px"></td>    
                                           <td><input type="file" class="form-control" id="c_file_quotation" name="c_file_quotation" style="width: 250px"></td>                                         
@@ -258,7 +258,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                     <%} %>
                                  
                                 <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาจากเจ้าหน้าที่ไม่ถูกต้อง")|| order_q.getStatus().equals("ยืนยันความประสงค์")  ){ %>
-                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"><b>- แก้ไขใบเสนอราคา -</b></h2>
+                                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"><b> แก้ไขใบเสนอราคา </b></h2>
                                   <table class="table" id="form_table" style="text-align: center;">
                                       <thead class="thead-dark">
                                         <tr>
@@ -273,8 +273,8 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                       <!-- row1 input -->
                                       <tbody >
                                         <tr class="alert" role="alert">
-                                          <th  scope="row" style="width: 120px; ">001</th>
-                                          <td><input type="text" class="form-control" id="a-row1" name ="a_name_company" placeholder="ชื่อบริษัท ที่ 1" value="<%= listFile.get(0).getFile_name() %>"></td> 
+                                          <th  scope="row" style="width: 120px; ">1</th>
+                                          <td><input type="text" class="form-control" id="a-row1" name ="a_name_company" placeholder="ชื่อบริษัท ที่ 1" value="<%= listFile.get(0).getFile_name() %>" style="width: 300px"></td> 
                                           <td><input type="text" class="form-control" id="a-row2" name="a_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 1" value="<%= listFile.get(0).getQuotation_no() %>"></td>
                                           <td><input type="date" class="form-control" id="a-row3" name="a_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(0).getQuotation_date().getTime()) %>"></td>    
                                           <td><input type="file" class="form-control" id="a-row4" name="a_file_quotation" style="width: 250px" value="<%= listFile.get(0).getCompany_name() %>"><a href="./pdf/<%= listFile.get(0).getCompany_name() %>"><%= listFile.get(0).getCompany_name() %></a></td>                                                                                           
@@ -282,8 +282,8 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
 
                                        <!-- row2 input --> 
                                         <tr class="alert" role="alert">
-                                          <th  scope="row" style="width: 120px">002</th>
-                                          <td><input type="text" class="form-control" id="b-row1" name ="b_name_company" placeholder="ชื่อบริษัท ที่ 2" value="<%= listFile.get(1).getFile_name() %>"></td> 
+                                          <th  scope="row" style="width: 120px">2</th>
+                                          <td><input type="text" class="form-control" id="b-row1" name ="b_name_company" placeholder="ชื่อบริษัท ที่ 2" value="<%= listFile.get(1).getFile_name() %>" style="width: 300px"></td> 
                                           <td><input type="text" class="form-control" id="b-row2" name="b_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 2" value="<%= listFile.get(1).getQuotation_no() %>"></td>
                                           <td><input type="date" class="form-control" id="b-row3" name="b_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(1).getQuotation_date().getTime()) %>"></td>                                            
                                           <td><input type="file" class="form-control" id="b-row4" name="b_file_quotation" style="width: 250px" value="<%= listFile.get(1).getCompany_name() %>"><a href="./pdf/<%= listFile.get(1).getCompany_name() %>"><%= listFile.get(1).getCompany_name() %></a></td>                                                                                 
@@ -291,8 +291,8 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                         
                                         <!-- row3 input --> 
                                           <tr class="alert" role="alert">
-                                          <th  scope="row" style="width: 120px">003</th>
-                                          <td><input type="text" class="form-control" id="c-row1" name ="c_name_company" placeholder="ชื่อบริษัท ที่ 3" value="<%= listFile.get(2).getFile_name() %>"></td> 
+                                          <th  scope="row" style="width: 120px">3</th>
+                                          <td><input type="text" class="form-control" id="c-row1" name ="c_name_company" placeholder="ชื่อบริษัท ที่ 3" value="<%= listFile.get(2).getFile_name() %>" style="width: 300px"></td> 
                                           <td><input type="text" class="form-control" id="c-row2" name="c_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 3" value="<%= listFile.get(2).getQuotation_no() %>"></td>
                                           <td><input type="date" class="form-control" id="c-row3" name="c_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(2).getQuotation_date().getTime()) %>"></td>    
                                           <td><input type="file" class="form-control" id="c-row4" name="c_file_quotation" style="width: 250px" value="<%= listFile.get(2).getCompany_name() %>"><a href="./pdf/<%= listFile.get(2).getCompany_name() %>"><%= listFile.get(2).getCompany_name() %></a></td>                                                                         
