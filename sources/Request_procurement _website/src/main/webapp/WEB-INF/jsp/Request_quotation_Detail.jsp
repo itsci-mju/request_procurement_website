@@ -33,11 +33,13 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 		 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	   
+	   
 	     <!-- link css -->
 	     <link rel="stylesheet" type="text/css" href="css/layout.css">
 	     <link rel="stylesheet" type="text/css" href="css/login.css">
 	     <link rel="stylesheet" type="text/css" href="css/footer.css">
 		<link href='https://css.gg/file.css' rel='stylesheet'>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	    
 	     <link href='https://css.gg/lock.css' rel='stylesheet'>
     	 <link href='https://css.gg/mail.css' rel='stylesheet'>
@@ -73,7 +75,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                           <td style="width: 300px"><%=listFile.get(i).getFile_name() %></td>     
                                           <td> <%=listFile.get(i).getQuotation_no() %> </td>  
                                          <td><%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %></td>  
-                                         <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"  ><i class="gg-file" style="margin-left:90px"></i></a></td>  
+                                         <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"  ><img width="100" height="200" src="images/pdf.png" /></a></td>  
                                      
                                         </tr>                
                                       </tbody>

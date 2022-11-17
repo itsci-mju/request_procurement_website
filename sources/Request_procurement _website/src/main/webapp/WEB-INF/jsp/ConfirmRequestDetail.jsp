@@ -72,12 +72,12 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
      
         <!--head-text-->
        	
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายละเอียดข้อมูลการแจ้งความประสงค์การจัดซื้อจัดจ้าง  </b> </h2>
+			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายละเอียดแบบฟอร์มยืนยันความประสงค์ในการขอซื้อของจ้าง </b> </h2>
                  <div class="container product-table" > 
               
                                 
                                 <% if( order_q.getRequest_type().equals("ไม่มีใบเสนอราคา") ){ %>
-                                  <h4 style="text-align: center;">  <b>รายละเอียดรายการที่แจ้งความประสงค์</b></h4>
+                                 <h4 style="text-align: center;">  <b>รายละเอียดรายการที่แจ้งความประสงค์</b></h4> 
                                  <table class="table" id="form_table" style="text-align: center;">
                                    
                                       <thead class="thead-dark">
@@ -128,7 +128,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                       </thead>
                                     </table>   
                                 <%} %>
-                                  <h4 style="text-align: center;">  <b> ใบเสนอราคา </b></h4>
+                                    <h4 style="text-align: center;">  <b>ไฟล์ใบเสนอราคา</b></h4>
                                     <table class="table" id="form_table" style="text-align: center;">                                  
                                       <thead class="thead-dark">
                                         <tr>
@@ -149,7 +149,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                           <td><%=listFile.get(i).getFile_name() %></td>     
                                           <td> <%=listFile.get(i).getQuotation_no() %> </td>  
                                          <td><%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %></td>  
-                                      <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"><i class="gg-file" style="margin-left:90px"></i></a></td>  
+                                        <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"  ><img width="100" height="200" style="height: 50px;" src="images/pdf.png" /></a></td>  
                                      
                                         </tr>                
                                       </tbody>
@@ -162,7 +162,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                  
                                      
                                     <div class="formcon">                                    
-                                  <h4 style="text-align: center;">  <b>แบบยืนยันความประสงค์ในการขอซื้อของจ้าง</b></h4>
+                                 <!--  <h4 style="text-align: center;">  <b>แบบยืนยันความประสงค์ในการขอซื้อของจ้าง</b></h4> -->
                                    <form class="" id="frm" name="frm" action="addConfirmform"  method="post">
                 					<input type="hidden" name="OrderRequest_id" value="<%= order_q.getOrderRequest_id() %>">
                                   <h6 style="text-align: right;" class="h4font"> <b>วันที่ <%=caldateformat.format(calendar.getTime()) %></b> </h6>

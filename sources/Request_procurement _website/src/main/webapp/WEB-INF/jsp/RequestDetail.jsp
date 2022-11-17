@@ -111,7 +111,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                   
                                      
                                       <% if (listFile.size() != 0){%>
-                                       <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;">- ใบเสนอราคา -</h2>		
+                                       <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"><b> ใบเสนอราคา </b> </h2>		
                                    
                                       <table class="table" id="form_table" style="text-align: center;">
                                   
@@ -134,7 +134,7 @@ DecimalFormat df = new DecimalFormat("###,###,###.00");
                                           <td><%=listFile.get(i).getFile_name() %></td>     
                                           <td> <%=listFile.get(i).getQuotation_no() %> </td>  
                                          <td><%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %></td>  
-                                         <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"><%= listFile.get(i).getCompany_name() %></a></td>  
+                                         <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"><img width="100" height="200" style="height: 50px;" src="images/pdf.png" /></a></td>  
                                      
                                         </tr>                
                                       </tbody>

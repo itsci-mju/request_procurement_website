@@ -51,8 +51,8 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
      
         <!--head-text-->
        	 <%if (majorname.equals("เจ้าหน้าที่")) {%>
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง (มีใบเสนอราคา)</h2>
-               
+			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง <span  style="color:#FF884B;">(มีใบเสนอราคา)</span></b></h2>
+             	
                 <form id="frm" name="frm" action="loadpageAddcommentBySupplise" method="post" >
                 <input type="hidden" name="OrderRequest_id" id="OrderRequest_id" value="<%= order_q.getOrderRequest_id() %>">
                 
@@ -79,7 +79,7 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
                                           <td><%=listFile.get(i).getFile_name() %></td>     
                                           <td> <%=listFile.get(i).getQuotation_no() %> </td>  
                                          <td><%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %></td>  
-                                           <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"><%= listFile.get(i).getCompany_name() %></a></td>  
+                                           <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"><img width="100" height="200" style="height: 50px;" src="images/pdf.png" /></a></td>  
                                      
                                         </tr>                
                                       </tbody>
@@ -133,11 +133,13 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
                <%} %>
                
                   	 <%if (!majorname.equals("เจ้าหน้าที่")) {%>
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;">รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง (ไม่มีใบเสนอราคา)</h2>
+			
+			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 40px;"><b>รายละเอียดการแจ้งความประสงค์การจัดซื้อจัดจ้าง <span  style="color:#FF884B;">(ไม่มีใบเสนอราคา)</span></b></h2>
+         
                 <form id="frm2" name="frm2" action="loadAddcommentByLecturer" method="post" >
                 <input type="hidden" name="OrderRequest_id" id="OrderRequest_id" value="<%= order_q.getOrderRequest_id() %>">
                 
-                 <div class="container product-table" "> 
+                 <div class="container product-table" > 
                         
                                 
                             
@@ -191,7 +193,7 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
                                       </thead>
                                     </table> 
                                    
-                                  <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"><b>- ใบเสนอราคา -</b></h2>
+                                  <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="font-size: 30px;"><b> ใบเสนอราคา </b></h2>
                                 
                                     <table class="table" id="form_table" style="text-align: center;">
                                    
@@ -214,7 +216,7 @@ List<Quantity> listProduct = pmanager.getproductdetail(order_q.getOrderRequest_i
                                           <td><%=listFile.get(i).getFile_name() %></td>     
                                           <td> <%=listFile.get(i).getQuotation_no() %> </td>  
                                          <td><%= sdf.format(listFile.get(i).getQuotation_date().getTime() ) %></td>  
-                                           <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"><%= listFile.get(i).getCompany_name() %></a></td>  
+                                           <td><a href="./pdf/<%= listFile.get(i).getCompany_name() %>"><img width="100" height="200" style="height: 50px;" src="images/pdf.png" /></a></td>  
                                      
                                         </tr>                
                                       </tbody>

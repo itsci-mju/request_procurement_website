@@ -76,7 +76,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                           <td><input type="text" class="form-control" id="a_name_company" name ="a_name_company" placeholder="ชื่อบริษัท ที่ 1" value="<%= listFile.get(0).getFile_name() %>" style="width: 300px"></td> 
                                           <td><input type="text" class="form-control" id="a_number_quotation" name="a_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 1" value="<%= listFile.get(0).getQuotation_no() %>"></td>
                                           <td><input type="date" class="form-control" id="a_date_quotation" name="a_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(0).getQuotation_date().getTime()) %>"></td>    
-                                          <td><input type="file" class="form-control" id="a_file_quotation" name="a_file_quotation" style="width: 250px" value="<%= listFile.get(0).getCompany_name() %>"><a href="./pdf/<%= listFile.get(0).getCompany_name() %>" style="width: 300px"><%= listFile.get(0).getCompany_name() %></a></td>                                                                                           
+                                          <td><input type="file" class="form-control" id="a_file_quotation" name="a_file_quotation" style="width: 250px" value="<%= listFile.get(0).getCompany_name() %>"><a href="./pdf/<%= listFile.get(0).getCompany_name() %>" style="width: 300px"><img width="100" height="150px" style="height: 60px;margin-top: 5px;" src="images/pdf.png" /></a></td>                                                                                           
                                         </tr>     
 
                                        <!-- row2 input --> 
@@ -85,7 +85,7 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                           <td><input type="text" class="form-control" id="b_name_company" name ="b_name_company" placeholder="ชื่อบริษัท ที่ 2" value="<%= listFile.get(1).getFile_name() %>" style="width: 300px"></td> 
                                           <td><input type="text" class="form-control" id="b_number_quotation" name="b_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 2" value="<%= listFile.get(1).getQuotation_no() %>"></td>
                                           <td><input type="date" class="form-control" id="b_date_quotation" name="b_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(1).getQuotation_date().getTime()) %>"></td>                                            
-                                          <td><input type="file" class="form-control" id="b_file_quotation" name="b_file_quotation" style="width: 250px" value="<%= listFile.get(1).getCompany_name() %>"><a href="./pdf/<%= listFile.get(1).getCompany_name() %>" style="width: 300px"><%= listFile.get(1).getCompany_name() %></a></td>                                                                                 
+                                          <td><input type="file" class="form-control" id="b_file_quotation" name="b_file_quotation" style="width: 250px" value="<%= listFile.get(1).getCompany_name() %>"><a href="./pdf/<%= listFile.get(1).getCompany_name() %>" style="width: 300px"><img width="100" height="150px" style="height: 60px;margin-top: 5px;" src="images/pdf.png" /></a></td>                                                                                 
                                         </tr>  
                                         
                                         <!-- row3 input --> 
@@ -94,11 +94,11 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                           <td><input type="text" class="form-control" id="c_name_company" name ="c_name_company" placeholder="ชื่อบริษัท ที่ 3" value="<%= listFile.get(2).getFile_name() %>" style="width: 300px"></td> 
                                           <td><input type="text" class="form-control" id=c_number_quotation name="c_number_quotation" style="width: 215px" placeholder="เลขประจำตัวผู้เสียภาษี ที่ 3" value="<%= listFile.get(2).getQuotation_no() %>"></td>
                                           <td><input type="date" class="form-control" id="c_date_quotation" name="c_date_quotation" style="width: 170px" value="<%= sdf.format(listFile.get(2).getQuotation_date().getTime()) %>"></td>    
-                                          <td><input type="file" class="form-control" id="c_file_quotation" name="c_file_quotation" style="width: 250px" value="<%= listFile.get(2).getCompany_name() %>"><a href="./pdf/<%= listFile.get(2).getCompany_name() %>" style="width: 300px"><%= listFile.get(2).getCompany_name() %></a></td>                                                                         
+                                          <td><input type="file" class="form-control" id="c_file_quotation" name="c_file_quotation" style="width: 250px" value="<%= listFile.get(2).getCompany_name() %>"><a href="./pdf/<%= listFile.get(2).getCompany_name() %>" style="width: 300px"><img width="100" height="150px" style="height: 60px;margin-top: 5px;" src="images/pdf.png" /></a></td>                                                                         
                                         </tr>         
                                       </tbody>
                                     </table>  
-                                     
+                                    
                                  
                                 <% if (order_q.getStatus().equals("ข้อมูลใบเสนอราคาไม่ถูกต้อง")){ %>
                                   <label for="exampleFormControlTextarea1" style="color: red;">*หมายเหตุ : ผู้ใช้สามารถแก้ไขด้วยการอัพโหลดใบเสนอราคาใหม่ได้*</label>
